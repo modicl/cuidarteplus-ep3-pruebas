@@ -1,0 +1,74 @@
+CP-01 ejecutado 2026-10-24 19:00
+
+### Paso 1: UI login MED1
+URL tras login: http://localhost:3333/home
+Menú: Pacientes | Exámenes Médicos
+localStorage claves: ['token', 'user']
+
+### Paso 4: UI cerrar sesión
+URL tras cerrar sesión: http://localhost:3333/login
+localStorage claves: []
+URL tras Atrás: about:blank
+Texto visible: 
+
+### Paso 2: API login
+HTTP 200 (0.01s) {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI0Iiwibm9tYnJl
+
+### Paso 3: payload JWT
+{"usuarioId": "4", "nombreUsuario": "qa_medico1", "rolId": "2", "rolNombre": "medico", "pacienteId": null, "roles": [{"id": "2", "nombre": "medico"}], "iat": 1792879253, "exp": 1792886453}
+exp - iat (min): 120.0
+contiene contraseña: False
+
+### Paso 5: logout API
+POST /autenticacion/logout HTTP 404 (0.0s) <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /autenticacion/logout</pre>
+</body>
+</html>
+
+GET /autenticacion/logout HTTP 404 (0.02s) <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /autenticacion/logout</pre>
+</body>
+</html>
+
+POST /logout HTTP 404 (0.01s) <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /logout</pre>
+</body>
+</html>
+
+
+### Paso 6: reutilizar T1
+GET /pacientes HTTP 200 (4.83s) [{"id": "21", "rut": "9876543-3", "primer_nombre": "Elisa", "apellido_paterno": "Paz", "apellido_mat
+GET /examenes HTTP 200 (4.84s) [{"id": "9", "tipo_examen_medico_id": "1", "paciente_id": "1", "diagnosis": "Dato sintetico MAT2", "
+
+### Paso 7: refresh en Swagger
+rutas refresh/logout en openapi: []
+rutas /autenticacion en openapi: ['/autenticacion/login', '/autenticacion/registro']
+POST /autenticacion/refresh: HTTP 404 (0.0s) <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /autenticacion/refresh</pre>
+</body>
+</html>
+

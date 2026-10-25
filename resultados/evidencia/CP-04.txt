@@ -1,0 +1,33 @@
+CP-04 2026-10-24 19:02
+EX_A 2 DOC_A 2 EX_B 5 DOC_B 4
+
+### Paso 1: login PA
+T_A obtenido: True {'usuarioId': '3', 'nombreUsuario': 'paciente', 'rolId': '3', 'rolNombre': 'paciente', 'pacienteId': '1', 'roles': [{'id': '3', 'nombre': 'paciente'}], 'iat': 1792879323, 'exp': 1792886523}
+
+### Paso 2: propios
+/examenes/paciente/1 -> HTTP 200 application/json; charset=utf-8 2690 bytes
+/examenes/2 -> HTTP 200 application/json; charset=utf-8 385 bytes
+/documentos/2 -> HTTP 200 application/pdf 2097152 bytes
+
+### Paso 3: ajeno
+paso 3: GET /examenes/paciente/11 -> HTTP 403 (esperado 403) (0.0s) {"error":"No autorizado","glosa":"Solo puede ver sus propios exámenes"}
+
+### Paso 4: 
+paso 4: GET /examenes/5 -> HTTP 404 (esperado 404) (0.0s) {"error":"No encontrado","glosa":"El examen no existe o no tiene permisos para verlo"}
+
+### Paso 5: 
+paso 5: GET /documentos/examen/5 -> HTTP 403 (esperado 403) (0.0s) {"error":"No autorizado","glosa":"Solo puede ver sus propios documentos"}
+
+### Paso 6: 
+paso 6: GET /documentos/4 -> HTTP 403 (esperado 403) (0.02s) {"error":"No autorizado","glosa":"Solo puede ver sus propios documentos"}
+  SHA-256 del contenido recibido: e48aa42ceb6981ab988500e1db1382cfef479ce5098d45c7995c031c233f8fbe | SHA-256 original DOC_B (resultado_examen.pdf): cdfc0a08e62c80dce3e644171e9fb5eb6a7d4d3ad7c5404aed73ab7e70aeaa99
+
+### Paso 7: 
+paso 7: GET /pacientes/11 -> HTTP 403 (esperado 403) (0.03s) {"error":"No autorizado","glosa":"Solo puede ver sus propios datos"}
+
+### Paso 8: listado /examenes
+HTTP 200 (4.78s) cantidad=7 paciente_ids=['1']
+
+### Paso 9: UI abrir /examenes/EX_B como PA
+URL: http://localhost:3333/examenes | texto: Exámenes Médicos | Mis Resultados |  | paciente |  | Paciente | Mis Exámenes Médicos | Consulta y visualiza tus exámenes médicos y resultados. | LISTAR EXÁMENES | Tipo de Examen | 0 | Diagnóstico | 0 | Fecha | 0 | Acciones | Hemograma completo |  | Dato sintetico MAT2 |  | 24-10-2026 | Hemograma completo |  | Dato sintetico MAT1 |  | 24-10-2026 | Hem
+¿aparece diagnóstico de EX_B 'Dato sintetico B1'? False

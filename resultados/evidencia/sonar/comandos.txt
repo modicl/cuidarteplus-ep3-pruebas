@@ -1,0 +1,12 @@
+# Comandos usados (SonarQube Community Build 26.10.0.133078 desde el .zip del usuario, Java 21)
+unzip sonarqube-26.10.0.133078.zip -d C:\Users\Villa\Downloads\sonarqube-local
+C:\Users\Villa\Downloads\sonarqube-local\sonarqube-26.10.0.133078\bin\windows-x86-64\StartSonar.bat
+curl http://localhost:9000/api/system/status      # -> status UP
+curl -u admin:admin -X POST http://localhost:9000/api/user_tokens/generate -d name=cuidarte-scan -d type=GLOBAL_ANALYSIS_TOKEN   # token (no se guarda aquí)
+curl -u admin:admin -X POST http://localhost:9000/api/projects/create -d project=cuidarteplus-backend  -d "name=Cuidarte+ backend"
+curl -u admin:admin -X POST http://localhost:9000/api/projects/create -d project=cuidarteplus-frontend -d "name=Cuidarte+ frontend"
+docker run --rm -e SONAR_TOKEN=$TOKEN -v C:/Users/Villa/Downloads/CodigoFuenteB/CodigoFuenteB/BACKEND:/usr/src:ro sonarsource/sonar-scanner-cli -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.projectKey=cuidarteplus-backend -Dsonar.projectBaseDir=/usr/src -Dsonar.sources=src -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/uploads/**,**/*.min.js -Dsonar.working.directory=/tmp/.scannerwork
+docker run --rm -e SONAR_TOKEN=$TOKEN -v C:/Users/Villa/Downloads/CodigoFuenteB/CodigoFuenteB/FRONTEND:/usr/src:ro sonarsource/sonar-scanner-cli -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.projectKey=cuidarteplus-frontend -Dsonar.projectBaseDir=/usr/src -Dsonar.sources=src -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/uploads/**,**/*.min.js -Dsonar.working.directory=/tmp/.scannerwork
+# Segunda pasada con sonar.sources=. (incluye .env, Dockerfile, nginx.conf, etc.); exclusiones: node_modules, dist, build, uploads, package-lock.json
+docker run --rm -e SONAR_TOKEN=<token> -v <ruta>/BACKEND:/usr/src:ro sonarsource/sonar-scanner-cli -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.projectKey=cuidarteplus-backend -Dsonar.projectBaseDir=/usr/src -Dsonar.sources=. -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/uploads/**,**/package-lock.json -Dsonar.working.directory=/tmp/.scannerwork
+docker run --rm -e SONAR_TOKEN=<token> -v <ruta>/FRONTEND:/usr/src:ro sonarsource/sonar-scanner-cli -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.projectKey=cuidarteplus-frontend -Dsonar.projectBaseDir=/usr/src -Dsonar.sources=. -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/uploads/**,**/package-lock.json -Dsonar.working.directory=/tmp/.scannerwork

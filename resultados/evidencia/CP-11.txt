@@ -1,0 +1,64 @@
+CP-11 2026-10-24 19:11:00
+hora inicio 19:11:00 | último id auditoría inicial: 75
+acción 1 registro de usuario (visitante): HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "15", "nombre_usuario": "qa_aud_reg", "correo": "qa_aud_reg@example.com", "created_at": "2026-1
+acción 2 crear paciente (MED1): HTTP 201 (0.01s) {"id": "27", "rut": "7654321-6", "primer_nombre": "Aud", "apellido_paterno": "Itoria", "apellido_materno": null, "fecha_nacimiento": "1980-01-01T00:00:00.000Z",
+acción 3 editar paciente (MED1): HTTP 200 (0.01s) {"id": "27", "rut": "7654321-6", "primer_nombre": "Aud", "apellido_paterno": "Itoria", "apellido_materno": null, "fecha_nacimiento": "1980-01-01T00:00:00.000Z",
+acción 4 eliminar paciente (ADM): HTTP 200 (0.01s) {"deleted": true}
+acción 5 crear usuario (ADM): HTTP 201 (0.02s) {"id": "16", "nombre_usuario": "qa_aud_user", "correo": "qa_aud_user@example.com", "created_at": "2026-10-24T22:11:00.006Z"}
+acción 6 editar usuario (ADM): HTTP 200 (0.01s) {"id": "16", "nombre_usuario": "qa_aud_user", "correo": "qa_aud_user2@example.com", "created_at": "2026-10-24T22:11:00.006Z", "rol_id": "3", "rol_nombre": "paci
+acción 7 eliminar usuario qa_elim_api por API (ADM): HTTP 500 (0.01s) {"error": "Error al eliminar usuario", "glosa": "invalid input syntax for type bigint: \"admin\""}
+acción 8 crear examen (MED1): HTTP 201 (4.84s) {"id": "12", "tipo_examen_medico_id": "1", "paciente_id": "1", "diagnosis": "Aud", "tratamiento": "Aud", "observaciones": null, "notas": null, "created_at": "20
+acción 9 editar examen (MED1): HTTP 200 (4.83s) {"id": "12", "tipo_examen_medico_id": "1", "paciente_id": "1", "diagnosis": "Aud editado", "tratamiento": "Aud", "observaciones": null, "notas": null, "created_
+acción 11 subir documento (MED1): HTTP 201 (4.8s) {"documento": {"id": "14", "nombre_archivo": "aud.pdf", "created_at": "2026-10-24T22:11:15.085Z"}}
+acción 12 descargar documento (MED1): HTTP 200 (0.0s) %PDF-1.4
+1 0 obj
+<</Type/Catalog/Pages 2 0 R>>
+endobj
+2 0 obj
+<</Type/Pages/Kids[3 0 R]/Count 1>>
+endobj
+3 0 obj
+<</Type/Page/Parent 2 0 R/MediaBox[0 0 612 792]
+acción 13 eliminar documento (ADM): HTTP 200 (0.01s) {"deleted": true}
+acción 10 eliminar examen (ADM): HTTP 200 (0.01s) {"deleted": true}
+
+### Paso 7-UI: eliminar qa_elim_ui desde la interfaz
+  respuesta UI: 500 DELETE http://localhost:4444/usuarios/9 {"error":"Error al eliminar usuario","glosa":"invalid input syntax for type bigint: \"admin\""}
+toasts: ['Error al eliminar usuario\ninvalid input syntax for type bigint: "admin"']
+
+### Paso 5: pantalla Auditoría
+texto (parcial): Pacientes | Exámenes Médicos | Auditoría | Usuarios |  | admin |  | Admin | Auditoría | Historial completo de todas las acciones realizadas en el sistema. Rastrea cambios, creaciones y eliminaciones. | ID | 0 | Acción | 0 | Usuario | 0 | Fecha y Hora | 0 | #87 | LOGIN: usuario inició sesión |  | admin |  | 24 oct 2026, 19:11 |  | #86 | EXAMENES_ELIMINAR: eliminó examen médico ID 12 |  | admin |  | 24 oct 2026, 19:11 |  | #85 | DOCUMENTOS_ELIMINAR: eliminó documento ID 14 |  | admin |  | 24 oct 2026, 19:11 |  | #84 | DOCUMENTOS_CREAR: subió documento "aud.pdf" para examen ID
+
+### Paso 2: GET /auditoria posteriores al id inicial
+  76 15 qa_aud_reg 2026-10-24T22:10:59.973Z | REGISTRO: nuevo usuario registrado
+  77 4 qa_medico1 2026-10-24T22:10:59.980Z | PACIENTES_CREAR: creó paciente Aud Itoria (RUT: 7.654.321-6)
+  78 4 qa_medico1 2026-10-24T22:10:59.986Z | PACIENTES_ACTUALIZAR: actualizó paciente ID 27
+  79 1 admin 2026-10-24T22:10:59.992Z | PACIENTES_ELIMINAR: eliminó paciente ID 27
+  80 1 admin 2026-10-24T22:11:00.008Z | USUARIOS_CREAR: creó usuario qa_aud_user con rol 3
+  81 1 admin 2026-10-24T22:11:00.014Z | USUARIOS_ACTUALIZAR: actualizó usuario ID 16
+  82 4 qa_medico1 2026-10-24T22:11:05.046Z | EXAMENES_CREAR: creó examen médico ID 12 para paciente ID 1
+  83 4 qa_medico1 2026-10-24T22:11:10.075Z | EXAMENES_ACTUALIZAR: actualizó examen médico ID 12
+  84 4 qa_medico1 2026-10-24T22:11:15.087Z | DOCUMENTOS_CREAR: subió documento "aud.pdf" para examen ID 12
+  85 1 admin 2026-10-24T22:11:15.103Z | DOCUMENTOS_ELIMINAR: eliminó documento ID 14
+  86 1 admin 2026-10-24T22:11:15.109Z | EXAMENES_ELIMINAR: eliminó examen médico ID 12
+  87 1 admin 2026-10-24T22:11:15.701Z | LOGIN: usuario inició sesión
+
+### Paso 3: cruce acción ↔ registro
+acción 1 (registro de usuario (visitante), 19:11:00): registros REGISTRO* -> 1
+acción 2 (crear paciente (MED1), 19:11:00): registros PACIENTES_CREAR* -> 1
+acción 3 (editar paciente (MED1), 19:11:00): registros PACIENTES_ACTUALIZAR* -> 1
+acción 4 (eliminar paciente (ADM), 19:11:00): registros PACIENTES_ELIMINAR* -> 1
+acción 5 (crear usuario (ADM), 19:11:00): registros USUARIOS_CREAR* -> 1
+acción 6 (editar usuario (ADM), 19:11:00): registros USUARIOS_ACTUALIZAR* -> 1
+acción 7 (eliminar usuario qa_elim_api por API (ADM), 19:11:00): registros USUARIOS_ELIMINAR* -> 0
+acción 7 (eliminar usuario qa_elim_ui (UI), 19:11:23): registros USUARIOS_ELIMINAR* -> 0
+acción 8 (crear examen (MED1), 19:11:05): registros EXAMENES_CREAR* -> 1
+acción 9 (editar examen (MED1), 19:11:10): registros EXAMENES_ACTUALIZAR* -> 1
+acción 10 (eliminar examen (ADM), 19:11:15): registros EXAMENES_ELIMINAR* -> 1
+acción 11 (subir documento (MED1), 19:11:15): registros DOCUMENTOS_CREAR* -> 1
+acción 12 (descargar documento (MED1), 19:11:15): registros DOCUMENTOS_DESCARGAR* -> 0
+acción 13 (eliminar documento (ADM), 19:11:15): registros DOCUMENTOS_ELIMINAR* -> 1
+acciones con registro: 11 de 14 (13 acciones; la 7 se ejecutó 2 veces)
+
+### Paso 4: login qa_elim_api
+HTTP 401 (0.01s) {"error": "Credenciales inválidas"}

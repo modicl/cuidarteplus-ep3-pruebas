@@ -1,0 +1,52 @@
+Found Java version 17.0.20.1
+Available memory: 15678 MB
+Using JVM args: -Xmx3919m
+318 [main] INFO  org.parosproxy.paros.Constant - Copying default configuration to /home/zap/.ZAP/config.xml
+388 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP/session
+388 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP/dirbuster
+388 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP/fuzzers
+389 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP/plugin
+Oct 24, 2026 10:30:03 PM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+Job openapi set apiFile = /zap/wrk/openapi_cp17.json
+Job openapi set targetUrl = http://host.docker.internal:4444
+Job openapi set context = cuidarte
+Job replacer set description = auth
+Job replacer set matchType = REQ_HEADER
+Job replacer set matchString = Authorization
+Job replacer set replacementString = Bearer <TOKEN_OCULTO>
+Job replacer set initiators = []
+Job activeScan set context = cuidarte
+Job activeScan set maxScanDurationInMins = 10
+Job activeScan set defaultStrength = Medium
+Job activeScan set defaultThreshold = Off
+Unrecognised active scan rule ID for job activeScan : 40024
+Unrecognised active scan rule ID for job activeScan : 90018
+Job report set template = traditional-json
+Job report set reportDir = /zap/wrk
+Job report set reportFile = cp17_zap_reporte
+Job openapi started
+Job openapi added 3 URLs
+Job openapi finished, time taken: 00:00:00
+Job replacer started
+Job replacer finished, time taken: 00:00:00
+Job activeScan started
+Job activeScan set default strength to MEDIUM
+Job activeScan set default threshold to OFF
+Job activeScan set rule 40018 strength to MEDIUM
+Job activeScan set rule 40018 threshold to MEDIUM
+Job activeScan set rule 40019 strength to MEDIUM
+Job activeScan set rule 40019 threshold to MEDIUM
+Job activeScan set rule 40020 strength to MEDIUM
+Job activeScan set rule 40020 threshold to MEDIUM
+Job activeScan set rule 40021 strength to MEDIUM
+Job activeScan set rule 40021 threshold to MEDIUM
+Job activeScan set rule 40022 strength to MEDIUM
+Job activeScan set rule 40022 threshold to MEDIUM
+Job activeScan finished, time taken: 00:00:25
+Job report started
+Job report generated report /zap/wrk/cp17_zap_reporte.json
+Job report finished, time taken: 00:00:00
+Automation plan warnings:
+	Unrecognised active scan rule ID for job activeScan : 40024
+	Unrecognised active scan rule ID for job activeScan : 90018

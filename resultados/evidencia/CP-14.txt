@@ -1,0 +1,50 @@
+CP-14 2026-10-24 19:26
+JWT_SECRET de .env == publicado en README.md: True
+
+### Paso 1: contraseña vacía
+HTTP 400 (0.01s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "password", "message": "La contraseña es requerida"}, {"field": "password", "message": "La contraseña es requerida"}]}
+
+### Paso 2: 15 intentos fallidos (qa_paciente_b), 1 por segundo
+intento 1: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 2: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 3: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 4: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 5: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 6: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 7: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 8: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 9: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 10: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 11: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 12: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 13: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 14: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+intento 15: HTTP 401 {"error":"Credenciales inválidas"}  Retry-After=None
+primer intento con bloqueo/limitación: None
+
+### Paso 3: contraseña correcta tras los 15 intentos
+HTTP 200 (0.02s) {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIxNCIsIm5vbWJyZVVzdWFyaW8iOiJxYV9w
+
+### Paso 4: 7 tokens inválidos contra GET /pacientes
+token 1 payload rolNombre=admin sin re-firmar: HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+token 2 firmado con clave-equivocada-123: HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+token 3 alg none: HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+token 4 exp en el pasado (firmado con JWT_SECRET): HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+token 5 firmado con 'inseguro': HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+token 6 firmado con JWT_SECRET del README: HTTP 200 (4.8s) '[{"id":"21","rut":"9876543-3","primer_nombre":"Elisa","apellido_paterno":"Paz","apellido_m'
+token 7a cabecera 'Authorization: Token <jwt>': HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+token 7b sin cabecera: HTTP 401 {"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}
+
+### Paso 5: API sin JWT_SECRET
+proceso sigue vivo (arrancó): True
+GET / en puerto 4555: 200 {"name":"cuidarteplus","status":"ok"}
+GET /pacientes con token firmado con 'inseguro' contra la API sin JWT_SECRET: HTTP 401 {"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}
+
+### Paso 5b: repetición sin .env: cwd distinto para que dotenv no cargue BACKEND/.env (la primera prueba del paso 5 cargó el JWT_SECRET desde BACKEND/.env)
+proceso vivo (arrancó sin JWT_SECRET): True
+GET / : 200 {"name":"cuidarteplus","status":"ok"}
+GET /pacientes con token firmado con 'inseguro': HTTP 200 [{"id":"21","rut":"9876543-3","primer_nombre":"Elisa","apellido_paterno":"Paz","
+salida del proceso: cuidarteplus API escuchando en puerto 4556
+[0mGET / [32m200[0m 1.144 ms - 37[0m
+[0mGET /pacientes [32m200[0m 5033.775 ms - 15472[0m
+

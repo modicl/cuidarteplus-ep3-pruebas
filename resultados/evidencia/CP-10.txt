@@ -1,0 +1,57 @@
+CP-10 2026-10-24 19:10
+N (BD, paciente 1): 8
+
+### Paso 1: Mis Resultados: contar
+tarjetas en UI: 8 vs N: 8
+
+### Paso 2: detalle de cada examen (UI /examenes/{id})
+ids API: ['11', '10', '9', '8', '7', '4', '3', '2']
+detalle EX_A1 (texto): Volver
+Detalle del Examen Médico
+Tipo de Examen
+
+Hemograma completo
+
+Paciente
+
+Juan Pérez Gómez
+
+RUT: 11111111-1
+
+Diagnóstico
+
+Dato sintetico A1
+
+Tratamiento
+
+Tratamiento QA
+
+Observaciones
+
+Control en 30 dias
+
+Documentos
+imagen.png
+radiografia.jpg
+resultado_examen.pdf
+resultado_examen.pdf
+
+Fecha: 24-10-2026
+campos del JSON de un examen: ['created_at', 'diagnosis', 'id', 'notas', 'observaciones', 'paciente_apellido_materno', 'paciente_apellido_paterno', 'paciente_id', 'paciente_primer_nombre', 'paciente_rut', 'tipo_examen_medico_id', 'tipo_examen_nombre', 'tratamiento']
+
+### Paso 5: descarga UI de DOC_A1
+descarga UI: documento-11.pdf SHA-256 cdfc0a08e62c80dce3e644171e9fb5eb6a7d4d3ad7c5404aed73ab7e70aeaa99
+
+### Paso 3: GET /pacientes/1
+HTTP 200 (0.03s) {"id": "1", "rut": "11111111-1", "primer_nombre": "Juan", "apellido_paterno": "Pérez", "apellido_materno": "Gómez", "fecha_nacimiento": "1985-03-14T00:00:00.000Z", "sexo": "M", "nacionalidad": "Chilena", "estado_civil": "casado", "email": "paciente@cuidarteplus.com", "telefono": "+56981234567", "dir
+
+### Paso 4: ningún examen del paciente B
+paciente_ids en la lista: ['1']
+
+### Paso 5: API descarga
+HTTP 200 Content-Type: application/pdf Content-Disposition: attachment; filename="resultado_examen.pdf" SHA-256: cdfc0a08e62c80dce3e644171e9fb5eb6a7d4d3ad7c5404aed73ab7e70aeaa99 original: cdfc0a08e62c80dce3e644171e9fb5eb6a7d4d3ad7c5404aed73ab7e70aeaa99 | igual: True
+
+### Paso 6: auditoría (ADM)
+GET /auditoria 200 registros nuevos: 1
+  {'id': '73', 'usuario_id': '3', 'accion': 'LOGIN: usuario inició sesión', 'fecha_hora': '2026-10-24T22:10:14.614Z', 'nombre_usuario': 'paciente'}
+registros con 'descarg': []

@@ -1,0 +1,46 @@
+CP-13 2026-10-24 19:19
+Condición: ejecutar la parte A si REQ-PROP-01 se incorpora al ERS. REQ-PROP-01 es un requisito propuesto; se ejecuta para registrar el estado (brecha) y no se asume incorporado.
+
+### Paso 1: A: /registro y política de privacidad
+casillas de verificación en /registro: 0 | enlaces a política: 0
+campos: ['nombre_usuario:text', 'correo:email', 'rut:text', 'password:password']
+sin sesión /politica-privacidad -> http://localhost:3333/login
+
+### Paso 2: A: enviar sin casilla
+UI sin casilla: URL http://localhost:3333/login toasts ['Cuenta creada exitosamente, ahora inicia sesión']
+count 
+-------
+     1
+(1 row)
+API sin campo de consentimiento: HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "21", "nombre_usuario": "qa_consent02", "correo": "qa_consent02@example.com", "created_at": "2026-10-24T22:19:40.411Z"}}
+
+### Paso 3: A: consentimiento en BD
+table_name     
+--------------------
+ auditoria
+ documentos_examen
+ examen_medico
+ pacientes
+ roles
+ tipo_examen_medico
+ usuario_roles
+ usuarios
+(8 rows)
+column_name | table_name 
+-------------+------------
+(0 rows)
+
+### Paso 4: B: PAC_A intenta corregir su teléfono
+teléfono antes: +56981234567
+PUT con T_PAC_A: HTTP 200 (0.03s) {"id": "1", "rut": "11111111-1", "primer_nombre": "Juan", "apellido_paterno": "Pérez", "apellido_materno": "Gómez", "fecha_nacimiento": "1985-03-14T00:00:00.000Z", "sexo": "M", "nacionalidad": "Chilen
+teléfono después: +56911112222
+
+### Paso 5: B: MED1 corrige
+PUT con T_MED1: HTTP 200 (0.03s) {"id": "1", "rut": "11111111-1", "primer_nombre": "Juan", "apellido_paterno": "Pérez", "apellido_materno": "Gómez", "fecha_nacimiento": "1985-03-14T00:00:00.000Z", "sexo": "M", "nacionalidad": "Chilen
+PAC_A consulta teléfono: +56912345678
+
+### Paso 6: B: auditoría
+  128 4 qa_medico1 2026-10-24T22:19:40.841Z | PACIENTES_ACTUALIZAR: actualizó paciente ID 1
+  127 3 paciente 2026-10-24T22:19:40.731Z | PACIENTES_ACTUALIZAR: actualizó paciente ID 1
+  126 21 qa_consent02 2026-10-24T22:19:40.414Z | REGISTRO: nuevo usuario registrado
+  125 20 qa_consent01 2026-10-24T22:19:37.643Z | REGISTRO: nuevo usuario registrado

@@ -1,0 +1,26 @@
+CP-18 2026-10-24 19:30
+
+### Paso 1: POST /pacientes con P2
+HTTP 201 (0.03s) {"id": "23", "rut": "13572468-8", "primer_nombre": "<img src=x onerror=alert('XSS-2')>", "apellido_paterno": "Lillo", "apellido_materno": "Bravo", "fecha_nacimiento": "1991-04-04T00:00:00.000Z", "sexo": "F", "nacionalidad": null, "estado_civil": null | Content-Type: application/json; charset=utf-8
+
+### Paso 2: POST /examenes con P1 y P3
+HTTP 201 (4.76s) {"id": "10", "tipo_examen_medico_id": "1", "paciente_id": "1", "diagnosis": "<script>alert('XSS-1')</script>", "tratamiento": null, "observaciones": "\"><svg onload=alert('XSS-3')>", "notas": null, "created_at": "2026-10-24T22:30:21.673Z"} | Content-Type: application/json; charset=utf-8
+
+--- chromium ---
+3 lista de pacientes: filas con 'Lillo': 1 | texto de la celda: < |  | <img src=x onerror=alert('XSS-2')> Lillo Bravo |  | 13572468-8 |  | marta.lillo.qa@example.com |  | - |  | 03-04-1991 | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+3 registro del paciente: valor del campo primer_nombre: <img src=x onerror=alert('XSS-2')> | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+4 Mis Resultados: texto visible incluye '<script>': False | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+4 detalle del examen: muestra el payload como texto: True y P3: True | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+5 Auditoría: muestra la acción PACIENTES_CREAR con el nombre como texto: True | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+6 diálogos de alerta detectados: []
+
+--- firefox ---
+3 lista de pacientes: filas con 'Lillo': 1 | texto de la celda: < |  | <img src=x onerror=alert('XSS-2')> Lillo Bravo |  | 13572468-8 |  | marta.lillo.qa@example.com |  | - |  | 03-04-1991 | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+3 registro del paciente: valor del campo primer_nombre: <img src=x onerror=alert('XSS-2')> | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+4 Mis Resultados: texto visible incluye '<script>': False | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+4 detalle del examen: muestra el payload como texto: True y P3: True | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+5 Auditoría: muestra la acción PACIENTES_CREAR con el nombre como texto: True | DOM: {'imgX': 0, 'svgOnload': 0, 'scriptXSS': 0, 'onerror': 0}
+6 diálogos de alerta detectados: []
+
+### Paso 7: resumen
+diálogos en Chromium: 0 | en Firefox: 0

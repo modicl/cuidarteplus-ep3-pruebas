@@ -1,0 +1,2065 @@
+{
+ "project": "cuidarteplus-frontend",
+ "measures": [
+  {
+   "metric": "bugs",
+   "value": "39",
+   "bestValue": false
+  },
+  {
+   "metric": "reliability_rating",
+   "value": "3.0",
+   "bestValue": false
+  },
+  {
+   "metric": "security_rating",
+   "value": "2.0",
+   "bestValue": false
+  },
+  {
+   "metric": "ncloc",
+   "value": "7979"
+  },
+  {
+   "metric": "files",
+   "value": "46"
+  },
+  {
+   "metric": "vulnerabilities",
+   "value": "1",
+   "bestValue": false
+  },
+  {
+   "metric": "security_hotspots",
+   "value": "0",
+   "bestValue": true
+  }
+ ],
+ "issues": [
+  {
+   "key": "bc4f31f4-67bb-4cfe-8555-d3be81c584a6",
+   "rule": "docker:S6471",
+   "severity": "MINOR",
+   "component": "cuidarteplus-frontend:Dockerfile",
+   "project": "cuidarteplus-frontend",
+   "line": 34,
+   "hash": "ba1cfc103b0642f37c869e0148f67986",
+   "textRange": {
+    "startLine": 34,
+    "endLine": 34,
+    "startOffset": 0,
+    "endOffset": 17
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "The \"nginx\" image runs with \"root\" as the default user. Make sure it is safe here.",
+   "effort": "15min",
+   "debt": "15min",
+   "author": "",
+   "tags": [
+    "cwe",
+    "dockerfile",
+    "former-hotspot"
+   ],
+   "creationDate": "2026-10-24T19:14:32-0300",
+   "updateDate": "2026-10-24T19:14:32-0300",
+   "type": "VULNERABILITY",
+   "scope": "MAIN",
+   "quickFixAvailable": false,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "COMPLETE",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "SECURITY",
+     "severity": "LOW"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "940642e7-5486-4b2c-8eb2-cafe8e1c8d5d",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/components/Layout.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 99,
+   "hash": "f406ff049d5c512b7281f51dbd035fcb",
+   "textRange": {
+    "startLine": 99,
+    "endLine": 99,
+    "startOffset": 4,
+    "endOffset": 57
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "2fbf3112-3763-4bc0-84b4-fa80f2f26dc4",
+   "rule": "css:S4649",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/index.css",
+   "project": "cuidarteplus-frontend",
+   "line": 6,
+   "hash": "c8cb8ce7edf5c33230ddc4f8800c6688",
+   "textRange": {
+    "startLine": 6,
+    "endLine": 6,
+    "startOffset": 35,
+    "endOffset": 47
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Missing generic font family",
+   "effort": "1min",
+   "debt": "1min",
+   "author": "",
+   "tags": [],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": false,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "COMPLETE",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "099967d7-fed9-4cd2-9116-10c3a484f8f3",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/Home.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 81,
+   "hash": "1cead41af2d3fd8976eca805826eaf02",
+   "textRange": {
+    "startLine": 81,
+    "endLine": 81,
+    "startOffset": 4,
+    "endOffset": 15
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "69ac247c-9ba2-4885-807b-cf5eceabcfd7",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/Home.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 639,
+   "hash": "63a752a094d92b578835d32667dd971c",
+   "textRange": {
+    "startLine": 639,
+    "endLine": 639,
+    "startOffset": 30,
+    "endOffset": 65
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "f5d6f1f9-5adb-425b-981b-b34cb4561b98",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/auditoria/AuditoriaList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 18,
+   "hash": "eae67ff96afcbd0aa8348c6ac1503a8a",
+   "textRange": {
+    "startLine": 18,
+    "endLine": 18,
+    "startOffset": 4,
+    "endOffset": 11
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "7857d69b-864a-4c90-8fbe-17135f4caabb",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/auth/Login.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 37,
+   "hash": "dd63f1ccbb0d46dc8ab1956c6532b494",
+   "textRange": {
+    "startLine": 37,
+    "endLine": 37,
+    "startOffset": 6,
+    "endOffset": 43
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "ef49d524-a371-46b6-b3da-c79945b34a4a",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/auth/Register.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 44,
+   "hash": "9892c8d42dc9d86c6fe06f503a65b44c",
+   "textRange": {
+    "startLine": 44,
+    "endLine": 44,
+    "startOffset": 6,
+    "endOffset": 25
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "1c0399dc-533a-46c6-ba1d-a7b80d5b54e4",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/auth/Register.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 135,
+   "hash": "2bd8689388de2b41330bef08db7fbc39",
+   "textRange": {
+    "startLine": 135,
+    "endLine": 135,
+    "startOffset": 22,
+    "endOffset": 54
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "da0434b5-eae9-47ab-9c7a-806ea34e8b10",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenDetalle.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 41,
+   "hash": "734efaecf87f76bcf394d8c19b7b5d44",
+   "textRange": {
+    "startLine": 41,
+    "endLine": 41,
+    "startOffset": 4,
+    "endOffset": 17
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "c59d648b-8717-4857-b280-0d518be0af8f",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenDetalle.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 56,
+   "hash": "09ef186dc06266811de4fb1c41d9b5e9",
+   "textRange": {
+    "startLine": 56,
+    "endLine": 56,
+    "startOffset": 6,
+    "endOffset": 28
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "a27770ad-a978-4c30-89f9-d323731dd7a3",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenDetalle.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 98,
+   "hash": "734efaecf87f76bcf394d8c19b7b5d44",
+   "textRange": {
+    "startLine": 98,
+    "endLine": 98,
+    "startOffset": 6,
+    "endOffset": 19
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "06de7800-dda8-41d8-98b4-cd4502302a99",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenDetalle.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 140,
+   "hash": "09ef186dc06266811de4fb1c41d9b5e9",
+   "textRange": {
+    "startLine": 140,
+    "endLine": 140,
+    "startOffset": 6,
+    "endOffset": 28
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "8a89b77c-cd51-4bfc-abbc-55fe48c5de74",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenDetalle.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 147,
+   "hash": "db6b29dfc485edcdcd9e704fbd9d5ed6",
+   "textRange": {
+    "startLine": 147,
+    "endLine": 147,
+    "startOffset": 4,
+    "endOffset": 37
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "dda4d921-b76d-4456-ae13-20eb2b7c8c39",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenDetalle.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 307,
+   "hash": "734efaecf87f76bcf394d8c19b7b5d44",
+   "textRange": {
+    "startLine": 307,
+    "endLine": 307,
+    "startOffset": 30,
+    "endOffset": 43
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "f3f95416-3d21-4854-8919-165473f51b1a",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 114,
+   "hash": "9fc967266023fb54a7cce703efcf813a",
+   "textRange": {
+    "startLine": 114,
+    "endLine": 121,
+    "startOffset": 6,
+    "endOffset": 9
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "70260244-1ce7-428f-be73-425d35c45c21",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 123,
+   "hash": "22294c83f2a0a75bef13fa833462696f",
+   "textRange": {
+    "startLine": 123,
+    "endLine": 123,
+    "startOffset": 6,
+    "endOffset": 23
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "ed2af14d-da5b-4b98-8bad-c72fe091f18f",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 157,
+   "hash": "22294c83f2a0a75bef13fa833462696f",
+   "textRange": {
+    "startLine": 157,
+    "endLine": 157,
+    "startOffset": 8,
+    "endOffset": 25
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "39931508-0a20-438f-a1fa-3e3a3b347b60",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 194,
+   "hash": "22294c83f2a0a75bef13fa833462696f",
+   "textRange": {
+    "startLine": 194,
+    "endLine": 194,
+    "startOffset": 6,
+    "endOffset": 23
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "9456a2b1-6d5a-46e7-8e5e-1d98373fb685",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 233,
+   "hash": "22294c83f2a0a75bef13fa833462696f",
+   "textRange": {
+    "startLine": 233,
+    "endLine": 233,
+    "startOffset": 6,
+    "endOffset": 23
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "1f6f45e7-126b-4707-83b6-5edc6bd3fe37",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 257,
+   "hash": "1cead41af2d3fd8976eca805826eaf02",
+   "textRange": {
+    "startLine": 257,
+    "endLine": 257,
+    "startOffset": 4,
+    "endOffset": 15
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "21acc37f-411e-4f7a-a069-f57b64a35d2f",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 259,
+   "hash": "734efaecf87f76bcf394d8c19b7b5d44",
+   "textRange": {
+    "startLine": 259,
+    "endLine": 259,
+    "startOffset": 6,
+    "endOffset": 19
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "8fa5715f-7de4-480c-bbb0-8d1805b0d95b",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenesList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 42,
+   "hash": "eae67ff96afcbd0aa8348c6ac1503a8a",
+   "textRange": {
+    "startLine": 42,
+    "endLine": 42,
+    "startOffset": 4,
+    "endOffset": 11
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "0e84433b-2c3d-40a5-9a23-5384a5b9b54b",
+   "rule": "javascript:S7773",
+   "severity": "MINOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenesList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 49,
+   "hash": "763e5d64a00bd3d5fa14a8e2c48180db",
+   "textRange": {
+    "startLine": 49,
+    "endLine": 49,
+    "startOffset": 25,
+    "endOffset": 33
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Prefer `Number.parseInt` over `parseInt`.",
+   "effort": "2min",
+   "debt": "2min",
+   "author": "",
+   "tags": [
+    "convention",
+    "es2015",
+    "editable-source"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "CODE_SMELL",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "CONVENTIONAL",
+   "cleanCodeAttributeCategory": "CONSISTENT",
+   "impacts": [
+    {
+     "softwareQuality": "MAINTAINABILITY",
+     "severity": "LOW"
+    },
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "92d73057-e59a-415b-a81b-efae459058a1",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenesList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 66,
+   "hash": "eae67ff96afcbd0aa8348c6ac1503a8a",
+   "textRange": {
+    "startLine": 66,
+    "endLine": 66,
+    "startOffset": 4,
+    "endOffset": 11
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "7e316bdd-e19d-4e59-bc4f-e950cd1e880f",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/ExamenesTabList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 135,
+   "hash": "3de5686d8b191bd1dc386f273a040379",
+   "textRange": {
+    "startLine": 135,
+    "endLine": 135,
+    "startOffset": 22,
+    "endOffset": 63
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "96079de3-26be-4866-a821-58c92dd8a6dd",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/examenes/MisResultados.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 29,
+   "hash": "a301504d7469926afecc45f27c7126cb",
+   "textRange": {
+    "startLine": 29,
+    "endLine": 29,
+    "startOffset": 4,
+    "endOffset": 19
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "ac9255c8-e379-4a85-8b04-5ad4e91247c5",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/pacientes/PacienteForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 17,
+   "hash": "181c5d6f477b2773a38be1d75b33c60b",
+   "textRange": {
+    "startLine": 17,
+    "endLine": 17,
+    "startOffset": 6,
+    "endOffset": 21
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "488a7fd0-33b7-47ba-bffb-9484f73d6050",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/pacientes/PacienteForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 49,
+   "hash": "a4094a8f26d4b50778d16d465a6f415a",
+   "textRange": {
+    "startLine": 49,
+    "endLine": 49,
+    "startOffset": 6,
+    "endOffset": 29
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "aba87b76-43b7-4f3b-bf26-c918d25d4770",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/pacientes/PacientesList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 39,
+   "hash": "eae67ff96afcbd0aa8348c6ac1503a8a",
+   "textRange": {
+    "startLine": 39,
+    "endLine": 39,
+    "startOffset": 4,
+    "endOffset": 11
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "7e68ef70-93d9-4385-8f6e-6fe845fd044e",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/pacientes/PacientesList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 51,
+   "hash": "eae67ff96afcbd0aa8348c6ac1503a8a",
+   "textRange": {
+    "startLine": 51,
+    "endLine": 51,
+    "startOffset": 6,
+    "endOffset": 13
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "80d8bc0d-9356-4926-b612-a411128bb28a",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/pacientes/PacientesList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 58,
+   "hash": "eae67ff96afcbd0aa8348c6ac1503a8a",
+   "textRange": {
+    "startLine": 58,
+    "endLine": 58,
+    "startOffset": 4,
+    "endOffset": 11
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "7d475236-1003-48af-af56-815969a6ee0c",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/pacientes/PacientesTabCreate.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 137,
+   "hash": "dea1aa97a1146fbe01adc6375a34860a",
+   "textRange": {
+    "startLine": 137,
+    "endLine": 137,
+    "startOffset": 22,
+    "endOffset": 61
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "6ec2b5be-1a9a-46da-8a0f-6725259e6d90",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/usuarios/UsuarioForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 175,
+   "hash": "6ecb85f8ecd2144fa75249f174f1d4d8",
+   "textRange": {
+    "startLine": 175,
+    "endLine": 231,
+    "startOffset": 4,
+    "endOffset": 9
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "4c20c9b9-be68-45fa-bf68-e30bdc5e3197",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/usuarios/UsuarioForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 189,
+   "hash": "2ea894eacd2a54ad66ffa9d7bd08bedd",
+   "textRange": {
+    "startLine": 189,
+    "endLine": 189,
+    "startOffset": 8,
+    "endOffset": 45
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "c45726d9-0de8-44c0-8534-f1ba6793e4eb",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/usuarios/UsuarioForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 199,
+   "hash": "4daa8a2a71214c3be7f93a602f1f6af3",
+   "textRange": {
+    "startLine": 199,
+    "endLine": 221,
+    "startOffset": 12,
+    "endOffset": 15
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "0c241f5b-0d5b-4361-8c27-760b42af8a32",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/usuarios/UsuarioForm.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 463,
+   "hash": "8dfb7711c656e822fc86febbe5c05f46",
+   "textRange": {
+    "startLine": 463,
+    "endLine": 463,
+    "startOffset": 24,
+    "endOffset": 71
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "5199851b-35ba-4bbd-bb96-2792625165fc",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/usuarios/UsuariosList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 25,
+   "hash": "eae67ff96afcbd0aa8348c6ac1503a8a",
+   "textRange": {
+    "startLine": 25,
+    "endLine": 25,
+    "startOffset": 4,
+    "endOffset": 11
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "a0caa723-291d-409b-a03e-6add68879898",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/usuarios/UsuariosList.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 37,
+   "hash": "eae67ff96afcbd0aa8348c6ac1503a8a",
+   "textRange": {
+    "startLine": 37,
+    "endLine": 37,
+    "startOffset": 6,
+    "endOffset": 13
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "19d6838a-03e2-4b86-8c34-d3ee2f9ebb6a",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/usuarios/UsuariosTabCreate.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 92,
+   "hash": "e25191db115555d2132716a191a86e51",
+   "textRange": {
+    "startLine": 92,
+    "endLine": 92,
+    "startOffset": 10,
+    "endOffset": 63
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "bb969705-1ded-4700-8d33-10ac21d02c82",
+   "rule": "javascript:S9383",
+   "severity": "MAJOR",
+   "component": "cuidarteplus-frontend:src/pages/usuarios/UsuariosTabCreate.jsx",
+   "project": "cuidarteplus-frontend",
+   "line": 98,
+   "hash": "4891bf7deac16f5931c016ce6ff9e6db",
+   "textRange": {
+    "startLine": 98,
+    "endLine": 98,
+    "startOffset": 4,
+    "endOffset": 16
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+   "effort": "5min",
+   "debt": "5min",
+   "author": "",
+   "tags": [
+    "async",
+    "es2017",
+    "type-dependent",
+    "promise"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "BUG",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "LOGICAL",
+   "cleanCodeAttributeCategory": "INTENTIONAL",
+   "impacts": [
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "9bce5116-2bd8-4afa-95f0-282f75ca27f5",
+   "rule": "javascript:S7773",
+   "severity": "MINOR",
+   "component": "cuidarteplus-frontend:src/validations/clients.js",
+   "project": "cuidarteplus-frontend",
+   "line": 98,
+   "hash": "c76248a0a91984f40dc69d05b31a388a",
+   "textRange": {
+    "startLine": 98,
+    "endLine": 98,
+    "startOffset": 18,
+    "endOffset": 26
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Prefer `Number.parseInt` over `parseInt`.",
+   "effort": "2min",
+   "debt": "2min",
+   "author": "",
+   "tags": [
+    "convention",
+    "es2015",
+    "editable-source"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "CODE_SMELL",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "CONVENTIONAL",
+   "cleanCodeAttributeCategory": "CONSISTENT",
+   "impacts": [
+    {
+     "softwareQuality": "MAINTAINABILITY",
+     "severity": "LOW"
+    },
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  },
+  {
+   "key": "1de6c807-2bfc-4f9e-8e4d-3ae468f10e6a",
+   "rule": "javascript:S7773",
+   "severity": "MINOR",
+   "component": "cuidarteplus-frontend:src/validations/clients.js",
+   "project": "cuidarteplus-frontend",
+   "line": 99,
+   "hash": "a8dcb78a54e27fb76870bd200208bad0",
+   "textRange": {
+    "startLine": 99,
+    "endLine": 99,
+    "startOffset": 14,
+    "endOffset": 19
+   },
+   "flows": [],
+   "status": "OPEN",
+   "message": "Prefer `Number.isNaN` over `isNaN`.",
+   "effort": "2min",
+   "debt": "2min",
+   "author": "",
+   "tags": [
+    "convention",
+    "es2015",
+    "editable-source"
+   ],
+   "creationDate": "2026-10-24T19:12:44-0300",
+   "updateDate": "2026-10-24T19:12:44-0300",
+   "type": "CODE_SMELL",
+   "scope": "MAIN",
+   "quickFixAvailable": true,
+   "messageFormattings": [],
+   "codeVariants": [],
+   "cleanCodeAttribute": "CONVENTIONAL",
+   "cleanCodeAttributeCategory": "CONSISTENT",
+   "impacts": [
+    {
+     "softwareQuality": "MAINTAINABILITY",
+     "severity": "LOW"
+    },
+    {
+     "softwareQuality": "RELIABILITY",
+     "severity": "MEDIUM"
+    }
+   ],
+   "issueStatus": "OPEN",
+   "prioritizedRule": false,
+   "fromSonarQubeUpdate": false,
+   "internalTags": [],
+   "linkedTicketStatus": "NOT_LINKED"
+  }
+ ],
+ "hotspots": []
+}

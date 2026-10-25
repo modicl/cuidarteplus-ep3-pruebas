@@ -1,0 +1,218 @@
+{
+ "CP-01": {
+  "id": "CP-01",
+  "nombre": "Inicio de sesión exitoso y cierre de sesión",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (falla esperada por diseño: sin logout ni refresh, CLAUDE.md y AUDITORIA.md H-19)<br>Incidente: T1 sigue válido tras el cierre de sesión, no existe endpoint de logout ni de renovación, y el token dura 120 min (umbral del equipo: 15 min).<br>Fecha: 2026-10-24 (pasos corregidos el 2026-10-25). Ejecutó: Felipe Villarroel.",
+  "evidencia": "POST {API}/autenticacion/login: HTTP 200 {token}. UI: menú Pacientes / Exámenes Médicos. Payload: rolNombre = medico, exp − iat = 120 min.<br>UI \"Cerrar sesión\": URL /login y localStorage sin claves (token, user); \"Atrás\" no muestra datos.<br>POST y GET {API}/autenticacion/logout, POST {API}/logout: HTTP 404.<br>T1 reutilizado: GET /pacientes HTTP 200, GET /examenes HTTP 200.<br>/openapi.json: solo /autenticacion/login y /autenticacion/registro; POST /autenticacion/refresh: HTTP 404.<br>Archivos: resultados/evidencia/CP-01.txt, CP-01_paso1_home_medico.png, CP-01_paso4_atras.png<br>Pasos corregidos (2026-10-25), paso 4 repetido: con sesión de MED1 se abrieron /pacientes (RUT visibles) y /examenes; tras \"Cerrar sesión\" la URL es /login y localStorage queda vacío; el botón Atrás 3 veces: dos veces /login sin datos y la tercera about:blank (es el inicio del historial de la pestaña de prueba, no una pantalla de la aplicación; por eso no se adjunta captura); abrir /pacientes sin sesión redirige a /login. Archivos: resultados/evidencia/CP-01_complemento.txt, CP-01_paso4_antes_de_cerrar.png, CP-01_paso4_atras_1.png, CP-01_paso4_sin_sesion_pacientes.png",
+  "impacto": "GRAVE"
+ },
+ "CP-02": {
+  "id": "CP-02",
+  "nombre": "Inicio de sesión rechazado con credenciales inválidas",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (hallazgo nuevo: no figura en CLAUDE.md ni en AUDITORIA.md)<br>Incidente: las respuestas de login incluyen la cabecera X-Powered-By: Express, que revela la tecnología del servidor (paso 6 pide ningún header con información técnica).<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "RESP_A (contraseña incorrecta) y RESP_B (qa_inexistente): HTTP 401 {\"error\":\"Credenciales inválidas\"}, mismo código y mismo cuerpo. UI: mensaje \"Credenciales inválidas\", sigue en /login, localStorage vacío.<br>Sin token ni Set-Cookie. Cabecera X-Powered-By: Express en ambas respuestas.<br>Sin sesión, {WEB}/home redirige a /login; GET {API}/examenes/paciente/1 sin token: HTTP 401 {\"error\":\"No autorizado\",\"glosa\":\"Token inválido\"}.<br>Archivos: resultados/evidencia/CP-02.txt, CP-02_paso1_ui_error.png",
+  "impacto": "LEVE"
+ },
+ "CP-03": {
+  "id": "CP-03",
+  "nombre": "Registro de usuario y política de contraseñas",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (falla esperada por diseño: registro exige mínimo 6 caracteres, CLAUDE.md y AUDITORIA.md H-05; ficha con datos de relleno, AUDITORIA.md H-21)<br>Incidente: las 5 contraseñas inválidas (vectores a a e) se aceptan con HTTP 201 y el usuario se crea; el registro con RUT sin ficha crea una ficha con datos inventados.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Vector f desde la UI: toast \"Cuenta creada exitosamente\"; SQL rol de qa_registro01 = paciente. Con esa sesión, /usuarios y /auditoria muestran \"No autorizado (solo administrador)\"; el menú solo trae Exámenes Médicos y Mis Resultados.<br>Usuario repetido y correo repetido: HTTP 400 \"Usuario o correo duplicado\".<br>qa_registro02 con RUT 15.678.234-3: HTTP 201; SQL pacientes: id 22, rut 15678234-3, primer_nombre qa_registro02, apellido_paterno vacío, fecha_nacimiento 2000-01-01, sexo M, usuario_id 16.<br>Vectores a a e por API: HTTP 201 los 5; SQL count(*) = 1 para cada usuario. Vector a desde la UI: usuario creado.<br>Auditoría: registros REGISTRO de cada alta.<br>Archivos: resultados/evidencia/CP-03.txt, CP-03_paso1_registro_f.png, CP-03_paso6_ui_vector_a.png",
+  "impacto": "GRAVE"
+ },
+ "CP-04": {
+  "id": "CP-04",
+  "nombre": "Un paciente no accede a los datos de otro paciente",
+  "grupo": "FUNCIONAL",
+  "resultado": "aprobado",
+  "evidencia": "PA con T_A: GET /examenes/paciente/1, /examenes/2, /documentos/2: HTTP 200 (documento application/pdf, 2.097.152 bytes).<br>GET /examenes/paciente/11, /documentos/examen/5, /documentos/4, /pacientes/11: HTTP 403 sin datos de PAC2. GET /examenes/5: HTTP 404.<br>GET /examenes: HTTP 200 con 7 exámenes, todos paciente_id 1.<br>UI: {WEB}/examenes/5 redirige a /examenes y no muestra datos de EX_B.<br>Archivos: resultados/evidencia/CP-04.txt, CP-04_paso9_ui_examen_ajeno.png",
+  "impacto": null
+ },
+ "CP-05": {
+  "id": "CP-05",
+  "nombre": "Gestión de pacientes: registrar, validar RUT, editar y visualizar",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (parte falla esperada por diseño: el RUT no valida dígito verificador, AUDITORIA.md §2.2 y §7; parte hallazgo nuevo: formulario de registro de la UI y HTTP 500 en PUT)<br>Incidente: el RUT 12.345.678-9 se acepta (HTTP 201) y crea un paciente (25 pacientes al final, 24 esperados); la UI rechaza el registro si no se elige Estado Civil (HTTP 400 \"Estado civil inválido\") aunque es opcional; PUT con rut 12.345.678-9 responde HTTP 500.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "UI Nuevo 1, intento 1 (datos de la Tabla 8): POST /pacientes HTTP 400 {\"field\":\"estado_civil\",\"message\":\"Estado civil inválido\"}, SQL count rut 12345678-5 = 0. Intento 2 eligiendo Estado Civil: HTTP 201.<br>Nuevo 2 (T_ADM) y Nuevo 3 (T_MED2): HTTP 201. SQL: ruts guardados sin puntos (12345678-5, 20111222-2, 10222333-0).<br>Vectores: a) rut 12.345.678-9: HTTP 201 (creó id 25); b) duplicado: HTTP 400 \"El RUT o email ya existe\"; c) ABC: HTTP 400; d) sin primer_nombre: HTTP 400; e) fecha 2030-01-01: HTTP 400. PUT rut 12.345.678-9: HTTP 500 \"duplicate key value violates unique constraint pacientes_rut_key\".<br>Edición UI (teléfono +56912345678, dirección Av. Apoquindo 4500, Las Condes): HTTP 200; PUT T_ADM alergias Penicilina: HTTP 200; SQL: demás campos sin cambio.<br>GET /pacientes y /pacientes/24 con T_MED1 y T_ADM: HTTP 200. Auditoría: PACIENTES_CREAR (ids 39–42) y PACIENTES_ACTUALIZAR (ids 43–44) con su ejecutor. SQL count(*) pacientes: 21 inicial, 25 final.<br>Archivos: resultados/evidencia/CP-05.txt, CP-05_paso1_intento1_error.png, CP-05_paso1_intento2.png, CP-05_paso5_editar.png (CP-05_intento1_descartado.txt corresponde a una pasada anulada por un error del guion de prueba)",
+  "impacto": "GRAVE"
+ },
+ "CP-06": {
+  "id": "CP-06",
+  "nombre": "Administración de usuarios: listar, editar, asignar roles y eliminar",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (falla esperada por diseño: AUDITORIA.md H-08, la auditoría inserta nombreUsuario en una columna BIGINT)<br>Incidente: DELETE /usuarios/{id} con token responde HTTP 500 después de borrar al usuario y no registra USUARIOS_ELIMINAR; la UI muestra el error. Además PUT con solo rol_id 999 responde HTTP 400 por \"Debe proporcionar al menos un campo\" (rol_id no está en el esquema, AUDITORIA.md H-07), no por rol inexistente.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "UI Usuarios: \"1-10 de 14\"; SQL count(*) usuarios = 14. GET /usuarios: HTTP 200 con id, nombre_usuario, correo, created_at (sin contraseña ni hash).<br>Edición UI de qa_rol01 (correo qa_rol01.nuevo@example.com, rol medico): PUT HTTP 200; SQL rol = medico; token rolNombre = medico; menú Pacientes / Exámenes Médicos.<br>PUT {rol_id: 999}: HTTP 400; SQL usuario_roles de qa_rol01 sin cambio (rol_id 2).<br>Eliminar qa_eliminar en la UI con diálogo \"Confirmar eliminación\": DELETE /usuarios/7 HTTP 500 {\"glosa\":\"invalid input syntax for type bigint: \\\"admin\\\"\"}; SQL count(*) = 0; login: HTTP 401.<br>Auditoría: USUARIOS_ACTUALIZAR id 47; no hay USUARIOS_ELIMINAR.<br>Archivos: resultados/evidencia/CP-06.txt, CP-06_paso1_listado.png, CP-06_paso3_menu_qa_rol01.png, CP-06_paso5_dialogo.png",
+  "impacto": "GRAVE"
+ },
+ "CP-07": {
+  "id": "CP-07",
+  "nombre": "Registro y edición de exámenes médicos",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (falla esperada por diseño: AUDITORIA.md §2.6, DELETE /documentos solo para admin)<br>Incidente: el médico no puede reemplazar el documento de EX_A2: DELETE /documentos/3 con la UI de MED1 responde HTTP 403 y la subida de resultado_examen_v2.pdf agrega un segundo documento (v1 y v2 quedan en el examen).<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "UI Nuevo Examen: POST /examenes HTTP 201 (id 10, paciente_id 1, tipo 1). POST por API: HTTP 201 (id 11); sin paciente_id: HTTP 400; sin tipo_examen_medico_id: HTTP 400.<br>PAC_A \"Mis Resultados\": 9 exámenes, incluye los 2 nuevos.<br>Edición de EX_A2: PUT HTTP 200; SQL diagnosis \"Anemia leve resuelta\", tratamiento \"Alta médica\".<br>DELETE /documentos/3 (MED1): HTTP 403. POST /documentos v2: HTTP 201 (id 9). GET /documentos/examen/3: ids 9 (v2) y 3 (v1); SHA-256 de la descarga id 9 = v2 (753306a0…ad105d), id 3 = v1 (d9741268…b01d22).<br>Auditoría: EXAMENES_CREAR (52, 53), EXAMENES_ACTUALIZAR (55), DOCUMENTOS_CREAR (56).<br>Archivos: resultados/evidencia/CP-07.txt, CP-07_paso1_form.png, CP-07_paso3_mis_resultados.png, CP-07_paso4_editar.png",
+  "impacto": "MODERADO"
+ },
+ "CP-08": {
+  "id": "CP-08",
+  "nombre": "Eliminación lógica de exámenes y documentos con confirmación",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (parte falla esperada por diseño: DELETE de exámenes y documentos solo admin, AUDITORIA.md §2.5 y §2.6; parte hallazgo nuevo: la eliminación es física)<br>Incidente: MED1 no ve el botón Eliminar y DELETE /examenes/6 y /documentos/5 con T_MED1 responden HTTP 403 (RF-3.3 le da el permiso); al confirmar con ADM las filas se borran de la base (no hay eliminación lógica) y el documento del examen desaparece por cascada.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "MED1: sin botón \"Eliminar\" en el detalle ni en el listado; DELETE /examenes/6 HTTP 403; DELETE /documentos/5 HTTP 403.<br>ADM: diálogo \"Confirmar eliminación\"; \"Cancelar\": SQL examen 6 sigue (count 1). Confirmar: DELETE /examenes/6 HTTP 200 {\"deleted\":true}; EX_DEL ya no aparece en GET /examenes (MED1) ni en /examenes/paciente/1 (PAC_A).<br>SQL: SELECT id FROM examen_medico WHERE id=6 → 0 filas; documentos_examen del examen 6 → 0 filas. Tablas sin columnas de eliminación lógica (consulta a information_schema: 0 filas).<br>Documento de EX_DEL2: confirm del navegador, DELETE /documentos/6 HTTP 200; SQL fila eliminada. Cantidades: exámenes 10 → 9, documentos 8 → 6.<br>Auditoría: EXAMENES_ELIMINAR (62) y DOCUMENTOS_ELIMINAR (64) con usuario_id 1 (admin).<br>Archivos: resultados/evidencia/CP-08.txt, CP-08_paso1_detalle_med1.png, CP-08_paso2_dialogo.png",
+  "impacto": "GRAVE"
+ },
+ "CP-09": {
+  "id": "CP-09",
+  "nombre": "Documentos del examen: subida, formatos permitidos y almacenamiento",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (falla esperada por diseño: solo acepta pdf/jpeg/png, CLAUDE.md y AUDITORIA.md §2.6)<br>Incidente: informe.doc (application/msword) y presentacion.ppt (application/vnd.ms-powerpoint) responden HTTP 500 \"Internal Server Error\"; 3 de 5 formatos aceptados.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "UI: resultado_examen.pdf adjunto a EX_A3 (SQL documentos_examen id 10, examen 4, 2.097.152 bytes).<br>POST /documentos a EX_A1: pdf HTTP 201 (id 11); doc HTTP 500; ppt HTTP 500; jpg HTTP 201 (id 12); png HTTP 201 (id 13).<br>SQL: id 11, 12, 13 con examen_medico_id 2, paciente_id 1, nombre_archivo y length(documento) 2097152 / 692 / 184.<br>Descarga: Content-Type application/pdf, image/jpeg, image/png; Content-Disposition attachment; SHA-256 descargado = original en los 3.<br>Auditoría: DOCUMENTOS_CREAR ids 67–70.<br>Archivos: resultados/evidencia/CP-09.txt, CP-09_paso1_ui.png, sha256_dm04.txt",
+  "impacto": "GRAVE"
+ },
+ "CP-10": {
+  "id": "CP-10",
+  "nombre": "El paciente visualiza sus exámenes y descarga sus documentos",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (hallazgo nuevo: no figura en CLAUDE.md ni en AUDITORIA.md)<br>Incidente: la descarga de DOC_A1 por PAC_A no queda en la auditoría (RF-5.1).<br>Fecha: 2026-10-24 (pasos corregidos el 2026-10-25). Ejecutó: Felipe Villarroel.",
+  "evidencia": "N (SQL, examen_medico WHERE paciente_id = 1) = 8; \"Mis Resultados\" muestra 8 exámenes (100 %); GET /examenes/paciente/1: todos paciente_id 1. UI detalle de EX_A1 con tipo, diagnóstico, tratamiento, observaciones, fecha y documentos.<br>GET /pacientes/1: HTTP 200 con datos personales.<br>GET /documentos/2: HTTP 200, Content-Type application/pdf, Content-Disposition attachment; filename=\"resultado_examen.pdf\"; SHA-256 cdfc0a08…aeaa99 = original (también en la descarga desde la UI).<br>GET /auditoria (T_ADM): 1 registro nuevo (LOGIN de paciente); ninguno de descarga.<br>Archivos: resultados/evidencia/CP-10.txt, CP-10_paso1_mis_resultados.png, CP-10_paso2_detalle.png, CP-10_descarga_ui.pdf<br>Pasos corregidos (2026-10-25), paso 2 repetido con el estado base (N = 7): se abrió en la interfaz el detalle de cada uno de los 7 exámenes de PAC_A; los 7 muestran tipo, fecha, diagnóstico, tratamiento, observaciones y documentos iguales a los de la API (7 de 7). Archivos: resultados/evidencia/CP-10_complemento.txt, CP-10_paso2_detalle_examen_2.png, CP-10_paso2_detalle_examen_3.png",
+  "impacto": "MODERADO"
+ },
+ "CP-11": {
+  "id": "CP-11",
+  "nombre": "Auditoría de las acciones críticas",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (parte falla esperada por diseño: eliminación de usuarios, AUDITORIA.md H-08; parte hallazgo nuevo: descarga de documentos sin registro)<br>Incidente: 11 de las 13 acciones quedan auditadas (84,6 %); eliminar usuario (por API y por UI) responde HTTP 500 sin registro, y descargar documento no genera registro.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Acciones 1–6 y 8–13 con HTTP 2xx; acción 7: DELETE /usuarios/8 (API) y /usuarios/9 (UI) HTTP 500 {\"glosa\":\"invalid input syntax for type bigint: \\\"admin\\\"\"}; SQL: qa_elim_api ya no inicia sesión (HTTP 401).<br>GET /auditoria (ids 76–87): REGISTRO (usuario_id 15, el propio usuario), PACIENTES_CREAR / ACTUALIZAR / ELIMINAR, USUARIOS_CREAR / ACTUALIZAR, EXAMENES_CREAR / ACTUALIZAR / ELIMINAR, DOCUMENTOS_CREAR / ELIMINAR, cada uno con ejecutor, acción con la entidad y fecha y hora. Sin USUARIOS_ELIMINAR ni descarga de documento.<br>La pantalla Auditoría muestra los mismos registros.<br>Archivos: resultados/evidencia/CP-11.txt, CP-11_paso5_pantalla_auditoria.png",
+  "impacto": "GRAVE"
+ },
+ "CP-12": {
+  "id": "CP-12",
+  "nombre": "Reglas de negocio: matriz de permisos por rol",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (parte falla esperada por diseño: POST /usuarios acepta cualquier JWT y DELETE /usuarios con HTTP 500, AUDITORIA.md H-03 y H-08; parte falla esperada por diseño: DELETE de exámenes y documentos solo admin, AUDITORIA.md §2.5 y §2.6)<br>Incidente: 23 de 27 celdas se comportan como se espera. Celdas fuera de lo esperado: gestionar usuarios con ADM (eliminar responde HTTP 500), con MED (crear responde HTTP 201) y con PAC (crear responde HTTP 201); eliminar exámenes y documentos con MED (HTTP 403).<br>Incidente adicional de la interfaz: el médico ve el botón Eliminar paciente en la lista (10 de 10 filas) aunque la API responde 403, y no ve Eliminar examen ni Eliminar documento aunque la matriz se lo permite; la interfaz del paciente abre las pantallas /pacientes, /pacientes/nuevo y /examenes (con toast de error en la lista).<br>Fecha: 2026-10-24 (pasos corregidos el 2026-10-25). Ejecutó: Felipe Villarroel.",
+  "evidencia": "Por API, por rol (ADM / MED / PAC): op2 HTTP 200 / 200 / 403; op3 editar 200 / 200 / 403 y registrar 201 / 201 / 403; op4 200 / 403 / 403; op5 201 / 201 / 403; op6 200 / 403 / 403; op7 201 / 201 / 403; op8 propio 200/200 en los tres, ajeno 200/200 (ADM), 200/200 (MED) y 404/403 (PAC); op9 200 / 403 / 403. op1: ADM listar 200, crear 201, editar 200, eliminar 500; MED listar 403, crear 201, editar 403, eliminar 500; PAC listar 403, crear 201, editar 403, eliminar 500.<br>UI con PAC_A: {WEB}/pacientes, {WEB}/pacientes/nuevo y {WEB}/examenes abren la pantalla (la lista de pacientes muestra el toast \"No autorizado\"); {WEB}/usuarios muestra \"No autorizado (solo administrador)\". Con user.rolNombre = admin en localStorage, {WEB}/usuarios muestra la pantalla y la API responde HTTP 403 (\"Solo los administradores pueden listar todos los usuarios\").<br>Archivos: resultados/evidencia/CP-12.txt, CP-12_celdas.json, CP-12_paso3_usuarios.png, CP-12_paso3_rol_manipulado.png<br>Pasos corregidos (2026-10-25), pasos 1 y 2 por interfaz con ADM, MED1 y PAC_A: ADM ve el menú Pacientes / Exámenes Médicos / Auditoría / Usuarios, crear, editar y eliminar usuario, registrar paciente, editar y eliminar examen, subir documento y eliminar documento; MED1 ve el menú Pacientes / Exámenes Médicos, sin Usuarios ni Auditoría (\"No autorizado\"), registrar paciente, editar examen y subir documento, y ve el botón Eliminar paciente (10 de 10 filas); PAC_A ve el menú Exámenes Médicos / Mis Resultados, sin botones de gestión, y /usuarios y /auditoria muestran \"No autorizado\".<br>Paso 4, comparación de la BD con la instantánea (md5 por tabla) tras las operaciones esperadas como denegadas: MED1 (5 operaciones) y PAC_A (12 operaciones) reciben HTTP 403 salvo POST /usuarios (HTTP 201); la única tabla que cambia en ambos casos es usuarios. Archivos: resultados/evidencia/CP-12_complemento.txt, CP-12_ui_matriz.json, CP-12_ui_MED_pacientes_con_eliminar.png, CP-12_ui_PAC_pacientes.png",
+  "impacto": "GRAVE"
+ },
+ "CP-13": {
+  "id": "CP-13",
+  "nombre": "Derechos del titular: consentimiento y rectificación de datos",
+  "grupo": "FUNCIONAL",
+  "resultado": "falla (parte A: brecha declarada en 2.4, REQ-PROP-01 no incorporado al ERS; parte B: falla esperada por diseño, AUDITORIA.md §2.4 y H-09, el paciente dueño puede editar su ficha)<br>Incidente: /registro no tiene casilla de aceptación y /politica-privacidad pide iniciar sesión; el registro sin consentimiento crea la cuenta (HTTP 201); PAC_A modifica su propio teléfono con HTTP 200.<br>Incidente adicional (paso 3): la política de privacidad no identifica a un responsable del tratamiento, no menciona oposición ni bloqueo entre los derechos, y declara \"encriptación de datos sensibles en tránsito y en reposo\", lo que CP-21 y CP-22 no confirman.<br>Fecha: 2026-10-24 (pasos corregidos el 2026-10-25). Ejecutó: Felipe Villarroel.",
+  "evidencia": "A: /registro con 4 campos (nombre_usuario, correo, rut, password) y 0 casillas; sin sesión /politica-privacidad redirige a /login. Registro por UI sin casilla: cuenta creada (SQL count = 1); POST /autenticacion/registro sin consentimiento: HTTP 201. SQL: no existen tablas ni columnas de consentimiento (8 tablas; consulta de columnas consent/politica/acept: 0 filas).<br>B: PUT /pacientes/1 {telefono +56911112222} con T_PAC_A: HTTP 200, SQL telefono pasa de +56981234567 a +56911112222. PUT con T_MED1 (+56912345678): HTTP 200, PAC_A consulta +56912345678. Auditoría: PACIENTES_ACTUALIZAR id 127 (usuario 3) e id 128 (usuario 4) sobre paciente ID 1.<br>Archivos: resultados/evidencia/CP-13.txt, CP-13_paso1_registro.png<br>Pasos corregidos (2026-10-25), paso 3: la política en /politica-privacidad (solo con sesión iniciada) tiene 9 secciones: describe usos de la información (sección 3), lista derechos de acceso, corrección, eliminación, copia de los datos y retiro del consentimiento (sección 6), y da un contacto (email, teléfono y dirección); no menciona responsable del tratamiento, oposición ni bloqueo; indica \"Encriptación de datos sensibles en tránsito y en reposo\" (sección 4). Archivos: resultados/evidencia/CP-13_complemento.txt, CP-13_paso3_politica.png",
+  "impacto": "GRAVE"
+ },
+ "CP-14": {
+  "id": "CP-14",
+  "nombre": "Límite de intentos fallidos de autenticación y tokens inválidos",
+  "grupo": "SEGURIDAD",
+  "resultado": "falla (falla esperada por diseño: sin límite de intentos, JWT_SECRET en el repositorio y clave por defecto, CLAUDE.md y AUDITORIA.md H-06, H-12 y H-19)<br>Incidente: 15 intentos fallidos seguidos no activan ningún bloqueo y la contraseña correcta entrega token; un token firmado con el JWT_SECRET publicado en el README.md es aceptado (HTTP 200 con datos de pacientes); la API arranca sin JWT_SECRET y acepta tokens firmados con \"inseguro\".<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Paso 1: HTTP 400 con {\"field\":\"password\",\"message\":\"La contraseña es requerida\"}, sin token.<br>Paso 2: 15 intentos sobre qa_paciente_b, uno por segundo: HTTP 401 en los 15, sin 429 ni 423 ni cabecera Retry-After.<br>Paso 3: contraseña correcta después de los 15 intentos: HTTP 200 con token.<br>Paso 4, GET /pacientes: token 1 (rolNombre = admin sin re-firmar), 2 (otra clave), 3 (alg none), 4 (exp pasado), 5 (clave \"inseguro\"), 7 (esquema \"Token\" y sin cabecera): HTTP 401. Token 6 (JWT_SECRET del README.md, igual al de .env): HTTP 200 con la lista de pacientes.<br>Paso 5: la API arrancó sin JWT_SECRET (GET / HTTP 200). Con BACKEND/.env presente carga el secreto desde el archivo; sin ese archivo, un token firmado con \"inseguro\" recibe HTTP 200 en GET /pacientes.<br>Archivos: resultados/evidencia/CP-14.txt",
+  "impacto": "CRITICO"
+ },
+ "CP-15": {
+  "id": "CP-15",
+  "nombre": "Un paciente no modifica datos de otro ni se apropia de su ficha por el RUT",
+  "grupo": "SEGURIDAD",
+  "resultado": "falla (falla esperada por diseño: el registro vincula una ficha por RUT sin verificar al titular, CLAUDE.md y AUDITORIA.md H-10)<br>Incidente: qa_intruso2 se registra con el RUT 14.321.987-9 (HTTP 201), queda vinculado a la ficha 19 de otra persona y GET /pacientes/19 responde HTTP 200 con la ficha completa. Los pasos 1 a 3 sí se rechazan.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Pasos 1, 2 y 3 con T_PAC_A: PUT /pacientes/11, PUT /usuarios/14 y PUT /examenes/5: HTTP 403 los tres.<br>Paso 4: SQL de ficha B (telefono +56981230001), cuenta PAC_B (correo sebastian.alarcon@gmail.com) y EX_B1 (diagnosis \"Dato sintetico B1\") idéntico antes y después.<br>Paso 5: POST /autenticacion/registro con rut 14.321.987-9: HTTP 201. SQL pacientes id 19: usuario_id pasa de NULL a 15.<br>Paso 6: login de qa_intruso2: token con pacienteId 19; GET /pacientes/19: HTTP 200 con los datos de Claudio Ibarra; GET /examenes: HTTP 200 con lista vacía (la ficha 19 no tiene exámenes).<br>Archivos: resultados/evidencia/CP-15.txt",
+  "impacto": "GRAVE"
+ },
+ "CP-16": {
+  "id": "CP-16",
+  "nombre": "Prevención de escalamiento de privilegios y acceso sin autenticación",
+  "grupo": "SEGURIDAD",
+  "resultado": "falla (falla esperada por diseño: POST /usuarios acepta cualquier JWT, el médico cambia roles, /roles y DELETE /usuarios/:id son públicos, CLAUDE.md y AUDITORIA.md H-01, H-02, H-03, H-04, H-08 y H-18)<br>Incidente: 1 de 9 escalamientos responde 403; el médico se asigna el rol admin y crea un usuario admin; sin token se crean, leen y borran roles, se lee una ficha y se borra un usuario (qa_borrar); el usuario sin rol lee otro usuario.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Paso 1 (esperado 403): intentos (1) a (3), PUT con solo rol_id: HTTP 400 \"Debe proporcionar al menos un campo\" (el rol no cambió); (4) T_ESC_MED POST /usuarios con rol_id 1: HTTP 201, SQL qa_intruso con rol_id 1 (admin); (5) T_ESC_PAC POST /usuarios: HTTP 500 (correo duplicado); (6) a (8) sobre /roles con T_ESC_PAC: HTTP 500 \"invalid input syntax for type bigint\", pero SQL final: existe qa_rol_intruso y qa_rol_borrar1 ya no existe; (9) DELETE /pacientes/21 con T_ESC_MED: HTTP 403. Prueba complementaria: PUT propio {correo, rol_id: 1} con T_ESC_MED: HTTP 200 y rol_nombre admin; con T_ESC_PAC: HTTP 403 \"No puede cambiar su rol\".<br>Paso 2, 11 operaciones sin token: 10 con HTTP 401; DELETE /usuarios/13: HTTP 200 {\"deleted\":true}.<br>Paso 3, 6 operaciones no documentadas sin token: solo POST /auditoria responde 401; GET /pacientes/buscar/rut/11111111-1 HTTP 200 con la ficha; GET /roles/5 HTTP 200; POST /roles HTTP 201 (qa_rol_intruso2); PUT /roles/5 HTTP 500; DELETE /roles/5 HTTP 200.<br>Paso 4: GET /files/documentos/ y GET /files/documentos/resultado_examen.pdf: HTTP 404 (la carpeta uploads/documentos está vacía; los documentos están en la BD).<br>Paso 5, token vencido: 10 de 13 con HTTP 401; GET /pacientes/buscar/rut/11111111-1 HTTP 200; DELETE /usuarios/13 y GET /roles/5 HTTP 404 (recursos ya borrados).<br>Paso 6, qa_sinrol: GET /examenes y GET /documentos/2 HTTP 403; GET /usuarios/3 HTTP 200 con datos de otro usuario.<br>Paso 7: /tipo-examen, /tipo-examen/1, /roles, /, /docs y /openapi.json: HTTP 200.<br>Paso 8: roles finales admin, medico, paciente, qa_rol_intruso, qa_rol_intruso2; qa_intruso existe con rol admin; qa_borrar eliminado. Paso 9: estado base restaurado (usuarios 14, pacientes 21, exámenes 8, documentos 7, roles 5).<br>Archivos: resultados/evidencia/CP-16.txt",
+  "impacto": "CRITICO"
+ },
+ "CP-17": {
+  "id": "CP-17",
+  "nombre": "Resistencia a inyección SQL",
+  "grupo": "SEGURIDAD",
+  "resultado": "aprobado",
+  "evidencia": "V1, V2 y V3 en /autenticacion/login: HTTP 401 {\"error\":\"Credenciales inválidas\"}. V4 GET /pacientes/buscar/rut/%27%20OR%20%271%27%3D%271: HTTP 404.<br>V5 POST /pacientes con primer_nombre Robert'); DROP TABLE pacientes;--: HTTP 201, guardado como texto literal (SQL id 22); to_regclass('public.pacientes') = pacientes. V1 desde la pantalla de login: toast \"Credenciales inválidas\", localStorage vacío.<br>Cantidades antes y después: usuarios 14 y 14, roles 5 y 5, exámenes 8 y 8, pacientes 21 y 22 (el paciente literal de V5). Sin HTTP 500 ni trazas. El log del contenedor de la API registra las 6 solicitudes.<br>OWASP ZAP 2.17.0, escaneo activo con reglas de inyección SQL (40018, 40019, 40020, 40021 y 40022) sobre POST /autenticacion/login, POST /pacientes y GET /pacientes/{id}: 0 alertas de inyección SQL (las reglas 40024 y 90018 no existen en esa versión).<br>Archivos: resultados/evidencia/CP-17.txt, CP-17_paso6_ui.png, zap/cp17_zap_reporte.json, zap/zap_cp17.log, zap/plan_cp17.yaml<br>Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 0 hallazgos relevantes.",
+  "impacto": null
+ },
+ "CP-18": {
+  "id": "CP-18",
+  "nombre": "Resistencia a XSS almacenado",
+  "grupo": "SEGURIDAD",
+  "resultado": "aprobado",
+  "evidencia": "POST /pacientes (P2, RUT 13.572.468-8) y POST /examenes (P1 y P3, paciente A): HTTP 201, Content-Type application/json.<br>7 combinaciones de navegador, con ADM y PAC_A, en lista de pacientes, registro del paciente, Mis Resultados, detalle del examen y Auditoría (100 filas por página): Playwright 1.64.1 (N) con Chromium 156.0.8078.4, Firefox 157.0, WebKit 27.2 y Edge real 156.0.4314.42; Playwright 1.63.0 (N-1) con Chromium 153.0.8010.12, Firefox 155.0 y WebKit 26.6.<br>En las 7 combinaciones el payload se muestra como texto (por ejemplo \"<img src=x onerror=alert('XSS-2')> Lillo Bravo\"); DOM: 0 elementos img[src=x], 0 svg[onload], 0 atributos onerror y 0 scripts con XSS-1; diálogos de alerta: 0. \"Mis Resultados\" no muestra diagnóstico.<br>Archivos: resultados/evidencia/CP-18_navegadores.txt, CP-18_N_*_detalle_examen.png, CP-18_N-1_*_detalle_examen.png (la ejecución inicial con Playwright 1.57.0, Chromium 143 y Firefox 144, queda en CP-18.txt y CP-18_chromium_*.png y CP-18_firefox_*.png)<br>Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 0 hallazgos relevantes.",
+  "impacto": null
+ },
+ "CP-19": {
+  "id": "CP-19",
+  "nombre": "Validación de entradas, archivos no permitidos y contrato de la API",
+  "grupo": "SEGURIDAD",
+  "resultado": "falla (parte falla esperada por diseño: Swagger documenta 26 de 32 operaciones, archivos disfrazados aceptados y HTTP 500 por id no numérico, límite de archivo y errores de rol, CLAUDE.md y AUDITORIA.md H-07, H-08, H-09, H-11 y H-14; parte hallazgo nuevo: las operaciones POST y PUT validan el cuerpo antes de autenticar)<br>Incidente: 8 de los 18 vectores no se rechazan con el código esperado (V10, V11, V13, V16 y V17 responden HTTP 500; V14, V15 y V18 responden HTTP 201); 7 de 21 operaciones con bearerAuth no responden 401 sin token (6 responden HTTP 400 y DELETE /usuarios/{id} responde 404); 6 operaciones no están en el Swagger.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Paso 2: 32 operaciones implementadas contra 26 del Swagger. Faltan GET /pacientes/buscar/rut/{rut}, POST /auditoria, POST /roles, GET /roles/{id}, PUT /roles/{id} y DELETE /roles/{id}. 21 operaciones declaran bearerAuth.<br>Pasos 3 y 6, Newman 6.1.3 (59 solicitudes, 118 aserciones, 20 fallidas): sin token, 14 de 21 operaciones responden 401 (POST /usuarios, PUT /usuarios, POST /pacientes, PUT /pacientes, POST /examenes y PUT /examenes responden 400; DELETE /usuarios/{id} responde 404). Endpoints críticos (login, registro, /usuarios, /pacientes, /examenes, /documentos y /auditoria): 20 de 20 pruebas positivas y negativas pasan, cobertura 7 de 7.<br>Paso 4, vectores 1 a 12 y 16: V1 a V9 y V12 responden HTTP 400; V10 (POST /roles con {}) HTTP 500; V11 (GET /examenes/abc) HTTP 500; V16 (GET /pacientes/abc) HTTP 500.<br>Paso 5, vectores 13, 14, 15, 17 y 18: V13 (.exe) HTTP 500; V14 (resultado_falso.pdf) HTTP 201; V15 (foto_falsa.jpg) HTTP 201; V17 (11 MB) HTTP 500; V18 (paciente_id 11 con examen del paciente 1) HTTP 201. V13 desde la interfaz: el diálogo \"Subir Documento\" no envía el archivo ni muestra mensaje.<br>Total de respuestas HTTP 500 en la colección: 5.<br>Archivos: resultados/evidencia/CP-19.txt, CP-19_paso5_ui_exe.png, newman/coleccion_cp19.json, newman/reporte_cp19.json, newman/newman_cp19.log, newman/resumen_cp19.txt, newman/openapi_descargado.json",
+  "impacto": "GRAVE"
+ },
+ "CP-20": {
+  "id": "CP-20",
+  "nombre": "Integridad de la auditoría y logs sin información sensible",
+  "grupo": "SEGURIDAD",
+  "resultado": "falla (falla esperada por diseño: POST /auditoria acepta texto libre, los errores 500 devuelven mensajes de PostgreSQL y morgan(\"dev\") registra las URL, AUDITORIA.md H-11, H-12 y H-17)<br>Incidente: el POST falso de PAC_A se acepta y queda en la auditoría; los logs de acceso muestran el RUT 11111111-1 en texto claro; 3 de 4 errores provocados devuelven HTTP 500, dos de ellos con textos internos de PostgreSQL.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Paso 1: GET /auditoria con T_PAC_A: HTTP 403; con T_MED1: HTTP 403; sin token: HTTP 401.<br>Paso 2: POST /auditoria con T_PAC_A: HTTP 201 {\"id\":\"50\",\"accion\":\"USUARIOS_ELIMINAR: registro falso\"}; SQL: la fila existe y la tabla pasa de 48 a 49 filas. PUT y DELETE /auditoria/2 con T_ADM: HTTP 404.<br>Paso 3: en docker logs de la API no aparecen la contraseña, el token ni el diagnóstico; sí aparece GET /pacientes/buscar/rut/11111111-1 con el RUT en texto claro.<br>Paso 4: SQL, 0 filas de auditoría con contraseñas o diagnósticos.<br>Paso 5: GET /examenes/abc: HTTP 500 \"invalid input syntax for type bigint: \\\"abc\\\"\"; POST /pacientes con RUT repetido: HTTP 400 \"El RUT o email ya existe\"; PUT /usuarios/{id} con {correo, rol_id: 999}: HTTP 500 \"violates foreign key constraint usuario_roles_rol_id_fkey\" (se agregó correo porque con solo rol_id la API responde 400 por falta de campos); POST /documentos con .exe: HTTP 500 \"Internal Server Error\" (HTML). Todas las respuestas llevan X-Powered-By: Express.<br>Archivos: resultados/evidencia/CP-20.txt<br>Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 0 hallazgos relevantes.",
+  "impacto": "MODERADO"
+ },
+ "CP-21": {
+  "id": "CP-21",
+  "nombre": "Cifrado en tránsito y configuración segura de la web (TLS, CORS/CSRF y escaneo ZAP)",
+  "grupo": "SEGURIDAD",
+  "resultado": "falla (falla esperada por diseño: sin HTTPS, CORS abierto, sin helmet ni cabeceras de seguridad, dependencias y base Docker desactualizadas, CLAUDE.md y AUDITORIA.md H-12 y H-13; con el proxy TLS del equipo cumple TLS 1.2/1.3 pero no HSTS: \"no cumple en la entrega; cumple parcialmente con proxy del equipo\")<br>Incidente: el frontend y la API responden por HTTP plano sin redirección, la contraseña y el token viajan en texto claro, CORS devuelve Access-Control-Allow-Origin: * para cualquier origen, no hay cabeceras de seguridad ni HSTS, npm audit reporta 1 vulnerabilidad crítica en el backend y 10 altas entre ambos proyectos, la imagen node:18-alpine está sin soporte y ZAP reporta 4 alertas de riesgo medio sin plan de corrección.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Paso 1: GET http://localhost:3333 y http://localhost:4444: HTTP 200, sin redirección ni Strict-Transport-Security. El JS del frontend llama a http://localhost:4444. Con el proxy Caddy 2.11.7 (https://localhost:3443 y :4443) y testssl.sh 3.2.4: solo TLS 1.2 y 1.3, sin SSLv2/SSLv3/TLS 1.0/TLS 1.1, sin RC4/3DES/NULL/EXPORT, HSTS \"not offered\", cadena de confianza incompleta (CA local), calificación B.<br>Paso 2: captura tcpdump 4.99.6 (en lugar de Wireshark) en el contenedor de la API: la contraseña Cuidarte#Med2026 y el token JWT completo aparecen en texto claro.<br>Paso 3: SHOW ssl = off; DATABASE_URL del docker-compose no incluye sslmode.<br>Pasos 4 y 5: sin cookies; el token y el usuario quedan en localStorage. fetch PUT desde http://localhost:9999 con credentials include: bloqueado por el navegador (Failed to fetch); sin credentials: HTTP 401; teléfono del paciente sin cambios.<br>Paso 6: OPTIONS /usuarios con Origin http://evil.example.test y con Origin http://localhost:3333: HTTP 204 con Access-Control-Allow-Origin: * en ambos.<br>Paso 7: OWASP ZAP 2.17.0 (spider del frontend y escaneo activo de GET con sesión de MED1; sin sesión de PAC_A): 0 alertas altas; medias: falta CSP, falta cabecera anti-clickjacking, falta Subresource Integrity (frontend) y configuración CORS entre dominios (API); bajas: cabecera Server con versión (nginx/1.31.6), X-Powered-By, X-Content-Type-Options ausente.<br>Paso 8: npm audit --omit=dev: BACKEND 7 (1 crítica, 4 altas, 2 moderadas); FRONTEND 8 (6 altas, 2 moderadas). Imagen base del backend node:18-alpine (Node v18.20.8, fin de soporte 2025-04-30).<br>Paso 9: sin CSP, X-Content-Type-Options, X-Frame-Options ni Referrer-Policy en frontend ni API; /docs público; GET /files/documentos/ HTTP 404.<br>Archivos: resultados/evidencia/CP-21.txt, tls/testssl_3443.txt, tls/testssl_4443.txt, tls/captura_tcpdump_api.txt, tls/Caddyfile, zap/cp21_zap_reporte.json, npm_audit_backend.json, npm_audit_frontend.json<br>Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 4 hallazgos relevantes.",
+  "impacto": "GRAVE"
+ },
+ "CP-22": {
+  "id": "CP-22",
+  "nombre": "Protección de datos almacenados: hash de contraseñas y cifrado en reposo",
+  "grupo": "SEGURIDAD",
+  "resultado": "falla (falla esperada por diseño: contraseñas en texto plano y documentos sin cifrar, CLAUDE.md y AUDITORIA.md H-05 y H-14)<br>Incidente: las contraseñas se guardan en texto plano (18 de 18 filas no cumplen el formato Argon2id/bcrypt), los datos clínicos y los documentos están en claro en la base de datos, en los archivos físicos y en el respaldo.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Paso 2: SQL, qa_hash01 y qa_hash02 guardan el mismo valor Cuidarte#Hash2026 (sin sal).<br>Paso 3: SELECT count(*) ... contrasena !~ '^\\$(argon2id\\$|2[aby]\\$...' = 18 de 18 usuarios (incluidas las cuentas semilla, por ejemplo medico / medico).<br>Paso 4: login de qa_hash01: HTTP 200.<br>Paso 5: SQL, alergias \"Penicilina QA-MARKER-7391\", enfermedades_cronicas y observaciones_medicas_generales en claro; los primeros bytes del documento son \"%PDF-1.4\".<br>Paso 6: grep en /var/lib/postgresql/data encuentra QA-MARKER-7391 en base/16384/17214, base/16384/17221 y pg_wal, y QA-DOC-MARKER-5524 en base/16384/17207 y pg_wal. pg_dump -Fp: 2 apariciones de QA-MARKER-7391; pg_dump -Fc: 0 apariciones directas (archivo comprimido), pero pg_restore -f - genera SQL con 2 apariciones.<br>Paso 7: sin extensión de cifrado (solo plpgsql), sin columnas bytea cifradas en usuarios/pacientes y sin evidencia de cifrado de volumen (volumen local de Docker).<br>Archivos: resultados/evidencia/CP-22.txt<br>Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 1 hallazgo relevante.",
+  "impacto": "CRITICO"
+ },
+ "CP-23": {
+  "id": "CP-23",
+  "nombre": "Respaldo y recuperación de la base de datos",
+  "grupo": "SEGURIDAD",
+  "resultado": "falla (hallazgo nuevo: no figura en CLAUDE.md ni en AUDITORIA.md)<br>Incidente: la entrega no documenta una política de respaldo (frecuencia, retención, ubicación ni responsable); el RPO de 24 h no se puede evaluar porque no existe respaldo programado. La restauración manual sí recupera los datos.<br>Fecha: 2026-10-24. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Paso 1: búsqueda de \"respaldo|backup|retención|RTO|RPO|pg_dump\" en README.md, BACKEND/README.md, docker-compose.yml y Dockerfile: 0 resultados.<br>Pasos 2 y 3: línea base usuarios 14, roles 5, usuario_roles 12, tipo_examen_medico 86, pacientes 21, examen_medico 8, documentos_examen 7, auditoria 32; SHA-256 de DOC_A1 cdfc0a08…aeaa99. pg_dump -Fc: respaldo_qa.dump de 44.749 bytes (SHA-256 017bfc12…de18f), generado a las 19:42:07.<br>Paso 4: DROP DATABASE cuidarteplus WITH (FORCE): la API terminó con un error no controlado de pg y Docker la reinició (restart unless-stopped).<br>Pasos 5 y 6: pg_restore en una segunda instancia postgres:15-alpine vacía: código 0, 0,3 s. Las 8 tablas coinciden, salvo auditoria con 33 filas por un login de verificación hecho antes del respaldo. Login de MED1 y descarga de DOC_A1 contra una API conectada a la base restaurada: HTTP 200 y SHA-256 igual a la línea base. Pasos 5 y 6 completos en 10,3 s (no incluye el tiempo humano de decisión).<br>Archivos: resultados/evidencia/CP-23.txt, respaldo_qa.dump",
+  "impacto": "MODERADO"
+ },
+ "CP-24": {
+  "id": "CP-24",
+  "nombre": "Disponibilidad del servicio y actualización con migración de datos segura",
+  "grupo": "NO FUNCIONAL",
+  "resultado": "sin ejecutar",
+  "evidencia": "",
+  "impacto": null
+ },
+ "CP-25": {
+  "id": "CP-25",
+  "nombre": "Rendimiento: tiempos de respuesta, carga concurrente, estrés y documentos",
+  "grupo": "NO FUNCIONAL",
+  "resultado": "falla (parte falla esperada por diseño: retraso artificial de 5 s en POST y PUT /examenes, GET /pacientes y POST /documentos, y se aplica antes de autenticar, CLAUDE.md y AUDITORIA.md H-15; parte hallazgo nuevo: la página principal supera los 2 s)<br>Incidente: resultado por parte: A falla, B falla, C aprobada, D falla, E aprobada, F aprobada y G falla. POST y PUT /examenes responden con p95 de 5,0 s (umbral 300 ms) con 20 y con 200 usuarios; una respuesta 401 sin token tarda 5,0 s; /login y /home cargan en 4,3 s con LCP de 4,4 y 5,3 s (umbral 2 s). Con 200 y con 400 usuarios no hubo errores ni caídas.<br>Fecha: 2026-10-25. Ejecutó: Felipe Villarroel.",
+  "evidencia": "Ambiente: API limitada a 1 CPU y 512 MiB, PostgreSQL a 1 CPU y 1 GiB, frontend a 0,5 CPU y 256 MiB (docker update); k6 v2.3.0 en un contenedor con 6 CPU y 4 GB dentro de la misma red de Docker (equipo con Ryzen 7 9800X3D y Docker con 16 CPU y 16 GB); sin latencia de red. Datos: 20 cuentas qa_perf_* (4 ADM, 8 MED, 8 PAC), 8 fichas y un paciente con 200 exámenes; estado inicial de cada ejecución restaurado desde cp25/base_cp25.dump. Medición base con 1 usuario: POST 5.006 ms, PUT 5.011 ms, GET 2 ms, DELETE 5 ms (medianas).<br>Parte A, 20 usuarios por 3 min, 3 repeticiones (1.444 solicitudes y 360 ciclos completos por repetición, 0 % de errores): p95 de POST 5.028 / 5.037 / 5.024 ms, PUT 5.035 / 5.024 / 5.030 ms, GET 21 / 19 / 20 ms, DELETE 22 / 20 / 26 ms. Umbral 300 ms incumplido en POST y PUT.<br>Parte B, rampa de 0 a 200 usuarios en 2 min y 5 min sostenidos, 3 repeticiones (unas 147.600 solicitudes por repetición, 0 % de errores, 200 usuarios sostenidos): p95 de login 6 ms, GET /pacientes/{id} 4 ms, GET /examenes/{id} 4 ms y POST /examenes 5.006 ms en las tres. CPU máxima de la API 51 % y de PostgreSQL 28 %; memoria máxima de la API 71 MiB.<br>Parte C: 50 consultas con el token del médico y 50 con el del paciente dueño: HTTP 200 con los 200 exámenes completos, p95 de 4 ms en ambos; \"Mis Resultados\" muestra 200 tarjetas de examen.<br>Parte D, Lighthouse 13.5.0, móvil, 4G (1,6 Mbps, 150 ms), caché vacía, 5 repeticiones, Chromium 156.0.8078.4: /login load 4.263 ms y LCP 4.415 ms (medianas); /home con sesión de PAC_A load 4.269 ms y LCP 5.274 ms. No se midió con un teléfono real (no disponible). Una primera pasada de /home sin limpiar la caché dio 363 ms y se descartó por no cumplir la condición de caché vacía.<br>Parte E: 10 subidas de resultado_examen.pdf (2 MB) con p95 de 5.036 ms y máximo 5.036 ms; 10 descargas con p95 de 29 ms y tamaño 2.097.152 bytes en las 10. Todas dentro de 10 s.<br>Parte F: de 20 a 200 y a 400 usuarios, 306.556 solicitudes, 0 % de errores, hasta unas 850 solicitudes por segundo; CPU máxima de la API 86,6 % (límite 100 %) y de PostgreSQL 44,8 %; memoria máxima 90 MiB. No apareció punto de quiebre hasta 400 usuarios. Al volver a 20 usuarios el sistema respondió normal sin ayuda manual. Filas: 215 exámenes iniciales + 10.081 creados = 10.296 en la base, sin pérdidas.<br>Parte G: 20 solicitudes GET /pacientes sin token: HTTP 401 con mediana de 5.006 ms y máximo de 5.010 ms.<br>Archivos: resultados/evidencia/cp25/ (logs *.log, resúmenes *.json, recursos *_recursos.csv, serie de la parte F), cp25/lh/ (Lighthouse), CP-25_parteC_ui.txt; scripts en resultados/cp25/",
+  "impacto": "GRAVE"
+ },
+ "CP-26": {
+  "id": "CP-26",
+  "nombre": "Compatibilidad con navegadores y dispositivos",
+  "grupo": "NO FUNCIONAL",
+  "resultado": "sin ejecutar",
+  "evidencia": "",
+  "impacto": null
+ },
+ "CP-27": {
+  "id": "CP-27",
+  "nombre": "Usabilidad y accesibilidad con adultos mayores",
+  "grupo": "NO FUNCIONAL",
+  "resultado": "sin ejecutar",
+  "evidencia": "",
+  "impacto": null
+ }
+}

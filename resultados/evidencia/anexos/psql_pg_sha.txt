@@ -1,0 +1,11 @@
+$ docker exec cuidarteplus-postgres-ev psql -U postgres -d cuidarteplus -c "SELECT count(*) ..."
+ u  | p  | e | d | r | a  
+----+----+---+---+---+----
+ 14 | 22 | 9 | 7 | 5 | 53
+(1 row)
+
+
+$ sha256sum resultados/datos/resultado_examen.pdf
+cdfc0a08e62c80dce3e644171e9fb5eb6a7d4d3ad7c5404aed73ab7e70aeaa99 *datos/resultado_examen.pdf
+$ pg_restore (restauración del estado base)
+docker exec cuidarteplus-postgres-ev pg_restore -U postgres -d cuidarteplus --clean --if-exists /tmp/base.dump  -> código de salida 0

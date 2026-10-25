@@ -1,0 +1,87 @@
+CP-22 2026-10-24 19:40
+
+### Paso 1: registro qa_hash01 y qa_hash02
+qa_hash01 HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "17", "nombre_usuario": "qa_hash01", "correo": "qa_hash
+qa_hash02 HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "18", "nombre_usuario": "qa_hash02", "correo": "qa_hash
+
+### Paso 2: contraseñas almacenadas
+nombre_usuario |    contrasena     
+----------------+-------------------
+ qa_hash01      | Cuidarte#Hash2026
+ qa_hash02      | Cuidarte#Hash2026
+(2 rows)
+
+### Paso 3: consulta de conformidad (todas las filas, incluidas las semilla)
+no_conformes 
+--------------
+           18
+(1 row)
+total 
+-------
+    18
+(1 row)
+nombre_usuario |    contrasena    
+----------------+------------------
+ medico         | medico
+ admin          | Cuidarte#Adm2026
+ paciente       | Cuidarte#Pac2026
+ qa_medico1     | Cuidarte#Med2026
+ qa_paciente_b  | Cuidarte#Pac2026
+(5 rows)
+
+### Paso 4: login qa_hash01
+HTTP 200 (0.02s) {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIxNyIsIm5vbWJyZVVzdWFyaW
+
+### Paso 5: datos clínicos y documento con marcadores
+HTTP 201 (0.03s) {"id": "24", "rut": "4444444-4", "primer_nombre": "Marcador", "apellido_paterno": "Cifrado", "apellido_materno": null, "fecha_nacimiento": "1990-01-01
+HTTP 201 (4.8s) {"documento": {"id": "13", "nombre_archivo": "marcador.pdf", "created_at": "2026-10-24T22:41:08.810Z"}}
+alergias          | enfermedades_cronicas | observaciones_medicas_generales 
+---------------------------+-----------------------+---------------------------------
+ Penicilina QA-MARKER-7391 | Asma QA-MARKER-7391   | Obs QA-MARKER-7391
+(1 row)
+diagnosis     
+-------------------
+ Dx QA-MARKER-7391
+(1 row)
+primeros_bytes 
+----------------
+ %PDF-1.4
+(1 row)
+
+### Paso 6: búsqueda de marcadores en archivos físicos y en respaldos
+archivos físicos con el marcador:
+/var/lib/postgresql/data/pgdata/base/16384/17214
+/var/lib/postgresql/data/pgdata/base/16384/17221
+/var/lib/postgresql/data/pgdata/pg_wal/000000010000000000000001
+---
+/var/lib/postgresql/data/pgdata/base/16384/17207
+/var/lib/postgresql/data/pgdata/pg_wal/000000010000000000000001 
+respaldo: 
+pg_restore -f - del respaldo -Fc (SQL descomprimido), apariciones del marcador de texto: 2
+
+### Paso 7: cifrado de disco/volumen
+[
+    {
+        "CreatedAt": "2026-10-24T21:57:18Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "6602318d1bf328cc5c7412aeb206663e7c3f45374f33198739e1e646c179827e",
+            "com.docker.compose.project": "cuidarteplus-ev",
+            "com.docker.compose.version": "5.2.0",
+            "com.docker.compose.volume": "postgres_data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/cuidarteplus-ev_postgres_data/_data",
+        "Name": "cuid
+extensiones/funciones de cifrado (pgcrypto) instaladas: extname 
+---------
+ plpgsql
+(1 row)
+columnas con tipo bytea en pacientes/usuarios: table_name | column_name | data_type 
+------------+-------------+-----------
+(0 rows)
+
+### Complemento paso 6 (respaldo)
+ls respaldos: -rw-r--r--    1 root     root         46158 Oct 24 22:41 /tmp/cp22.dump
+-rw-r--r--    1 root     root      16816358 Oct 24 22:41 /tmp/cp22.sql
+grep del marcador de texto en el respaldo -Fc (comprimido): 0
+grep del marcador de texto en el respaldo -Fp (texto plano): 2 | línea: 24	4444444-4	Marcador	Cifrado	\N	1990-01-01	M	\N	\N	marcador.qa@example.com	\N	\N	\N	\N	\N	\N	f	\N	Penicilina QA-MARKER-7391	Asma QA-MARKER-7391	\N	Obs QA-MARKER-7391	\N	2026-10-24 22:40:59.685538+00

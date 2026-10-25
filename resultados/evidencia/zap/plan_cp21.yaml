@@ -1,0 +1,34 @@
+env:
+  contexts:
+    - name: web
+      urls: ["http://host.docker.internal:3333"]
+      includePaths: ["http://host.docker.internal:3333.*"]
+    - name: api
+      urls: ["http://host.docker.internal:4444"]
+      includePaths: ["http://host.docker.internal:4444.*"]
+  parameters: {failOnError: false, progressToStdout: true}
+jobs:
+  - type: openapi
+    parameters: {apiFile: /zap/wrk/openapi_cp21_get.json, targetUrl: "http://host.docker.internal:4444", context: api}
+  - type: replacer
+    rules:
+      - {description: auth, matchType: REQ_HEADER, matchString: Authorization, replacementString: "Bearer __TOKEN__", initiators: []}
+  - type: spider
+    parameters: {context: web, maxDuration: 2}
+  - type: passiveScan-wait
+    parameters: {maxDuration: 5}
+  - type: activeScan
+    parameters: {context: api, maxScanDurationInMins: 8}
+    policyDefinition:
+      defaultStrength: Medium
+      defaultThreshold: "Off"
+      rules:
+        - {id: 40012, threshold: Medium, strength: Medium}
+        - {id: 40014, threshold: Medium, strength: Medium}
+        - {id: 6, threshold: Medium, strength: Medium}
+        - {id: 40003, threshold: Medium, strength: Medium}
+        - {id: 90020, threshold: Medium, strength: Medium}
+        - {id: 90034, threshold: Medium, strength: Medium}
+  - type: report
+    parameters: {template: traditional-json, reportDir: /zap/wrk, reportFile: cp21_zap_reporte}
+    risks: [high, medium, low, info]

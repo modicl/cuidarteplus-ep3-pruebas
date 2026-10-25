@@ -1,0 +1,26 @@
+import fs from 'fs';
+const API='http://localhost:4444'; const ids={};
+const j=async(m,p,b,t)=>{const r=await fetch(API+p,{method:m,headers:{'Content-Type':'application/json',...(t?{Authorization:'Bearer '+t}:{})},body:b?JSON.stringify(b):undefined});let x;const s=await r.text();try{x=JSON.parse(s)}catch{x=s}return{s:r.status,b:x}};
+const log=(k,r)=>console.log(k,r.s,JSON.stringify(r.b).slice(0,160));
+let r=await j('POST','/autenticacion/login',{nombre_usuario:'admin',password:'admin'});log('login admin/admin',r);
+let t=r.b.token;
+log('PUT usuarios/1',await j('PUT','/usuarios/1',{contrasena_hash:'Cuidarte#Adm2026'},t));
+log('PUT usuarios/3',await j('PUT','/usuarios/3',{contrasena_hash:'Cuidarte#Pac2026'},t));
+r=await j('POST','/autenticacion/login',{nombre_usuario:'admin',password:'Cuidarte#Adm2026'});log('login admin nueva',r);
+const T=r.b.token; ids.T_ADM=T;
+const mk=async(n,pw,rol)=>{const b={nombre_usuario:n,correo:n+'@example.com',contrasena_hash:pw};if(rol)b.rol_id=rol;const x=await j('POST','/usuarios',b,T);log('crear '+n,x);ids[n]=x.b.id??x.b.usuario?.id;};
+await mk('qa_medico1','Cuidarte#Med2026',2);await mk('qa_medico2','Cuidarte#Med2026',2);
+for(const n of ['qa_rol01','qa_eliminar','qa_elim_api','qa_elim_ui','qa_esc_pac'])await mk(n,'Cuidarte#Aux2026',3);
+await mk('qa_esc_med','Cuidarte#Aux2026',2);await mk('qa_sinrol','Cuidarte#Aux2026');await mk('qa_borrar','Cuidarte#Aux2026');
+for(const n of ['qa_rol_borrar1','qa_rol_borrar2']){const x=await j('POST','/roles',{nombre:n},T);log('rol '+n,x);ids[n]=x.b.id;}
+log('paciente Nuevo5',await j('POST','/pacientes',{rut:'9.876.543-3',primer_nombre:'Elisa',apellido_paterno:'Paz',apellido_materno:'Mora',fecha_nacimiento:'1990-02-02',sexo:'F',email:'elisa.paz.qa@example.com'},T));
+log('registro PAC_B',await j('POST','/autenticacion/registro',{nombre_usuario:'qa_paciente_b',password:'Cuidarte#Pac2026',correo:'sebastian.alarcon@gmail.com',rut:'16.234.578-8'}));
+r=await j('POST','/autenticacion/login',{nombre_usuario:'qa_medico1',password:'Cuidarte#Med2026'});log('login med1',r);const TM=r.b.token;ids.T_MED1=TM;
+const D='datos/';
+const exam=async(k,pac,tipo,files)=>{const x=await j('POST','/examenes',{tipo_examen_medico_id:tipo,paciente_id:pac,diagnosis:'Dato sintetico '+k,tratamiento:'Tratamiento QA',observaciones:'Control en 30 dias'},TM);log('examen '+k,x);const id=x.b.id??x.b.examen?.id;ids['EX_'+k]=id;
+ for(const f of files){const fd=new FormData();fd.append('examen_medico_id',id);fd.append('paciente_id',pac);fd.append('documento',new Blob([fs.readFileSync(D+f)],{type:'application/pdf'}),f);
+  const rr=await fetch(API+'/documentos',{method:'POST',headers:{Authorization:'Bearer '+TM},body:fd});const bb=await rr.json();console.log('doc',k,f,rr.status,JSON.stringify(bb));ids['DOC_'+k]=bb.documento?.id;}};
+await exam('A1',1,1,['resultado_examen.pdf']);await exam('A2',1,3,['resultado_examen_v1.pdf']);await exam('A3',1,1,[]);
+await exam('B1',11,3,['resultado_examen.pdf']);await exam('DEL',1,3,['resultado_eliminar.pdf']);await exam('DEL2',1,1,['resultado_eliminar2.pdf']);
+await exam('MAT1',1,1,['resultado_examen.pdf']);await exam('MAT2',1,1,['resultado_examen.pdf']);
+fs.writeFileSync('ids.json',JSON.stringify(ids,null,1));console.log(ids);

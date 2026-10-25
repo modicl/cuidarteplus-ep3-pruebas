@@ -1,0 +1,45 @@
+CP-15 2026-10-24 19:27
+
+### Paso 0: copia previa (ficha B, cuenta PAC_B, EX_B1)
+telefono   |           correo            |     diagnosis     
+--------------+-----------------------------+-------------------
+ +56981230001 | sebastian.alarcon@gmail.com | Dato sintetico B1
+(1 row)
+
+### Paso 1: 
+PUT /pacientes/11: HTTP 403 (0.02s) {"error": "No autorizado", "glosa": "Solo puede actualizar sus propios datos"}
+
+### Paso 2: 
+PUT /usuarios/14: HTTP 403 (0.0s) {"error": "No autorizado", "glosa": "Solo puede actualizar sus propios datos"}
+
+### Paso 3: 
+PUT /examenes/5: HTTP 403 (4.76s) {"error": "No autorizado", "glosa": "No tiene permisos para realizar esta acción"}
+
+### Paso 4: comparar con la copia
+telefono   |           correo            |     diagnosis     
+--------------+-----------------------------+-------------------
+ +56981230001 | sebastian.alarcon@gmail.com | Dato sintetico B1
+(1 row)
+sin cambios: True
+
+### Paso 5: registro con RUT ajeno
+ficha 19 antes: id |    rut     | primer_nombre | usuario_id 
+----+------------+---------------+------------
+ 19 | 14321987-9 | Claudio       |           
+(1 row)
+HTTP 201 (0.03s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "15", "nombre_usuario": "qa_intruso2", "correo": "qa_intruso2@example.com", "created_at": "2026-10-24T22:27:58.522Z"}}
+ficha 19 después: id |    rut     | primer_nombre | usuario_id 
+----+------------+---------------+------------
+ 19 | 14321987-9 | Claudio       |         15
+(1 row)
+
+### Paso 6: login qa_intruso2 y consultas
+login: True {'usuarioId': '15', 'nombreUsuario': 'qa_intruso2', 'rolId': '3', 'rolNombre': 'paciente', 'pacienteId': '19', 'roles': [{'id': '3', 'nombre': 'paciente'}], 'iat': 1792880878, 'exp': 1792888078}
+GET /pacientes/19: HTTP 200 (0.0s) {"id": "19", "rut": "14321987-9", "primer_nombre": "Claudio", "apellido_paterno": "Ibarra", "apellido_materno": "Vergara", "fecha_nacimiento": "1980-05-19T00:00:00.000Z", "sexo": "M", "nacionalidad": "Chilena", "estado_civil": "casado", "email": "claudio.ibarra@gmail.com", "telefono": "+56981230009"
+GET /examenes: HTTP 200 (4.77s) []
+id | usuario_id |               accion               
+----+------------+------------------------------------
+ 41 |         15 | LOGIN: usuario inició sesión
+ 40 |         15 | REGISTRO: nuevo usuario registrado
+ 39 |          1 | LOGIN: usuario inició sesión
+(3 rows)

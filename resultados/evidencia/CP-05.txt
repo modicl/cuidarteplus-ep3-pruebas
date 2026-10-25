@@ -1,0 +1,68 @@
+CP-05 2026-10-24 19:03
+
+### Paso 0: cantidad inicial
+count 
+-------
+    21
+(1 row)
+
+### Paso 1: UI registrar Nuevo 1 con MED1
+  respuesta UI: 400 POST http://localhost:4444/pacientes {"error":"Error de validación","glosa":"Los datos proporcionados no son válidos","detalles":[{"field":"estado_civil","message":"Estado civil inválido"}]}
+Intento 1 (solo datos de la Tabla 8, sin Estado Civil) toasts: ['Error de validación\nLos datos proporcionados no son válidos']
+¿Camila Rojas creada tras intento 1? 0
+  respuesta UI: 201 POST http://localhost:4444/pacientes {"id":"22","rut":"12345678-5","primer_nombre":"Camila","apellido_paterno":"Rojas","apellido_materno":"Soto","fecha_nacimiento":"1992-05-14T00:00:00.000Z","sexo":"F","nacionalidad":null,"estado_civil":"soltero","email":"camila.rojas.qa@example.com","t
+Intento 2 (eligiendo un Estado Civil) toasts: ['Paciente registrado exitosamente']
+
+### Paso 2: API Nuevo 2 (ADM) y Nuevo 3 (MED2)
+Nuevo2: HTTP 201 (0.01s) {"id": "23", "rut": "20111222-2", "primer_nombre": "Tomás", "apellido_paterno": "Vega", "apellido_materno": "Lara", "fecha_nacimiento": "1985-03-10T00:00:00.000Z", "sexo": "M", "nacionalidad": null, "
+Nuevo3: HTTP 201 (0.01s) {"id": "24", "rut": "10222333-0", "primer_nombre": "Pedro", "apellido_paterno": "Soto", "apellido_materno": "Diaz", "fecha_nacimiento": "1970-07-07T00:00:00.000Z", "sexo": "M", "nacionalidad": null, "
+
+### Paso 3: RUT en BD
+id |    rut     | primer_nombre | usuario_id 
+----+------------+---------------+------------
+ 22 | 12345678-5 | Camila        |           
+ 23 | 20111222-2 | Tomás         |           
+ 24 | 10222333-0 | Pedro         |           
+(3 rows)
+id Camila: 22
+
+### Paso 4: vectores inválidos con T_MED1
+vector a rut 12.345.678-9: HTTP 201 (0.02s) {"id": "25", "rut": "12345678-9", "primer_nombre": "Inv", "apellido_paterno": "Alido", "apellido_materno": null, "fecha_nacimiento": "1990-01-01T00:00:00.000Z", "sexo": "M", "nacionalidad": null, "estado_civil": null, "e
+vector b rut duplicado 11.111.111-1: HTTP 400 (0.0s) {"error": "Error al crear paciente", "glosa": "El RUT o email ya existe"}
+vector c rut ABC: HTTP 400 (0.0s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "rut", "message": "El RUT debe tener formato válido (ej: 12.345.678-9 o 12345678-9)"}]}
+vector d sin primer_nombre: HTTP 400 (0.0s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "primer_nombre", "message": "El primer nombre es requerido"}]}
+vector e fecha 2030-01-01: HTTP 400 (0.0s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "fecha_nacimiento", "message": "La fecha de nacimiento no puede ser futura"}]}
+PUT rut 12.345.678-9: HTTP 500 (0.01s) {"error": "Error al actualizar paciente", "glosa": "duplicate key value violates unique constraint \"pacientes_rut_key\""}
+cantidad tras inválidos: 25 (esperado 24 )
+
+### Paso 5: UI editar Camila (teléfono, dirección) y PUT alergias con ADM
+  respuesta UI: 200 PUT http://localhost:4444/pacientes/22 {"id":"22","rut":"12345678-5","primer_nombre":"Camila","apellido_paterno":"Rojas","apellido_materno":"Soto","fecha_nacimiento":"1992-05-14T00:00:00.000Z","sexo":"F","nacionalidad":"","estado_civil":"soltero","email":"camila.rojas.qa@example.com","tel
+toasts: ['Paciente actualizado exitosamente']
+id |    rut     |   telefono   |           direccion            | alergias |            email            
+----+------------+--------------+--------------------------------+----------+-----------------------------
+ 22 | 12345678-5 | +56912345678 | Av. Apoquindo 4500, Las Condes |          | camila.rojas.qa@example.com
+(1 row)
+PUT ADM alergias: HTTP 200 (0.01s) {"id": "22", "rut": "12345678-5", "primer_nombre": "Camila", "apellido_paterno": "Rojas", "apellido_materno": "Soto", "fecha_nacimiento": "1992-05-14T00:00:00.000Z", "sexo": "F", "nacionalidad": "", "
+telefono   |           direccion            |  alergias  |            email            | fecha_nacimiento | sexo 
+--------------+--------------------------------+------------+-----------------------------+------------------+------
+ +56912345678 | Av. Apoquindo 4500, Las Condes | Penicilina | camila.rojas.qa@example.com | 1992-05-14       | F
+(1 row)
+
+### Paso 6: consultas GET con MED1 y ADM
+MED1 GET /pacientes HTTP 200 (4.82s) filas=25
+MED1 GET /pacientes/24 (creado por MED2) HTTP 200 (0.02s) {"id": "24", "rut": "10222333-0", "primer_nombre": "Pedro", "apellido_paterno": "Soto", "apellido_materno": "Diaz", "fecha_nacimiento": "1970-07-07T00:00:00.000
+ADM GET /pacientes HTTP 200 (4.82s) filas=25
+ADM GET /pacientes/24 (creado por MED2) HTTP 200 (0.03s) {"id": "24", "rut": "10222333-0", "primer_nombre": "Pedro", "apellido_paterno": "Soto", "apellido_materno": "Diaz", "fecha_nacimiento": "1970-07-07T00:00:00.000
+
+### Paso 7: auditoría
+id | usuario_id |                            accion                             
+----+------------+---------------------------------------------------------------
+ 16 |          1 | PACIENTES_CREAR: creó paciente Elisa Paz (RUT: 9.876.543-3)
+ 39 |          4 | PACIENTES_CREAR: creó paciente Camila Rojas (RUT: 12345678-5)
+ 40 |          1 | PACIENTES_CREAR: creó paciente Tomás Vega (RUT: 20.111.222-2)
+ 41 |          5 | PACIENTES_CREAR: creó paciente Pedro Soto (RUT: 10.222.333-0)
+ 42 |          4 | PACIENTES_CREAR: creó paciente Inv Alido (RUT: 12.345.678-9)
+ 43 |          4 | PACIENTES_ACTUALIZAR: actualizó paciente ID 22
+ 44 |          1 | PACIENTES_ACTUALIZAR: actualizó paciente ID 22
+(7 rows)
+cantidad final: 25 inicial 21

@@ -1,0 +1,136 @@
+CP-13 paso 3 repetido 2026-10-25 13:51
+URL: http://localhost:3333/politica-privacidad | caracteres: 3450
+  menciona 'finalidad': False
+  menciona 'responsable': False
+  menciona 'derechos': True
+  menciona 'datos personales': True
+  menciona 'consentimiento': True
+  menciona 'Ley': True
+  menciona 'acceso': True
+  menciona 'rectific': False
+  menciona 'supresi': False
+  menciona 'oposici': False
+  menciona 'portabilidad': False
+  menciona 'bloqueo': False
+Texto de la política (primeros 1500 caracteres):
+Exámenes Médicos
+Mis Resultados
+
+paciente
+
+Paciente
+Volver
+Política de Privacidad
+
+Última actualización: 25-10-2026
+
+1. Introducción
+
+cuidarteplus ("nosotros", "nuestro" o "la plataforma") se compromete a proteger la privacidad y seguridad de la información personal de nuestros usuarios. Esta Política de Privacidad describe cómo recopilamos, usamos, almacenamos y protegemos su información cuando utiliza nuestro sistema de gestión de exámenes médicos.
+
+2. Información que Recopilamos
+
+Recopilamos la siguiente información:
+
+Información de cuenta: nombre de usuario, correo electrónico y contraseña.
+Datos de pacientes: información personal, médica y de contacto de los pacientes registrados en el sistema.
+Datos de exámenes médicos: resultados, diagnósticos, tratamientos y documentos asociados.
+Datos de uso: registros de acceso, acciones realizadas y actividad en el sistema (auditoría).
+3. Uso de la Información
+
+Utilizamos la información recopilada para:
+
+Proporcionar y mejorar nuestros servicios de gestión médica.
+Gestionar cuentas de usuario y autenticación.
+Mantener registros médicos seguros y accesibles.
+Cumplir con obligaciones legales y regulatorias.
+Realizar auditorías y mantener la seguridad del sistema.
+4. Protección de Datos
+
+Implementamos medidas de seguridad técnicas y organizativas para proteger su información:
+
+Encriptación de datos sensibles en tránsito y en reposo.
+Control de acceso basado en roles y permisos.
+Registros de auditoría para rastrear el acceso a informac
+Consentimiento en la BD: tablas/columnas con 'consent': 0 (ver CP-13.txt)
+
+### Texto completo de la política (sección principal)
+Política de Privacidad
+
+Última actualización: 25-10-2026
+
+1. Introducción
+
+cuidarteplus ("nosotros", "nuestro" o "la plataforma") se compromete a proteger la privacidad y seguridad de la información personal de nuestros usuarios. Esta Política de Privacidad describe cómo recopilamos, usamos, almacenamos y protegemos su información cuando utiliza nuestro sistema de gestión de exámenes médicos.
+
+2. Información que Recopilamos
+
+Recopilamos la siguiente información:
+
+Información de cuenta: nombre de usuario, correo electrónico y contraseña.
+Datos de pacientes: información personal, médica y de contacto de los pacientes registrados en el sistema.
+Datos de exámenes médicos: resultados, diagnósticos, tratamientos y documentos asociados.
+Datos de uso: registros de acceso, acciones realizadas y actividad en el sistema (auditoría).
+3. Uso de la Información
+
+Utilizamos la información recopilada para:
+
+Proporcionar y mejorar nuestros servicios de gestión médica.
+Gestionar cuentas de usuario y autenticación.
+Mantener registros médicos seguros y accesibles.
+Cumplir con obligaciones legales y regulatorias.
+Realizar auditorías y mantener la seguridad del sistema.
+4. Protección de Datos
+
+Implementamos medidas de seguridad técnicas y organizativas para proteger su información:
+
+Encriptación de datos sensibles en tránsito y en reposo.
+Control de acceso basado en roles y permisos.
+Registros de auditoría para rastrear el acceso a información sensible.
+Actualizaciones regulares de seguridad y parches del sistema.
+5. Compartir Información
+
+No vendemos, alquilamos ni compartimos su información personal con terceros, excepto en las siguientes circunstancias:
+
+Cuando sea requerido por ley o por orden judicial.
+Para proteger los derechos, propiedad o seguridad de cuidarteplus, nuestros usuarios o terceros.
+Con su consentimiento explícito.
+6. Sus Derechos
+
+Usted tiene derecho a:
+
+Acceder a su información personal almacenada en el sistema.
+Corregir información inexacta o incompleta.
+Solicitar la eliminación de su información (sujeto a obligaciones legales).
+Obtener una copia de sus datos en formato estructurado.
+Retirar su consentimiento en cualquier momento.
+7. Retención de Datos
+
+Conservamos su información personal durante el tiempo necesario para cumplir con los propósitos descritos en esta política, a menos que la ley requiera o permita un período de retención más largo. Los registros médicos se conservan de acuerdo con las regulaciones sanitarias aplicables.
+
+8. Cambios a esta Política
+
+Nos reservamos el derecho de actualizar esta Política de Privacidad en cualquier momento. Le notificaremos sobre cambios significativos mediante una notificación en el sistema o por correo electrónico. La fecha de la última actualización se indica al inicio de este documento.
+
+9. Contacto
+
+Si tiene preguntas, inquietudes o solicitudes relacionadas con esta Política de Privacidad o el manejo de sus datos personales, puede contactarnos en:
+
+Email: contacto@cuidarteplus.cl
+
+Teléfono: +56 9 1234 5678
+
+Dirección: Santiago, Chile
+
+
+
+### Encabezados numerados: ['1. Introducción', '2. Información que Recopilamos', '3. Uso de la Información', '4. Protección de Datos', '5. Compartir Información', '6. Sus Derechos', '7. Retención de Datos', '8. Cambios a esta Política', '9. Contacto']
+  menciona 'finalidad': False
+  menciona 'responsable': False
+  menciona 'rectific': False
+  menciona 'supresi': False
+  menciona 'oposici': False
+  menciona 'portabilidad': False
+  menciona 'bloqueo': False
+  menciona 'derechos de acceso': False
+  menciona 'contacto': True

@@ -1,0 +1,8 @@
+CP-01 paso 4 repetido 2026-10-25 13:51
+1) Con sesión, /pacientes muestra datos de pacientes (RUT visibles): True | URL: http://localhost:3333/pacientes
+2) /examenes con sesión: URL http://localhost:3333/examenes
+3) Tras 'Cerrar sesión': URL http://localhost:3333/login | localStorage: []
+4.1) Botón Atrás #1: URL http://localhost:3333/login | muestra datos clínicos: False | localStorage: [] | texto: 'Iniciar Sesión\nNombre de usuario\nContraseña\nEntrar\n\n¿No tienes cuenta? Regístrate\n\n Guía i'
+4.2) Botón Atrás #2: URL http://localhost:3333/login | muestra datos clínicos: False | localStorage: [] | texto: 'Iniciar Sesión\nNombre de usuario\nContraseña\nEntrar\n\n¿No tienes cuenta? Regístrate\n\n Guía i'
+4.3) Botón Atrás #3: URL about:blank | muestra datos clínicos: False | localStorage: (about:blank, sin acceso) | texto: ''
+5) Abrir /pacientes directamente sin sesión: URL http://localhost:3333/login

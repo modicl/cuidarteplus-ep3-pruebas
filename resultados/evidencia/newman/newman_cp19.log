@@ -1,0 +1,420 @@
+newman
+
+Cuidarte+ CP-19
+
+→ [401 sin token] GET /usuarios sin token
+  GET http://host.docker.internal:4444/usuarios [401 Unauthorized, 328B, 36ms]
+  ✓  GET /usuarios sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] POST /usuarios sin token
+  POST http://host.docker.internal:4444/usuarios [400 Bad Request, 569B, 8ms]
+  1. POST /usuarios sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /usuarios/{id} sin token
+  GET http://host.docker.internal:4444/usuarios/999999 [401 Unauthorized, 328B, 3ms]
+  ✓  GET /usuarios/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] PUT /usuarios/{id} sin token
+  PUT http://host.docker.internal:4444/usuarios/999999 [400 Bad Request, 450B, 3ms]
+  2. PUT /usuarios/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] DELETE /usuarios/{id} sin token
+  DELETE http://host.docker.internal:4444/usuarios/999999 [404 Not Found, 299B, 4ms]
+  3. DELETE /usuarios/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /pacientes sin token
+  GET http://host.docker.internal:4444/pacientes [401 Unauthorized, 357B, 5s]
+  ✓  GET /pacientes sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] POST /pacientes sin token
+  POST http://host.docker.internal:4444/pacientes [400 Bad Request, 743B, 5ms]
+  4. POST /pacientes sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /pacientes/{id} sin token
+  GET http://host.docker.internal:4444/pacientes/999999 [401 Unauthorized, 328B, 3ms]
+  ✓  GET /pacientes/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] PUT /pacientes/{id} sin token
+  PUT http://host.docker.internal:4444/pacientes/999999 [400 Bad Request, 450B, 4ms]
+  5. PUT /pacientes/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] DELETE /pacientes/{id} sin token
+  DELETE http://host.docker.internal:4444/pacientes/999999 [401 Unauthorized, 357B, 3ms]
+  ✓  DELETE /pacientes/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /examenes sin token
+  GET http://host.docker.internal:4444/examenes [401 Unauthorized, 328B, 3.5s]
+  ✓  GET /examenes sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] POST /examenes sin token
+  POST http://host.docker.internal:4444/examenes [400 Bad Request, 519B, 5s]
+  6. POST /examenes sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /examenes/{id} sin token
+  GET http://host.docker.internal:4444/examenes/999999 [401 Unauthorized, 328B, 4ms]
+  ✓  GET /examenes/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] PUT /examenes/{id} sin token
+  PUT http://host.docker.internal:4444/examenes/999999 [400 Bad Request, 450B, 5s]
+  7. PUT /examenes/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] DELETE /examenes/{id} sin token
+  DELETE http://host.docker.internal:4444/examenes/999999 [401 Unauthorized, 357B, 4ms]
+  ✓  DELETE /examenes/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /examenes/paciente/{paciente_id} sin token
+  GET http://host.docker.internal:4444/examenes/paciente/999999 [401 Unauthorized, 328B, 4ms]
+  ✓  GET /examenes/paciente/{paciente_id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] POST /documentos sin token
+  POST http://host.docker.internal:4444/documentos [401 Unauthorized, 357B, 5s]
+  ✓  POST /documentos sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /documentos/examen/{examen_id} sin token
+  GET http://host.docker.internal:4444/documentos/examen/999999 [401 Unauthorized, 328B, 4ms]
+  ✓  GET /documentos/examen/{examen_id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /documentos/{id} sin token
+  GET http://host.docker.internal:4444/documentos/999999 [401 Unauthorized, 328B, 3ms]
+  ✓  GET /documentos/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] DELETE /documentos/{id} sin token
+  DELETE http://host.docker.internal:4444/documentos/999999 [401 Unauthorized, 357B, 3ms]
+  ✓  DELETE /documentos/{id} sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [401 sin token] GET /auditoria sin token
+  GET http://host.docker.internal:4444/auditoria [401 Unauthorized, 328B, 3ms]
+  ✓  GET /auditoria sin token -> esperado 401
+  ✓  sin HTTP 500
+
+→ [critico] login positivo
+  POST http://host.docker.internal:4444/autenticacion/login [200 OK, 589B, 13ms]
+  ✓  login positivo -> esperado 200
+  ✓  sin HTTP 500
+
+→ [critico] login negativo (contrasena incorrecta)
+  POST http://host.docker.internal:4444/autenticacion/login [401 Unauthorized, 312B, 4ms]
+  ✓  login negativo (contrasena incorrecta) -> esperado 401
+  ✓  sin HTTP 500
+
+→ [critico] registro positivo
+  POST http://host.docker.internal:4444/autenticacion/registro [201 Created, 444B, 9ms]
+  ✓  registro positivo -> esperado 201
+  ✓  sin HTTP 500
+
+→ [critico] registro negativo (usuario repetido)
+  POST http://host.docker.internal:4444/autenticacion/registro [400 Bad Request, 384B, 4ms]
+  ✓  registro negativo (usuario repetido) -> esperado 400
+  ✓  sin HTTP 500
+
+→ [critico] usuarios GET positivo (ADM)
+  GET http://host.docker.internal:4444/usuarios [200 OK, 2kB, 5ms]
+  ✓  usuarios GET positivo (ADM) -> esperado 200
+  ✓  sin HTTP 500
+
+→ [critico] usuarios GET negativo (MED1)
+  GET http://host.docker.internal:4444/usuarios [403 Forbidden, 367B, 5ms]
+  ✓  usuarios GET negativo (MED1) -> esperado 403
+  ✓  sin HTTP 500
+
+→ [critico] usuarios POST positivo (ADM)
+  POST http://host.docker.internal:4444/usuarios [201 Created, 390B, 9ms]
+  ✓  usuarios POST positivo (ADM) -> esperado 201
+  ✓  sin HTTP 500
+
+→ [critico] pacientes GET positivo (MED1)
+  GET http://host.docker.internal:4444/pacientes [200 OK, 15.74kB, 5s]
+  ✓  pacientes GET positivo (MED1) -> esperado 200
+  ✓  sin HTTP 500
+
+→ [critico] pacientes GET negativo (PAC_A)
+  GET http://host.docker.internal:4444/pacientes [403 Forbidden, 354B, 5s]
+  ✓  pacientes GET negativo (PAC_A) -> esperado 403
+  ✓  sin HTTP 500
+
+→ [critico] pacientes POST positivo (MED1)
+  POST http://host.docker.internal:4444/pacientes [201 Created, 880B, 9ms]
+  ✓  pacientes POST positivo (MED1) -> esperado 201
+  ✓  sin HTTP 500
+
+→ [critico] pacientes POST negativo (PAC_A)
+  POST http://host.docker.internal:4444/pacientes [403 Forbidden, 354B, 4ms]
+  ✓  pacientes POST negativo (PAC_A) -> esperado 403
+  ✓  sin HTTP 500
+
+→ [critico] examenes GET positivo (PAC_A)
+  GET http://host.docker.internal:4444/examenes [200 OK, 2.96kB, 3.5s]
+  ✓  examenes GET positivo (PAC_A) -> esperado 200
+  ✓  sin HTTP 500
+
+→ [critico] examenes POST positivo (MED1)
+  POST http://host.docker.internal:4444/examenes [201 Created, 444B, 5s]
+  ✓  examenes POST positivo (MED1) -> esperado 201
+  ✓  sin HTTP 500
+
+→ [critico] examenes POST negativo (PAC_A)
+  POST http://host.docker.internal:4444/examenes [403 Forbidden, 354B, 5s]
+  ✓  examenes POST negativo (PAC_A) -> esperado 403
+  ✓  sin HTTP 500
+
+→ [critico] documentos GET positivo (MED1)
+  GET http://host.docker.internal:4444/documentos/2 [200 OK, 2.1MB, 109ms]
+  ✓  documentos GET positivo (MED1) -> esperado 200
+  ✓  sin HTTP 500
+
+→ [critico] documentos GET negativo (PAC_A documento ajeno)
+  GET http://host.docker.internal:4444/documentos/4 [403 Forbidden, 347B, 30ms]
+  ✓  documentos GET negativo (PAC_A documento ajeno) -> esperado 403
+  ✓  sin HTTP 500
+
+→ [critico] documentos POST positivo (MED1)
+  POST http://host.docker.internal:4444/documentos [201 Created, 380B, 5s]
+  ✓  documentos POST positivo (MED1) -> esperado 201
+  ✓  sin HTTP 500
+
+→ [critico] documentos POST negativo (PAC_A)
+  POST http://host.docker.internal:4444/documentos [403 Forbidden, 354B, 5s]
+  ✓  documentos POST negativo (PAC_A) -> esperado 403
+  ✓  sin HTTP 500
+
+→ [critico] auditoria GET positivo (ADM)
+  GET http://host.docker.internal:4444/auditoria [200 OK, 6.91kB, 6ms]
+  ✓  auditoria GET positivo (ADM) -> esperado 200
+  ✓  sin HTTP 500
+
+→ [critico] auditoria GET negativo (MED1)
+  GET http://host.docker.internal:4444/auditoria [403 Forbidden, 373B, 4ms]
+  ✓  auditoria GET negativo (MED1) -> esperado 403
+  ✓  sin HTTP 500
+
+→ [vector] V1 login con {}
+  POST http://host.docker.internal:4444/autenticacion/login [400 Bad Request, 507B, 5ms]
+  ✓  V1 login con {} -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V2 registro con correo invalido
+  POST http://host.docker.internal:4444/autenticacion/registro [400 Bad Request, 444B, 3ms]
+  ✓  V2 registro con correo invalido -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V3 POST /usuarios nombre_usuario de 2 caracteres
+  POST http://host.docker.internal:4444/usuarios [400 Bad Request, 466B, 3ms]
+  ✓  V3 POST /usuarios nombre_usuario de 2 caracteres -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V4 PUT /usuarios/{qa_borrar} con {}
+  PUT http://host.docker.internal:4444/usuarios/13 [400 Bad Request, 450B, 3ms]
+  ✓  V4 PUT /usuarios/{qa_borrar} con {} -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V5 POST /pacientes sin rut
+  POST http://host.docker.internal:4444/pacientes [400 Bad Request, 421B, 3ms]
+  ✓  V5 POST /pacientes sin rut -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V6 PUT /pacientes/{Nuevo5} con sexo X
+  PUT http://host.docker.internal:4444/pacientes/21 [400 Bad Request, 428B, 4ms]
+  ✓  V6 PUT /pacientes/{Nuevo5} con sexo X -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V7 POST /examenes paciente_id abc
+  POST http://host.docker.internal:4444/examenes [400 Bad Request, 510B, 5s]
+  ✓  V7 POST /examenes paciente_id abc -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V8 POST /examenes paciente_id -1
+  POST http://host.docker.internal:4444/examenes [400 Bad Request, 444B, 3.5s]
+  ✓  V8 POST /examenes paciente_id -1 -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V9 POST /documentos sin archivo
+  POST http://host.docker.internal:4444/documentos [400 Bad Request, 342B, 5s]
+  ✓  V9 POST /documentos sin archivo -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V10 POST /roles con {} (ADM)
+  POST http://host.docker.internal:4444/roles [500 Internal Server Error, 410B, 4ms]
+  8. V10 POST /roles con {} (ADM) -> esperado 400
+  9. sin HTTP 500
+
+→ [vector] V11 GET /examenes/abc
+  GET http://host.docker.internal:4444/examenes/abc [500 Internal Server Error, 385B, 11ms]
+ 10. V11 GET /examenes/abc -> esperado 400/404
+ 11. sin HTTP 500
+
+→ [vector] V12 POST /pacientes con JSON mal formado
+  POST http://host.docker.internal:4444/pacientes [400 Bad Request, 444B, 4ms]
+  ✓  V12 POST /pacientes con JSON mal formado -> esperado 400
+  ✓  sin HTTP 500
+
+→ [vector] V13 script_malicioso.exe (application/x-msdownload)
+  POST http://host.docker.internal:4444/documentos [500 Internal Server Error, 464B, 5s]
+ 12. V13 script_malicioso.exe (application/x-msdownload) -> esperado 400/415
+ 13. sin HTTP 500
+
+→ [vector] V14 resultado_falso.pdf (MZ como application/pdf)
+  POST http://host.docker.internal:4444/documentos [201 Created, 377B, 5s]
+ 14. V14 resultado_falso.pdf (MZ como application/pdf) -> esperado 400/415
+  ✓  sin HTTP 500
+
+→ [vector] V15 foto_falsa.jpg (HTML/JS como image/jpeg)
+  POST http://host.docker.internal:4444/documentos [201 Created, 371B, 5s]
+ 15. V15 foto_falsa.jpg (HTML/JS como image/jpeg) -> esperado 400/415
+  ✓  sin HTTP 500
+
+→ [vector] V16 GET /pacientes/abc
+  GET http://host.docker.internal:4444/pacientes/abc [500 Internal Server Error, 379B, 5ms]
+ 16. V16 GET /pacientes/abc -> esperado 400/404
+ 17. sin HTTP 500
+
+→ [vector] V17 resultado_grande.pdf 11 MB
+  POST http://host.docker.internal:4444/documentos [500 Internal Server Error, 464B, 5.1s]
+ 18. V17 resultado_grande.pdf 11 MB -> esperado 400/413
+ 19. sin HTTP 500
+
+→ [vector] V18 POST /documentos con paciente_id distinto al del examen
+  POST http://host.docker.internal:4444/documentos [201 Created, 381B, 3.5s]
+ 20. V18 POST /documentos con paciente_id distinto al del examen -> esperado 400
+  ✓  sin HTTP 500
+
+┌─────────────────────────┬───────────────────┬───────────────────┐
+│                         │          executed │            failed │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│              iterations │                 1 │                 0 │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│                requests │                59 │                 0 │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│            test-scripts │                59 │                 0 │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│      prerequest-scripts │                 0 │                 0 │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│              assertions │               118 │                20 │
+├─────────────────────────┴───────────────────┴───────────────────┤
+│ total run duration: 1m 35.6s                                    │
+├─────────────────────────────────────────────────────────────────┤
+│ total data received: 2.13MB (approx)                            │
+├─────────────────────────────────────────────────────────────────┤
+│ average response time: 1607ms [min: 3ms, max: 5.1s, s.d.: 2.2s] │
+└─────────────────────────────────────────────────────────────────┘
+
+   #  failure         detail                                                                        
+                                                                                                    
+ 01.  AssertionError  POST /usuarios sin token -> esperado 401                                      
+                      expected 400 to be one of [ 401 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[401 sin token] POST /usuarios sin token"                             
+                                                                                                    
+ 02.  AssertionError  PUT /usuarios/{id} sin token -> esperado 401                                  
+                      expected 400 to be one of [ 401 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[401 sin token] PUT /usuarios/{id} sin token"                         
+                                                                                                    
+ 03.  AssertionError  DELETE /usuarios/{id} sin token -> esperado 401                               
+                      expected 404 to be one of [ 401 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[401 sin token] DELETE /usuarios/{id} sin token"                      
+                                                                                                    
+ 04.  AssertionError  POST /pacientes sin token -> esperado 401                                     
+                      expected 400 to be one of [ 401 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[401 sin token] POST /pacientes sin token"                            
+                                                                                                    
+ 05.  AssertionError  PUT /pacientes/{id} sin token -> esperado 401                                 
+                      expected 400 to be one of [ 401 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[401 sin token] PUT /pacientes/{id} sin token"                        
+                                                                                                    
+ 06.  AssertionError  POST /examenes sin token -> esperado 401                                      
+                      expected 400 to be one of [ 401 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[401 sin token] POST /examenes sin token"                             
+                                                                                                    
+ 07.  AssertionError  PUT /examenes/{id} sin token -> esperado 401                                  
+                      expected 400 to be one of [ 401 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[401 sin token] PUT /examenes/{id} sin token"                         
+                                                                                                    
+ 08.  AssertionError  V10 POST /roles con {} (ADM) -> esperado 400                                  
+                      expected 500 to be one of [ 400 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[vector] V10 POST /roles con {} (ADM)"                                
+                                                                                                    
+ 09.  AssertionError  sin HTTP 500                                                                  
+                      expected 500 to not equal 500                                                 
+                      at assertion:1 in test-script                                                 
+                      inside "[vector] V10 POST /roles con {} (ADM)"                                
+                                                                                                    
+ 10.  AssertionError  V11 GET /examenes/abc -> esperado 400/404                                     
+                      expected 500 to be one of [ 400, 404 ]                                        
+                      at assertion:0 in test-script                                                 
+                      inside "[vector] V11 GET /examenes/abc"                                       
+                                                                                                    
+ 11.  AssertionError  sin HTTP 500                                                                  
+                      expected 500 to not equal 500                                                 
+                      at assertion:1 in test-script                                                 
+                      inside "[vector] V11 GET /examenes/abc"                                       
+                                                                                                    
+ 12.  AssertionError  V13 script_malicioso.exe (application/x-msdownload) -> esperado 400/415       
+                      expected 500 to be one of [ 400, 415 ]                                        
+                      at assertion:0 in test-script                                                 
+                      inside "[vector] V13 script_malicioso.exe (application/x-msdownload)"         
+                                                                                                    
+ 13.  AssertionError  sin HTTP 500                                                                  
+                      expected 500 to not equal 500                                                 
+                      at assertion:1 in test-script                                                 
+                      inside "[vector] V13 script_malicioso.exe (application/x-msdownload)"         
+                                                                                                    
+ 14.  AssertionError  V14 resultado_falso.pdf (MZ como application/pdf) -> esperado 400/415         
+                      expected 201 to be one of [ 400, 415 ]                                        
+                      at assertion:0 in test-script                                                 
+                      inside "[vector] V14 resultado_falso.pdf (MZ como application/pdf)"           
+                                                                                                    
+ 15.  AssertionError  V15 foto_falsa.jpg (HTML/JS como image/jpeg) -> esperado 400/415              
+                      expected 201 to be one of [ 400, 415 ]                                        
+                      at assertion:0 in test-script                                                 
+                      inside "[vector] V15 foto_falsa.jpg (HTML/JS como image/jpeg)"                
+                                                                                                    
+ 16.  AssertionError  V16 GET /pacientes/abc -> esperado 400/404                                    
+                      expected 500 to be one of [ 400, 404 ]                                        
+                      at assertion:0 in test-script                                                 
+                      inside "[vector] V16 GET /pacientes/abc"                                      
+                                                                                                    
+ 17.  AssertionError  sin HTTP 500                                                                  
+                      expected 500 to not equal 500                                                 
+                      at assertion:1 in test-script                                                 
+                      inside "[vector] V16 GET /pacientes/abc"                                      
+                                                                                                    
+ 18.  AssertionError  V17 resultado_grande.pdf 11 MB -> esperado 400/413                            
+                      expected 500 to be one of [ 400, 413 ]                                        
+                      at assertion:0 in test-script                                                 
+                      inside "[vector] V17 resultado_grande.pdf 11 MB"                              
+                                                                                                    
+ 19.  AssertionError  sin HTTP 500                                                                  
+                      expected 500 to not equal 500                                                 
+                      at assertion:1 in test-script                                                 
+                      inside "[vector] V17 resultado_grande.pdf 11 MB"                              
+                                                                                                    
+ 20.  AssertionError  V18 POST /documentos con paciente_id distinto al del examen -> esperado 400   
+                      expected 201 to be one of [ 400 ]                                             
+                      at assertion:0 in test-script                                                 
+                      inside "[vector] V18 POST /documentos con paciente_id distinto al del examen" 

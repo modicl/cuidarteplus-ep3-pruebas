@@ -1,0 +1,55 @@
+CP-07 2026-10-24 19:05
+último id auditoría inicial: 50
+
+### Paso 1: UI Nuevo Examen
+  respuesta UI: 200 POST http://localhost:4444/autenticacion/login {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI0Iiwibm9tYnJlVXN1YXJpbyI6InFhX21lZGljbzEiLCJyb2xJZCI6IjIiLCJyb2xOb21icmUiOiJtZWRpY28iLCJwYWNpZ
+  respuesta UI: 201 POST http://localhost:4444/examenes {"id":"10","tipo_examen_medico_id":"1","paciente_id":"1","diagnosis":"Anemia leve (dato sintético)","tratamiento":"Suplemento de hierro","observaciones":"Contro
+toasts: ['Examen creado exitosamente']
+id | tipo_examen_medico_id | paciente_id |          diagnosis           |     tratamiento      |          created_at           
+----+-----------------------+-------------+------------------------------+----------------------+-------------------------------
+ 10 |                     1 |           1 | Anemia leve (dato sintético) | Suplemento de hierro | 2026-10-24 22:05:51.659056+00
+(1 row)
+
+### Paso 2: API POST /examenes y sin campos
+completo: HTTP 201 (4.75s) {"id": "11", "tipo_examen_medico_id": "1", "paciente_id": "1", "diagnosis": "Anemia leve (dato sintético)", "tratamiento": "Suplemento de hierro", "observaciones": "Control en 30 días", "notas": null, "created_at": "2026-10-24T22:06:00.174Z"}
+sin paciente_id: HTTP 400 (4.8s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "paciente_id", "message": "El paciente es requerido"}]}
+sin tipo_examen_medico_id: HTTP 400 (4.81s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "tipo_examen_medico_id", "message": "El tipo de examen médico es requerido"}]}
+
+### Paso 3: PAC_A Mis Resultados
+¿aparece 'Anemia leve (dato sintético)'? False | cantidad de ocurrencias: 0
+
+### Paso 4: UI editar EX_A2 y reemplazar documento
+  respuesta UI: 200 PUT http://localhost:4444/examenes/3 {"id":"3","tipo_examen_medico_id":"3","paciente_id":"1","diagnosis":"Anemia leve resuelta","tratamiento":"Alta médica","observaciones":"Control en 30 dias","not
+toasts edición: ['Examen actualizado exitosamente']
+id |      diagnosis       | tratamiento 
+----+----------------------+-------------
+  3 | Anemia leve resuelta | Alta médica
+(1 row)
+documentos listados en el formulario: []
+Intento de reemplazo: eliminar DOC_A2 con el botón del formulario (MED1)
+  respuesta UI: 403 DELETE http://localhost:4444/documentos/3 {"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}
+diálogo confirm: ['¿Estás seguro de eliminar el documento "resultado_examen_v1.pdf"?']
+toasts: ['No autorizado\nNo tiene permisos para realizar esta acción']
+Subir resultado_examen_v2.pdf al examen
+  respuesta UI: 201 POST http://localhost:4444/documentos {"documento":{"id":"9","nombre_archivo":"resultado_examen_v2.pdf","created_at":"2026-10-24T22:06:54.730Z"}}
+toasts: []
+
+### Paso 5: descargar documentos vigentes de EX_A2
+HTTP 200 (0.0s) [{"id": "9", "nombre_archivo": "resultado_examen_v2.pdf", "created_at": "2026-10-24T22:06:54.730Z"}, {"id": "3", "nombre_archivo": "resultado_examen_v1.pdf", "created_at": "2026-10-24T21:58:52.507Z"}]
+doc id 9 resultado_examen_v2.pdf: HTTP 200 SHA-256 753306a0dfc4955b8be8034b145387b505c2c0570cfc7206ad52d9582fad105d = v2
+doc id 3 resultado_examen_v1.pdf: HTTP 200 SHA-256 d97412680f90fcd74aef58e34e8420ddbe04e2be48c39179908d6d2b35e01d22 = v1
+SHA-256 v1: d97412680f90fcd74aef58e34e8420ddbe04e2be48c39179908d6d2b35e01d22 | v2: 753306a0dfc4955b8be8034b145387b505c2c0570cfc7206ad52d9582fad105d
+
+### Paso 6: auditoría
+id | usuario_id |                                    accion                                    
+----+------------+------------------------------------------------------------------------------
+ 51 |          4 | LOGIN: usuario inició sesión
+ 52 |          4 | EXAMENES_CREAR: creó examen médico ID 10 para paciente ID 1
+ 53 |          4 | EXAMENES_CREAR: creó examen médico ID 11 para paciente ID 1
+ 54 |          3 | LOGIN: usuario inició sesión
+ 55 |          4 | EXAMENES_ACTUALIZAR: actualizó examen médico ID 3
+ 56 |          4 | DOCUMENTOS_CREAR: subió documento "resultado_examen_v2.pdf" para examen ID 3
+(6 rows)
+
+### Nota de verificación (paso 3, repetido)
+La comprobación textual del paso 3 buscaba el diagnóstico, pero "Mis Resultados" no lo muestra. Se repitió: PAC_A ve 9 tarjetas de examen (los 7 previos del paciente A + los 2 creados en el paso 1 y 2); respuesta GET /examenes/paciente/1 HTTP 200. Captura: CP-07_paso3_mis_resultados.png. El paso 3 queda como cumplido.

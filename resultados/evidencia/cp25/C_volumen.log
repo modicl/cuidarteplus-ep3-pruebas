@@ -1,0 +1,188 @@
+$ docker run --rm --network cuidarteplus-network --cpus 6 --memory 4g -v C:\Users\Villa\Downloads\CodigoFuenteB\CodigoFuenteB\resultados\cp25:/work -v C:\Users\Villa\Downloads\CodigoFuenteB\CodigoFuenteB\resultados\datos:/datos:ro -v C:\Users\Villa\Downloads\CodigoFuenteB\CodigoFuenteB\resultados\evidencia\cp25:/out grafana/k6 run --no-color --summary-export=/out/C_volumen.json /work/k6/c_volumen.js
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /work/k6/c_volumen.js
+        output: -
+
+     scenarios: (100.00%) 2 scenarios, 2 max VUs, 11m0s max duration (incl. graceful stop):
+              * medico: 50 iterations shared among 1 VUs (maxDuration: 10m0s, exec: medico, gracefulStop: 30s)
+              * paciente: 50 iterations shared among 1 VUs (maxDuration: 10m0s, exec: paciente, startTime: 30s, gracefulStop: 30s)
+
+
+running (00m01.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  29.0s          
+
+running (00m02.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  28.0s          
+
+running (00m03.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  27.0s          
+
+running (00m04.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  26.0s          
+
+running (00m05.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  25.0s          
+
+running (00m06.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  24.0s          
+
+running (00m07.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  23.0s          
+
+running (00m07.6s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  22.0s          
+
+running (00m08.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  21.0s          
+
+running (00m09.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  20.0s          
+
+running (00m10.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  19.0s          
+
+running (00m11.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  18.0s          
+
+running (00m12.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  17.0s          
+
+running (00m13.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  16.0s          
+
+running (00m14.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  15.0s          
+
+running (00m15.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  14.0s          
+
+running (00m16.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  13.0s          
+
+running (00m17.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  12.0s          
+
+running (00m18.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  11.0s          
+
+running (00m19.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  10.0s          
+
+running (00m20.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  09.0s          
+
+running (00m21.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  08.0s          
+
+running (00m22.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  07.0s          
+
+running (00m23.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  06.0s          
+
+running (00m24.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  05.0s          
+
+running (00m25.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  04.0s          
+
+running (00m26.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  03.0s          
+
+running (00m27.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  02.0s          
+
+running (00m28.1s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  01.0s          
+
+running (00m29.0s), 0/2 VUs, 50 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs    00m00.2s/10m0s  50/50 shared iters
+paciente • [   0% ] waiting  00.0s          
+
+
+  █ THRESHOLDS 
+
+    checks{check:200 examenes}
+    ✓ 'rate==1' rate=100.00%
+
+    http_req_duration{op:vol_medico}
+    ✓ 'p(95)<300' p(95)=3.53ms
+
+    http_req_duration{op:vol_paciente}
+    ✓ 'p(95)<300' p(95)=4.46ms
+
+    http_req_failed
+    ✓ 'rate==0' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 100     3.415832/s
+    checks_succeeded...: 100.00% 100 out of 100
+    checks_failed......: 0.00%   0 out of 100
+
+    ✓ 200 examenes
+
+    HTTP
+    http_req_duration..............: avg=3.26ms med=3.04ms p(90)=3.87ms p(95)=4.41ms max=12.03ms
+      { expected_response:true }...: avg=3.26ms med=3.04ms p(90)=3.87ms p(95)=4.41ms max=12.03ms
+      { op:vol_medico }............: avg=2.98ms med=2.86ms p(90)=3.39ms p(95)=3.53ms max=4.81ms 
+      { op:vol_paciente }..........: avg=3.49ms med=3.23ms p(90)=4.27ms p(95)=4.46ms max=12.03ms
+    http_req_failed................: 0.00%  0 out of 102
+    http_reqs......................: 102    3.484148/s
+
+    EXECUTION
+    iteration_duration.............: avg=3.95ms med=3.71ms p(90)=4.85ms p(95)=5.14ms max=13.21ms
+    iterations.....................: 100    3.415832/s
+    vus............................: 0      min=0        max=0
+    vus_max........................: 2      min=2        max=2
+
+    NETWORK
+    data_received..................: 7.2 MB 248 kB/s
+    data_sent......................: 48 kB  1.6 kB/s
+
+
+
+
+running (00m29.3s), 0/2 VUs, 100 complete and 0 interrupted iterations
+medico   ✓ [ 100% ] 1 VUs  00m00.2s/10m0s  50/50 shared iters
+paciente ✓ [ 100% ] 1 VUs  00m00.2s/10m0s  50/50 shared iters
+
+Código de salida de k6: 0 (99 = umbral incumplido)

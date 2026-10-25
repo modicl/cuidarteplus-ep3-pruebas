@@ -1,0 +1,51 @@
+{
+ "url": "http://localhost:3333/login",
+ "lighthouse": "13.5.0",
+ "results": [
+  {
+   "rep": 1,
+   "finalUrl": "http://localhost:3333/login",
+   "load_ms": 4225,
+   "lcp_ms": 4387.72,
+   "fcp_ms": 4387.72,
+   "perf_score": 0.72,
+   "runWarnings": []
+  },
+  {
+   "rep": 2,
+   "finalUrl": "http://localhost:3333/login",
+   "load_ms": 4323,
+   "lcp_ms": 4476.592,
+   "fcp_ms": 4476.592,
+   "perf_score": 0.71,
+   "runWarnings": []
+  },
+  {
+   "rep": 3,
+   "finalUrl": "http://localhost:3333/login",
+   "load_ms": 4297,
+   "lcp_ms": 4477.485,
+   "fcp_ms": 4477.485,
+   "perf_score": 0.71,
+   "runWarnings": []
+  },
+  {
+   "rep": 4,
+   "finalUrl": "http://localhost:3333/login",
+   "load_ms": 4244,
+   "lcp_ms": 4387.144,
+   "fcp_ms": 4387.144,
+   "perf_score": 0.72,
+   "runWarnings": []
+  },
+  {
+   "rep": 5,
+   "finalUrl": "http://localhost:3333/login",
+   "load_ms": 4263,
+   "lcp_ms": 4415.23,
+   "fcp_ms": 4415.23,
+   "perf_score": 0.71,
+   "runWarnings": []
+  }
+ ]
+}

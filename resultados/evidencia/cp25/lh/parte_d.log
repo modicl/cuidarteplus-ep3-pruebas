@@ -1,0 +1,17 @@
+Chromium 156.0.8078.4 | Playwright 1.64.1
+== /login (sin sesión, caché vacía) ==
+[rep 1] rep 1: finalUrl=http://localhost:3333/login load=4225 ms LCP=4388 ms FCP=4388 ms score=0.72 
+[rep 2] rep 1: finalUrl=http://localhost:3333/login load=4323 ms LCP=4477 ms FCP=4477 ms score=0.71 
+[rep 3] rep 1: finalUrl=http://localhost:3333/login load=4297 ms LCP=4477 ms FCP=4477 ms score=0.71 
+[rep 4] rep 1: finalUrl=http://localhost:3333/login load=4244 ms LCP=4387 ms FCP=4387 ms score=0.72 
+[rep 5] rep 1: finalUrl=http://localhost:3333/login load=4263 ms LCP=4415 ms FCP=4415 ms score=0.71 
+== /home con sesión de PAC_A ==
+[rep 1] rep 1: finalUrl=http://localhost:3333/home load=4249 ms LCP=5264 ms FCP=4499 ms score=0.68 
+[rep 2] rep 1: finalUrl=http://localhost:3333/home load=4288 ms LCP=5317 ms FCP=4547 ms score=0.68 
+[rep 3] rep 1: finalUrl=http://localhost:3333/home load=4269 ms LCP=5274 ms FCP=4507 ms score=0.68 
+[rep 4] rep 1: finalUrl=http://localhost:3333/home load=4305 ms LCP=5367 ms FCP=4580 ms score=0.68 
+[rep 5] rep 1: finalUrl=http://localhost:3333/home load=4239 ms LCP=5263 ms FCP=4493 ms score=0.68 
+
+Resumen (mediana de 5 repeticiones):
+  login: URL final http://localhost:3333/login | load mediana 4263 ms | LCP mediana 4415 ms | Lighthouse 13.5.0
+  home: URL final http://localhost:3333/home | load mediana 4269 ms | LCP mediana 5274 ms | Lighthouse 13.5.0

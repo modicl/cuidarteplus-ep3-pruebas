@@ -1,0 +1,59 @@
+Found Java version 17.0.20.1
+Available memory: 15678 MB
+Using JVM args: -Xmx3919m
+336 [main] INFO  org.parosproxy.paros.Constant - Copying default configuration to /home/zap/.ZAP/config.xml
+410 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP/session
+411 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP/dirbuster
+411 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP/fuzzers
+412 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP/plugin
+Oct 24, 2026 10:40:41 PM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+Job openapi set apiFile = /zap/wrk/openapi_cp21_get.json
+Job openapi set targetUrl = http://host.docker.internal:4444
+Job openapi set context = api
+Job replacer set description = auth
+Job replacer set matchType = REQ_HEADER
+Job replacer set matchString = Authorization
+Job replacer set replacementString = Bearer <TOKEN_OCULTO>
+Job replacer set initiators = []
+Job spider set context = web
+Job spider set maxDuration = 2
+Job passiveScan-wait set maxDuration = 5
+Job activeScan set context = api
+Job activeScan set maxScanDurationInMins = 8
+Job activeScan set defaultStrength = Medium
+Job activeScan set defaultThreshold = Off
+Job report set template = traditional-json
+Job report set reportDir = /zap/wrk
+Job report set reportFile = cp21_zap_reporte
+Job openapi started
+Job openapi added 13 URLs
+Job openapi finished, time taken: 00:00:10
+Job replacer started
+Job replacer finished, time taken: 00:00:00
+Job spider started
+Job spider requesting URL http://host.docker.internal:3333
+Job spider found 25 URLs
+Job spider finished, time taken: 00:00:00
+Job passiveScan-wait started
+Job passiveScan-wait finished, time taken: 00:00:05
+Job activeScan started
+Job activeScan set default strength to MEDIUM
+Job activeScan set default threshold to OFF
+Job activeScan set rule 40012 strength to MEDIUM
+Job activeScan set rule 40012 threshold to MEDIUM
+Job activeScan set rule 40014 strength to MEDIUM
+Job activeScan set rule 40014 threshold to MEDIUM
+Job activeScan set rule 6 strength to MEDIUM
+Job activeScan set rule 6 threshold to MEDIUM
+Job activeScan set rule 40003 strength to MEDIUM
+Job activeScan set rule 40003 threshold to MEDIUM
+Job activeScan set rule 90020 strength to MEDIUM
+Job activeScan set rule 90020 threshold to MEDIUM
+Job activeScan set rule 90034 strength to MEDIUM
+Job activeScan set rule 90034 threshold to MEDIUM
+Job activeScan finished, time taken: 00:00:07
+Job report started
+Job report generated report /zap/wrk/cp21_zap_reporte.json
+Job report finished, time taken: 00:00:00
+Automation plan succeeded!

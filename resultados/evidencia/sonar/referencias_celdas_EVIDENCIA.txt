@@ -1,0 +1,6 @@
+Texto para agregar al final de la celda EVIDENCIA (no cambia RESULTADO). Se incorpora a resultados/seccion5.md cuando se escriban las filas de la fase 2.
+CP-17: Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 0 hallazgos relevantes.
+CP-18: Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 0 hallazgos relevantes.
+CP-20: Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 0 hallazgos relevantes.
+CP-21: Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 4 hallazgos relevantes.
+CP-22: Análisis estático: resultados/evidencia/sonar/hallazgos_relevantes.txt, 1 hallazgo relevante.

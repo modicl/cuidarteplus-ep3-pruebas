@@ -1,0 +1,15 @@
+from qa import *
+e = Ev("CP-15"); e.w("CP-15", time.strftime("%Y-%m-%d %H:%M"))
+TA=login("paciente"); TADM=login("admin"); PB=14
+snap=lambda: sql("select p.telefono, u.correo, x.diagnosis from pacientes p, usuarios u, examen_medico x where p.id=11 and u.id=%d and x.id=%s"%(PB,IDS["EX_B1"]))
+e.step(0,"copia previa (ficha B, cuenta PAC_B, EX_B1)"); before=snap(); e.w(before)
+e.step(1,""); r=api("PUT","/pacientes/11",token=TA,body={"telefono":"+56900000000"}); e.w("PUT /pacientes/11:",short(r,200))
+e.step(2,""); r=api("PUT",f"/usuarios/{PB}",token=TA,body={"correo":"hackeado@example.com"}); e.w(f"PUT /usuarios/{PB}:",short(r,200))
+e.step(3,""); r=api("PUT",f"/examenes/{IDS['EX_B1']}",token=TA,body={"diagnosis":"modificado por otro paciente"}); e.w(f"PUT /examenes/{IDS['EX_B1']}:",short(r,200))
+e.step(4,"comparar con la copia"); after=snap(); e.w(after); e.w("sin cambios:",before==after)
+e.step(5,"registro con RUT ajeno"); e.w("ficha 19 antes:",sql("select id,rut,primer_nombre,usuario_id from pacientes where id=19"))
+r=api("POST","/autenticacion/registro",body={"nombre_usuario":"qa_intruso2","password":"Cuidarte#Aux2026","correo":"qa_intruso2@example.com","rut":"14.321.987-9"}); e.w(short(r,250)); e.w("ficha 19 después:",sql("select id,rut,primer_nombre,usuario_id from pacientes where id=19"))
+e.step(6,"login qa_intruso2 y consultas"); T=login("qa_intruso2","Cuidarte#Aux2026"); e.w("login:",bool(T), jwt(T) if T else "")
+r=api("GET","/pacientes/19",token=T); e.w("GET /pacientes/19:",short(r,300))
+r=api("GET","/examenes",token=T); e.w("GET /examenes:",short(r,200))
+e.w(sql("select id,usuario_id,accion from auditoria order by id desc limit 3"))

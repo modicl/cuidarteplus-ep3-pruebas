@@ -1,0 +1,61 @@
+CP-03 2026-10-24 19:01
+
+### Paso 1: UI registro qa_registro01 con vector f
+URL: http://localhost:3333/login
+toasts/mensajes: ['Cuenta creada exitosamente, ahora inicia sesión']
+
+### Paso 2: login y rol en BD
+login: True
+nombre_usuario |   rol    
+----------------+----------
+ qa_registro01  | paciente
+(1 row)
+
+### Paso 3: UI pantallas de gestión con esa sesión
+/pacientes -> URL final http://localhost:3333/pacientes | texto: Exámenes Médicos | Mis Resultados |  | qa_registro01 |  | Paciente | Cargando pacientes... |  | Sistema de gestión de exámenes médicos. Administra pacientes, exámenes y resultados de manera eficiente y segura. |  | Enlac
+/usuarios -> URL final http://localhost:3333/usuarios | texto: Exámenes Médicos | Mis Resultados |  | qa_registro01 |  | Paciente | No autorizado (solo administrador). |  | Sistema de gestión de exámenes médicos. Administra pacientes, exámenes y resultados de manera eficiente y 
+/auditoria -> URL final http://localhost:3333/auditoria | texto: Exámenes Médicos | Mis Resultados |  | qa_registro01 |  | Paciente | No autorizado (solo administrador). |  | Sistema de gestión de exámenes médicos. Administra pacientes, exámenes y resultados de manera eficiente y 
+menú: Exámenes Médicos | Mis Resultados
+
+### Paso 4: duplicados
+mismo usuario: HTTP 400 (0.0s) {"error": "Usuario o correo duplicado", "glosa": "El nombre de usuario o correo electrónico ya está en uso"}
+mismo correo: HTTP 400 (0.0s) {"error": "Usuario o correo duplicado", "glosa": "El nombre de usuario o correo electrónico ya está en uso"}
+
+### Paso 5: qa_registro02 con RUT 15.678.234-3
+HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "16", "nombre_usuario": "qa_registro02", "correo": "qa_registro02@example.com", "created_at": "2026-10-24T22:01:47.328Z"}}
+id |    rut     | primer_nombre | apellido_paterno | fecha_nacimiento | sexo | usuario_id 
+----+------------+---------------+------------------+------------------+------+------------
+ 22 | 15678234-3 | qa_registro02 |                  | 2000-01-01       | M    |         16
+(1 row)
+
+### Paso 6: API vectores a-e
+vector a (Segura#2026): HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "17", "nombre_usuario": "qa_reg_a", "correo": "qa_reg_a@example.com", "created_at": "2026-10-24T22:01:47.449Z"}}
+  ¿usuario creado en BD? 1
+vector b (cuidarte#2026x): HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "18", "nombre_usuario": "qa_reg_b", "correo": "qa_reg_b@example.com", "created_at": "2026-10-24T22:01:47.548Z"}}
+  ¿usuario creado en BD? 1
+vector c (CUIDARTE#2026X): HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "19", "nombre_usuario": "qa_reg_c", "correo": "qa_reg_c@example.com", "created_at": "2026-10-24T22:01:47.640Z"}}
+  ¿usuario creado en BD? 1
+vector d (Cuidarte#Segura): HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "20", "nombre_usuario": "qa_reg_d", "correo": "qa_reg_d@example.com", "created_at": "2026-10-24T22:01:47.735Z"}}
+  ¿usuario creado en BD? 1
+vector e (Cuidarte2026ab): HTTP 201 (0.01s) {"message": "Usuario registrado exitosamente", "usuario": {"id": "21", "nombre_usuario": "qa_reg_e", "correo": "qa_reg_e@example.com", "created_at": "2026-10-24T22:01:47.831Z"}}
+  ¿usuario creado en BD? 1
+
+### Paso 6: UI vectores a y f
+UI vector a -> URL: http://localhost:3333/login | toasts: ['Cuenta creada exitosamente, ahora inicia sesión']
+  ¿creado? 1
+UI vector f -> URL: http://localhost:3333/login | toasts: ['Cuenta creada exitosamente, ahora inicia sesión']
+
+### Paso 7: auditoría de registros
+id | usuario_id |               accion               
+----+------------+------------------------------------
+ 17 |         14 | REGISTRO: nuevo usuario registrado
+ 36 |         15 | REGISTRO: nuevo usuario registrado
+ 39 |         16 | REGISTRO: nuevo usuario registrado
+ 40 |         17 | REGISTRO: nuevo usuario registrado
+ 41 |         18 | REGISTRO: nuevo usuario registrado
+ 42 |         19 | REGISTRO: nuevo usuario registrado
+ 43 |         20 | REGISTRO: nuevo usuario registrado
+ 44 |         21 | REGISTRO: nuevo usuario registrado
+ 45 |         22 | REGISTRO: nuevo usuario registrado
+ 46 |         23 | REGISTRO: nuevo usuario registrado
+(10 rows)

@@ -1,0 +1,62 @@
+CP-12 2026-10-24 19:17
+
+### Paso 1: 9 operaciones x 3 roles por API
+op1 ADM: [('listar', 200), ('crear', 201), ('editar', 200), ('eliminar', 500)] esperado permitido -> NO CUMPLE
+op2 ADM: HTTP 200 (4.79s) esperado permitido -> OK | '[{"id":"25","rut":"12345678-9","primer_nombre":"Inv","apellido_paterno":"Alido","apellido_materno":n'
+   (ficha ajena GET /pacientes/2: 200 )
+op3a crear paciente ADM: HTTP 400 (0.0s)
+op3 ADM: HTTP 200 (0.03s) esperado permitido -> OK | '{"id":"2","rut":"16789456-K","primer_nombre":"María","apellido_paterno":"González","apellido_materno'
+op4 ADM: HTTP 200 (0.02s) esperado permitido -> OK | '{"deleted":true}'
+op5 ADM: HTTP 201 (4.78s) esperado permitido -> OK | '{"id":"13","tipo_examen_medico_id":"1","paciente_id":"1","diagnosis":"cp12","tratamiento":null,"obse'
+op6 ADM: HTTP 200 (0.01s) esperado permitido -> OK | '{"deleted":true}'
+   op6b eliminar documento ADM: HTTP 200
+op7 ADM: HTTP 201 (4.8s) esperado permitido -> OK | '{"documento":{"id":"16","nombre_archivo":"m.pdf","created_at":"2026-10-24T22:17:36.995Z"}}'
+op8 ADM: propio ex/doc 200/200, ajeno ex/doc 200/200 -> OK
+op9 ADM: HTTP 200 (0.03s) esperado permitido -> OK | '[{"id":"102","usuario_id":"1","accion":"DOCUMENTOS_CREAR: subió documento \\"m.pdf\\" para examen ID 4'
+op1 MED: [('listar', 403), ('crear', 201), ('editar', 403), ('eliminar', 500)] esperado denegado -> NO CUMPLE
+op2 MED: HTTP 200 (4.81s) esperado permitido -> OK | '[{"id":"25","rut":"12345678-9","primer_nombre":"Inv","apellido_paterno":"Alido","apellido_materno":n'
+   (ficha ajena GET /pacientes/2: 200 )
+op3a crear paciente MED: HTTP 400 (0.0s)
+op3 MED: HTTP 200 (0.01s) esperado permitido -> OK | '{"id":"2","rut":"16789456-K","primer_nombre":"María","apellido_paterno":"González","apellido_materno'
+op4 MED: HTTP 403 (0.01s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+op5 MED: HTTP 201 (4.8s) esperado permitido -> OK | '{"id":"16","tipo_examen_medico_id":"1","paciente_id":"1","diagnosis":"cp12","tratamiento":null,"obse'
+op6 MED: HTTP 403 (0.02s) esperado permitido -> NO CUMPLE | '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+   op6b eliminar documento MED: HTTP 403
+op7 MED: HTTP 201 (4.85s) esperado permitido -> OK | '{"documento":{"id":"18","nombre_archivo":"m.pdf","created_at":"2026-10-24T22:18:06.050Z"}}'
+op8 MED: propio ex/doc 200/200, ajeno ex/doc 200/200 -> OK
+op9 MED: HTTP 403 (0.03s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"Solo los administradores pueden ver los registros de auditoría"}'
+op1 PAC: [('listar', 403), ('crear', 201), ('editar', 403), ('eliminar', 500)] esperado denegado -> NO CUMPLE
+op2 PAC: HTTP 403 (4.79s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+   (ficha ajena GET /pacientes/2: 403 )
+op3a crear paciente PAC: HTTP 400 (0.01s)
+op3 PAC: HTTP 403 (0.02s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"Solo puede actualizar sus propios datos"}'
+op4 PAC: HTTP 403 (0.01s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+op5 PAC: HTTP 403 (4.78s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+op6 PAC: HTTP 403 (0.0s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+   op6b eliminar documento PAC: HTTP 403
+op7 PAC: HTTP 403 (4.76s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+op8 PAC: propio ex/doc 200/200, ajeno ex/doc 404/403 -> OK
+op9 PAC: HTTP 403 (0.02s) esperado denegado (403) -> OK | '{"error":"No autorizado","glosa":"Solo los administradores pueden ver los registros de auditoría"}'
+
+### Paso 5: conteo de celdas
+  celda no cumple: op1 ADM -> [('listar', 200), ('crear', 201), ('editar', 200), ('eliminar', 500)]
+  celda no cumple: op1 MED -> [('listar', 403), ('crear', 201), ('editar', 403), ('eliminar', 500)]
+  celda no cumple: op1 PAC -> [('listar', 403), ('crear', 201), ('editar', 403), ('eliminar', 500)]
+  celda no cumple: op6 MED -> 403
+celdas que se comportan como se espera: 23 de 27
+
+### Paso 3: UI como PAC_A
+/pacientes -> http://localhost:3333/pacientes | No autorizado | No tiene permisos para realizar esta acción | Exámenes Médicos | Mis Resultados |  | paciente |  | Paciente | Gestión de Pacientes | Administra la información de los pacien
+/pacientes/nuevo -> http://localhost:3333/pacientes/nuevo | Exámenes Médicos | Mis Resultados |  | paciente |  | Paciente | Registrar nuevo paciente | Ingresa los datos del paciente para registrarlo en el sistema. | 1. Información Personal | RUT * | 
+/examenes -> http://localhost:3333/examenes | Exámenes Médicos | Mis Resultados |  | paciente |  | Paciente | Mis Exámenes Médicos | Consulta y visualiza tus exámenes médicos y resultados. | LISTAR EXÁMENES | Tipo de Examen | 0 | Diagnóst
+/usuarios -> http://localhost:3333/usuarios | Exámenes Médicos | Mis Resultados |  | paciente |  | Paciente | No autorizado (solo administrador). |  | Sistema de gestión de exámenes médicos. Administra pacientes, exámenes y resultad
+tras user.rolNombre='admin': http://localhost:3333/usuarios | No autorizado | Solo los administradores pueden listar todos los usuarios | Pacientes | Exámenes Médicos | Auditoría | Usuarios |  | paciente |  | Admin | Gestión de Usuarios | Administra los usuarios del sistema. Puedes c
+API con T_PAC_A sigue respondiendo: HTTP 403 (0.0s) {"error": "No autorizado", "glosa": "Solo los administradores pueden listar todos los usuarios"}
+
+### Complemento paso 1, op3 (registrar pacientes), tras corregir el dato de prueba del guion (la primera pasada usó nombres de 1 letra y devolvió 400 para los 3 roles)
+op3 registrar paciente ADM: HTTP 201 (0.02s) '{"id":"31","rut":"3000000-6","primer_nombre":"Matriz","apellido_paterno":"Permisos","apell'
+op3 registrar paciente MED: HTTP 201 (0.01s) '{"id":"32","rut":"3111111-5","primer_nombre":"Matriz","apellido_paterno":"Permisos","apell'
+op3 registrar paciente PAC: HTTP 403 (0.02s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}'
+id | nombre_usuario 
+----+----------------
+(0 rows)

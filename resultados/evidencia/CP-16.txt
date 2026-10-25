@@ -1,0 +1,168 @@
+CP-16 2026-10-24 19:28
+ids: qa_esc_pac 10 qa_esc_med 11 qa_sinrol 12 qa_borrar 13 roles borrar1/2 4 5 Nuevo5 21
+id |     nombre     
+----+----------------
+  1 | admin
+  2 | medico
+  3 | paciente
+  4 | qa_rol_borrar1
+  5 | qa_rol_borrar2
+(5 rows)
+usuario_id | rol_id 
+------------+--------
+          1 |      1
+          2 |      2
+          3 |      3
+          4 |      2
+          5 |      2
+          6 |      3
+          7 |      3
+          8 |      3
+          9 |      3
+         10 |      3
+         11 |      2
+         14 |      3
+         15 |      3
+(13 rows)
+
+### Paso 1: escalamiento (9 intentos)
+(1) T_ESC_PAC PUT /usuarios/{esc_pac} rol_id 1: HTTP 400 (0.0s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "", "message": "Debe proporcionar al menos un campo  -> NO CUMPLE (esperado 403)
+(2) T_ESC_MED PUT /usuarios/{esc_med} rol_id 1: HTTP 400 (0.03s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "", "message": "Debe proporcionar al menos un campo  -> NO CUMPLE (esperado 403)
+(3) T_ESC_MED PUT /usuarios/{esc_pac} rol_id 1: HTTP 400 (0.0s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "", "message": "Debe proporcionar al menos un campo  -> NO CUMPLE (esperado 403)
+(4) T_ESC_MED POST /usuarios qa_intruso rol_id 1: HTTP 201 (0.01s) {"id": "16", "nombre_usuario": "qa_intruso", "correo": "qa_intruso@example.com", "created_at": "2026-10-24T22:28:25.861Z"} -> NO CUMPLE (esperado 403)
+(5) T_ESC_PAC POST /usuarios qa_intruso rol_id 1: HTTP 500 (0.02s) {"error": "Error al crear usuario", "glosa": "duplicate key value violates unique constraint \"usuarios_correo_key\""} -> NO CUMPLE (esperado 403)
+(6) T_ESC_PAC POST /roles qa_rol_intruso: HTTP 500 (0.02s) {"error": "Error al crear rol", "glosa": "invalid input syntax for type bigint: \"qa_esc_pac\""} -> NO CUMPLE (esperado 403)
+(7) T_ESC_PAC PUT /roles/{borrar1}: HTTP 500 (0.01s) {"error": "Error al actualizar rol", "glosa": "invalid input syntax for type bigint: \"qa_esc_pac\""} -> NO CUMPLE (esperado 403)
+(8) T_ESC_PAC DELETE /roles/{borrar1}: HTTP 500 (0.01s) {"error": "Error al eliminar rol", "glosa": "invalid input syntax for type bigint: \"qa_esc_pac\""} -> NO CUMPLE (esperado 403)
+(9) T_ESC_MED DELETE /pacientes/{Nuevo5}: HTTP 403 (0.01s) {"error": "No autorizado", "glosa": "No tiene permisos para realizar esta acción"} -> OK
+escalamientos rechazados con 403: 1 de 9
+
+### Paso 2: 11 operaciones con bearerAuth sin token
+  sin token GET /pacientes/1: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token GET /pacientes: HTTP 401 (4.7s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}' -> OK
+  sin token GET /examenes: HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token GET /examenes/2: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token GET /examenes/paciente/1: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token GET /documentos/2: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token GET /documentos/examen/2: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token GET /usuarios: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token GET /usuarios/12: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token DELETE /usuarios/13: HTTP 200 (0.0s) '{"deleted":true}' -> NO CUMPLE (esperado 401)
+  sin token GET /auditoria: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+rechazadas con 401: 10 de 11
+
+### Paso 3: 6 operaciones no documentadas sin token
+  sin token GET /pacientes/buscar/rut/11111111-1: HTTP 200 '{"id":"1","rut":"11111111-1","primer_nombre":"Juan","apellido_paterno":"Pérez","apellido_materno":"Gómez","fecha_nacimie' -> NO CUMPLE (esperado 401)
+  sin token POST /auditoria: HTTP 401 '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  sin token GET /roles/5: HTTP 200 '{"id":"5","nombre":"qa_rol_borrar2"}' -> NO CUMPLE (esperado 401)
+  sin token POST /roles: HTTP 201 '{"id":"7","nombre":"qa_rol_intruso2"}' -> NO CUMPLE (esperado 401)
+  sin token PUT /roles/5: HTTP 500 '{"error":"Error al actualizar rol","glosa":"duplicate key value violates unique constraint \\"roles_nombre_key\\""}' -> NO CUMPLE (esperado 401)
+  sin token DELETE /roles/5: HTTP 200 '{"deleted":true}' -> NO CUMPLE (esperado 401)
+rechazadas con 401: 1 de 6
+
+### Paso 4: ruta estática /files/documentos
+GET /files/documentos/: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /files/documentos/</pre>
+</body>
+</
+GET /files/documentos/resultado_examen.pdf: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<
+archivos en BACKEND/uploads/documentos: []
+
+### Paso 5: pasos 2 y 3 con token vencido
+payload del token vencido: {'usuarioId': '1', 'nombreUsuario': 'admin', 'rolId': '1', 'rolNombre': 'admin', 'iat': 1792873715, 'exp': 1792873775}
+  vencido GET /pacientes/1: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido GET /pacientes: HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"No tiene permisos para realizar esta acción"}' -> OK
+  vencido GET /examenes: HTTP 401 (4.8s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido GET /examenes/2: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido GET /examenes/paciente/1: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido GET /documentos/2: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido GET /documentos/examen/2: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido GET /usuarios: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido GET /usuarios/12: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido DELETE /usuarios/13: HTTP 404 (0.0s) '{"error":"No encontrado"}' -> NO CUMPLE (esperado 401)
+  vencido GET /auditoria: HTTP 401 (0.0s) '{"error":"No autorizado","glosa":"Token inválido"}' -> OK
+  vencido GET /pacientes/buscar/rut/11111111-1: HTTP 200 (0.0s) '{"id":"1","rut":"11111111-1","primer_nombre":"Juan","apellido_paterno":"Pérez","apellido_m' -> NO CUMPLE (esperado 401)
+  vencido GET /roles/5: HTTP 404 (0.0s) '{"error":"No encontrado"}' -> NO CUMPLE (esperado 401)
+rechazadas con 401 (13 operaciones sin las que escriben roles/auditoría): 10
+  vencido POST /auditoria: HTTP 401 '{"error":"No autorizado","glosa":"Token inválido"}'
+  vencido POST /roles: HTTP 500 '{"error":"Error al crear rol","glosa":"duplicate key value violates unique constraint \\"roles_nombre'
+  vencido PUT /roles/5: HTTP 404 '{"error":"No encontrado"}'
+  vencido DELETE /roles/5: HTTP 404 '{"error":"No encontrado"}'
+
+### Paso 6: usuario sin rol qa_sinrol
+login: True
+  GET /usuarios/3: HTTP 200 (0.0s) {"id": "3", "nombre_usuario": "paciente", "correo": "paciente@cuidarteplus.com", "created_at": "2026-10-24T21:57:22.044Z", "rol_id": "3", "rol_nombre" -> NO CUMPLE (esperado 403)
+  GET /examenes: HTTP 403 (4.76s) {"error": "No autorizado", "glosa": "No tiene permisos para realizar esta acción"} -> OK
+  GET /documentos/2: HTTP 403 (0.03s) {"error": "No autorizado", "glosa": "No tiene permisos para realizar esta acción"} -> OK
+
+### Paso 7: operaciones públicas esperadas
+  GET /tipo-examen: HTTP 200
+  GET /tipo-examen/1: HTTP 200
+  GET /roles: HTTP 200
+  GET /: HTTP 200
+  GET /docs/: HTTP 200
+  GET /openapi.json: HTTP 200
+
+### Paso 8: estado final vs inicial
+id |     nombre      
+----+-----------------
+  1 | admin
+  2 | medico
+  3 | paciente
+  6 | qa_rol_intruso
+  7 | qa_rol_intruso2
+(5 rows)
+usuario_id | rol_id 
+------------+--------
+          1 |      1
+          2 |      2
+          3 |      3
+          4 |      2
+          5 |      2
+          6 |      3
+          7 |      3
+          8 |      3
+          9 |      3
+         10 |      3
+         11 |      2
+         14 |      3
+         15 |      3
+         16 |      1
+(14 rows)
+usuario_roles igual al inicial: False
+id | nombre_usuario 
+----+----------------
+ 10 | qa_esc_pac
+ 11 | qa_esc_med
+ 16 | qa_intruso
+(3 rows)
+paciente_nuevo5 
+-----------------
+               1
+(1 row)
+qa_esc_pac token: paciente
+qa_esc_med token: medico
+admin sigue existiendo y puede iniciar sesión: True
+
+### Prueba complementaria (no está en los pasos del informe): PUT con rol_id acompañado de otro campo, para distinguir si el 400 de los intentos (1) a (3) evita el escalamiento
+T_ESC_MED PUT propio {correo, rol_id:1}: HTTP 200 (0.02s) {"id": "11", "nombre_usuario": "qa_esc_med", "correo": "qa_esc_med@example.com", "created_at": "2026-10-24T21:58:32.374Z", "rol_id": "1", "rol_nombre": "admin"}
+T_ESC_PAC PUT propio {correo, rol_id:1}: HTTP 403 (0.03s) {"error": "No autorizado", "glosa": "No puede cambiar su rol"}
+usuario_id | rol_id 
+------------+--------
+         10 |      3
+         11 |      1
+(2 rows)
+restauración del estado base: (0, '')

@@ -1,0 +1,10 @@
+CP-10 paso 2 repetido 2026-10-25 13:51
+Exámenes de PAC_A (API): ['9', '8', '7', '6', '4', '3', '2'] N = 7
+Examen 2 (Hemograma completo), documentos API 1: {'tipo': True, 'fecha': True, 'diagnóstico': True, 'tratamiento': True, 'observaciones': True, 'documentos': True} -> OK
+Examen 3 (Glicemia), documentos API 1: {'tipo': True, 'fecha': True, 'diagnóstico': True, 'tratamiento': True, 'observaciones': True, 'documentos': True} -> OK
+Examen 4 (Hemograma completo), documentos API 0: {'tipo': True, 'fecha': True, 'diagnóstico': True, 'tratamiento': True, 'observaciones': True, 'documentos': True} -> OK
+Examen 6 (Glicemia), documentos API 1: {'tipo': True, 'fecha': True, 'diagnóstico': True, 'tratamiento': True, 'observaciones': True, 'documentos': True} -> OK
+Examen 7 (Hemograma completo), documentos API 1: {'tipo': True, 'fecha': True, 'diagnóstico': True, 'tratamiento': True, 'observaciones': True, 'documentos': True} -> OK
+Examen 8 (Hemograma completo), documentos API 1: {'tipo': True, 'fecha': True, 'diagnóstico': True, 'tratamiento': True, 'observaciones': True, 'documentos': True} -> OK
+Examen 9 (Hemograma completo), documentos API 1: {'tipo': True, 'fecha': True, 'diagnóstico': True, 'tratamiento': True, 'observaciones': True, 'documentos': True} -> OK
+Detalles completos y correctos: 7 de 7

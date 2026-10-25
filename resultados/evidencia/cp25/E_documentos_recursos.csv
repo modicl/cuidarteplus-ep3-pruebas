@@ -1,0 +1,13 @@
+hora,contenedor,cpu,memoria
+16:14:56,cuidarteplus-backend-ev,0.00%,34.93MiB / 512MiB
+16:14:56,cuidarteplus-postgres-ev,0.34%,50.12MiB / 1GiB
+16:15:06,cuidarteplus-backend-ev,0.00%,43.12MiB / 512MiB
+16:15:06,cuidarteplus-postgres-ev,1.55%,50.57MiB / 1GiB
+16:15:15,cuidarteplus-backend-ev,0.01%,44.43MiB / 512MiB
+16:15:15,cuidarteplus-postgres-ev,0.03%,50.77MiB / 1GiB
+16:15:25,cuidarteplus-backend-ev,5.97%,41.27MiB / 512MiB
+16:15:25,cuidarteplus-postgres-ev,0.01%,50.56MiB / 1GiB
+16:15:34,cuidarteplus-backend-ev,6.89%,42.1MiB / 512MiB
+16:15:34,cuidarteplus-postgres-ev,1.53%,50.74MiB / 1GiB
+16:15:44,cuidarteplus-backend-ev,0.00%,42.84MiB / 512MiB
+16:15:44,cuidarteplus-postgres-ev,1.45%,50.56MiB / 1GiB

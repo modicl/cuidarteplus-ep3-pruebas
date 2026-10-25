@@ -1,0 +1,28 @@
+env:
+  contexts:
+    - name: cuidarte
+      urls: ["http://host.docker.internal:4444"]
+      includePaths: ["http://host.docker.internal:4444/autenticacion/login.*","http://host.docker.internal:4444/pacientes.*"]
+  parameters: {failOnError: false, progressToStdout: true}
+jobs:
+  - type: openapi
+    parameters: {apiFile: /zap/wrk/openapi_cp17.json, targetUrl: "http://host.docker.internal:4444", context: cuidarte}
+  - type: replacer
+    rules:
+      - {description: auth, matchType: REQ_HEADER, matchString: Authorization, replacementString: "Bearer __TOKEN__", initiators: []}
+  - type: activeScan
+    parameters: {context: cuidarte, maxScanDurationInMins: 10}
+    policyDefinition:
+      defaultStrength: Medium
+      defaultThreshold: "Off"
+      rules:
+        - {id: 40018, threshold: Medium, strength: Medium}
+        - {id: 40019, threshold: Medium, strength: Medium}
+        - {id: 40020, threshold: Medium, strength: Medium}
+        - {id: 40021, threshold: Medium, strength: Medium}
+        - {id: 40022, threshold: Medium, strength: Medium}
+        - {id: 40024, threshold: Medium, strength: Medium}
+        - {id: 90018, threshold: Medium, strength: Medium}
+  - type: report
+    parameters: {template: traditional-json, reportDir: /zap/wrk, reportFile: cp17_zap_reporte}
+    risks: [high, medium, low, info]

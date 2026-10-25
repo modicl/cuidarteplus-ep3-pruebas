@@ -1,0 +1,65 @@
+login admin/admin 200 {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIxIiwibm9tYnJlVXN1YXJpbyI6ImFkbWluIiwicm9sSWQiOiIxIiwicm9sTm9tYnJlIjoiYWRtaW4iLCJwYWNpZW50ZUlkI
+PUT usuarios/1 200 {"id":"1","nombre_usuario":"admin","correo":"admin@cuidarteplus.com","created_at":"2026-10-24T21:57:22.043Z","rol_id":"1","rol_nombre":"admin"}
+PUT usuarios/3 200 {"id":"3","nombre_usuario":"paciente","correo":"paciente@cuidarteplus.com","created_at":"2026-10-24T21:57:22.044Z","rol_id":"3","rol_nombre":"paciente"}
+login admin nueva 200 {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIxIiwibm9tYnJlVXN1YXJpbyI6ImFkbWluIiwicm9sSWQiOiIxIiwicm9sTm9tYnJlIjoiYWRtaW4iLCJwYWNpZW50ZUlkI
+crear qa_medico1 201 {"id":"4","nombre_usuario":"qa_medico1","correo":"qa_medico1@example.com","created_at":"2026-10-24T21:58:32.333Z"}
+crear qa_medico2 201 {"id":"5","nombre_usuario":"qa_medico2","correo":"qa_medico2@example.com","created_at":"2026-10-24T21:58:32.340Z"}
+crear qa_rol01 201 {"id":"6","nombre_usuario":"qa_rol01","correo":"qa_rol01@example.com","created_at":"2026-10-24T21:58:32.346Z"}
+crear qa_eliminar 201 {"id":"7","nombre_usuario":"qa_eliminar","correo":"qa_eliminar@example.com","created_at":"2026-10-24T21:58:32.352Z"}
+crear qa_elim_api 201 {"id":"8","nombre_usuario":"qa_elim_api","correo":"qa_elim_api@example.com","created_at":"2026-10-24T21:58:32.357Z"}
+crear qa_elim_ui 201 {"id":"9","nombre_usuario":"qa_elim_ui","correo":"qa_elim_ui@example.com","created_at":"2026-10-24T21:58:32.363Z"}
+crear qa_esc_pac 201 {"id":"10","nombre_usuario":"qa_esc_pac","correo":"qa_esc_pac@example.com","created_at":"2026-10-24T21:58:32.369Z"}
+crear qa_esc_med 201 {"id":"11","nombre_usuario":"qa_esc_med","correo":"qa_esc_med@example.com","created_at":"2026-10-24T21:58:32.374Z"}
+crear qa_sinrol 201 {"id":"12","nombre_usuario":"qa_sinrol","correo":"qa_sinrol@example.com","created_at":"2026-10-24T21:58:32.380Z"}
+crear qa_borrar 201 {"id":"13","nombre_usuario":"qa_borrar","correo":"qa_borrar@example.com","created_at":"2026-10-24T21:58:32.384Z"}
+rol qa_rol_borrar1 500 {"error":"Error al crear rol","glosa":"invalid input syntax for type bigint: \"admin\""}
+rol qa_rol_borrar2 500 {"error":"Error al crear rol","glosa":"invalid input syntax for type bigint: \"admin\""}
+paciente Nuevo5 201 {"id":"21","rut":"9876543-3","primer_nombre":"Elisa","apellido_paterno":"Paz","apellido_materno":"Mora","fecha_nacimiento":"1990-02-02T00:00:00.000Z","sexo":"F"
+registro PAC_B 201 {"message":"Usuario registrado exitosamente","usuario":{"id":"14","nombre_usuario":"qa_paciente_b","correo":"sebastian.alarcon@gmail.com","created_at":"2026-10-
+login med1 200 {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI0Iiwibm9tYnJlVXN1YXJpbyI6InFhX21lZGljbzEiLCJyb2xJZCI6IjIiLCJyb2xOb21icmUiOiJtZWRpY28iLCJwYWNpZ
+examen A1 201 {"id":"2","tipo_examen_medico_id":"1","paciente_id":"1","diagnosis":"Dato sintetico A1","tratamiento":"Tratamiento QA","observaciones":"Control en 30 dias","not
+doc A1 resultado_examen.pdf 201 {"documento":{"id":"2","nombre_archivo":"resultado_examen.pdf","created_at":"2026-10-24T21:58:42.449Z"}}
+examen A2 201 {"id":"3","tipo_examen_medico_id":"3","paciente_id":"1","diagnosis":"Dato sintetico A2","tratamiento":"Tratamiento QA","observaciones":"Control en 30 dias","not
+doc A2 resultado_examen_v1.pdf 201 {"documento":{"id":"3","nombre_archivo":"resultado_examen_v1.pdf","created_at":"2026-10-24T21:58:52.507Z"}}
+examen A3 201 {"id":"4","tipo_examen_medico_id":"1","paciente_id":"1","diagnosis":"Dato sintetico A3","tratamiento":"Tratamiento QA","observaciones":"Control en 30 dias","not
+examen B1 201 {"id":"5","tipo_examen_medico_id":"3","paciente_id":"11","diagnosis":"Dato sintetico B1","tratamiento":"Tratamiento QA","observaciones":"Control en 30 dias","no
+doc B1 resultado_examen.pdf 201 {"documento":{"id":"4","nombre_archivo":"resultado_examen.pdf","created_at":"2026-10-24T21:59:06.236Z"}}
+examen DEL 201 {"id":"6","tipo_examen_medico_id":"3","paciente_id":"1","diagnosis":"Dato sintetico DEL","tratamiento":"Tratamiento QA","observaciones":"Control en 30 dias","no
+doc DEL resultado_eliminar.pdf 201 {"documento":{"id":"5","nombre_archivo":"resultado_eliminar.pdf","created_at":"2026-10-24T21:59:16.281Z"}}
+examen DEL2 201 {"id":"7","tipo_examen_medico_id":"1","paciente_id":"1","diagnosis":"Dato sintetico DEL2","tratamiento":"Tratamiento QA","observaciones":"Control en 30 dias","n
+doc DEL2 resultado_eliminar2.pdf 201 {"documento":{"id":"6","nombre_archivo":"resultado_eliminar2.pdf","created_at":"2026-10-24T21:59:26.305Z"}}
+examen MAT1 201 {"id":"8","tipo_examen_medico_id":"1","paciente_id":"1","diagnosis":"Dato sintetico MAT1","tratamiento":"Tratamiento QA","observaciones":"Control en 30 dias","n
+doc MAT1 resultado_examen.pdf 201 {"documento":{"id":"7","nombre_archivo":"resultado_examen.pdf","created_at":"2026-10-24T21:59:35.215Z"}}
+examen MAT2 201 {"id":"9","tipo_examen_medico_id":"1","paciente_id":"1","diagnosis":"Dato sintetico MAT2","tratamiento":"Tratamiento QA","observaciones":"Control en 30 dias","n
+doc MAT2 resultado_examen.pdf 201 {"documento":{"id":"8","nombre_archivo":"resultado_examen.pdf","created_at":"2026-10-24T21:59:45.253Z"}}
+{
+  T_ADM: '<JWT>',
+  qa_medico1: '4',
+  qa_medico2: '5',
+  qa_rol01: '6',
+  qa_eliminar: '7',
+  qa_elim_api: '8',
+  qa_elim_ui: '9',
+  qa_esc_pac: '10',
+  qa_esc_med: '11',
+  qa_sinrol: '12',
+  qa_borrar: '13',
+  qa_rol_borrar1: undefined,
+  qa_rol_borrar2: undefined,
+  T_MED1: '<JWT>',
+  EX_A1: '2',
+  DOC_A1: '2',
+  EX_A2: '3',
+  DOC_A2: '3',
+  EX_A3: '4',
+  EX_B1: '5',
+  DOC_B1: '4',
+  EX_DEL: '6',
+  DOC_DEL: '5',
+  EX_DEL2: '7',
+  DOC_DEL2: '6',
+  EX_MAT1: '8',
+  DOC_MAT1: '7',
+  EX_MAT2: '9',
+  DOC_MAT2: '8'
+}

@@ -1,0 +1,49 @@
+CP-20 2026-10-24 19:35
+filas auditoria inicial: 48
+
+### Paso 1: GET /auditoria
+T_PAC_A HTTP 403 (0.02s) {"error": "No autorizado", "glosa": "Solo los administradores pueden ver los registros de auditoría"}
+T_MED1 HTTP 403 (0.0s) {"error": "No autorizado", "glosa": "Solo los administradores pueden ver los registros de auditoría"}
+sin token HTTP 401 (0.03s) {"error": "No autorizado", "glosa": "Token inválido"}
+
+### Paso 2: POST falso, PUT y DELETE
+POST con T_PAC_A: HTTP 201 (0.0s) {"id": "50", "usuario_id": "3", "accion": "USUARIOS_ELIMINAR: registro falso", "fecha_hora": "2026-10-24T22:35:52.115Z"}
+PUT /auditoria/2 con T_ADM: HTTP 404 (0.0s) <!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Error</title> </head> <body> <pre>Cannot PUT /audi
+DELETE /auditoria/2 con T_ADM: HTTP 404 (0.02s) <!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Error</title> </head> <body> <pre>Cannot DELETE /a
+filas auditoria tras el paso: 49
+id | usuario_id |              accion               
+----+------------+-----------------------------------
+ 50 |          3 | USUARIOS_ELIMINAR: registro falso
+(1 row)
+
+### Paso 3: MED1 consulta datos; revisar logs
+--- líneas del log del contenedor de la API durante el caso (sin colores) ---
+GET /auditoria 403 1.626 ms - 99
+GET /auditoria 403 1.025 ms - 99
+GET /auditoria 401 0.104 ms - 51
+POST /auditoria 201 2.019 ms - 113
+GET /auditoria 200 2.785 ms - 7898
+PUT /auditoria/2 404 0.134 ms - 150
+DELETE /auditoria/2 404 0.115 ms - 153
+POST /autenticacion/login 200 3.190 ms - 320
+GET /pacientes/buscar/rut/11111111-1 200 0.876 ms - 761
+GET /examenes/2 200 1.785 ms - 385
+
+¿aparece la contraseña? False | ¿aparece el token completo? False | ¿aparece el RUT 11111111-1 en texto claro? True | ¿aparece el diagnóstico? False
+
+### Paso 4: contenido de la auditoría (acciones)
+filas_con_contrasena_o_diagnostico 
+------------------------------------
+                                  0
+(1 row)
+accion                              
+-----------------------------------------------------------------
+ PACIENTES_CREAR: creó paciente Elisa Paz (RUT: 9.876.543-3)
+ PACIENTES_CREAR: creó paciente Newman Prueba (RUT: 5.555.555-5)
+(2 rows)
+
+### Paso 5: errores provocados
+GET /examenes/abc: HTTP 500 | cuerpo: '{"error":"Error al obtener examen médico","glosa":"invalid input syntax for type bigint: \\"abc\\""}' | cabeceras: {'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8'} | textos internos detectados: ['bigint', 'syntax']
+POST /pacientes con RUT repetido: HTTP 400 | cuerpo: '{"error":"Error al crear paciente","glosa":"El RUT o email ya existe"}' | cabeceras: {'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8'} | textos internos detectados: []
+PUT /usuarios/{id} con rol_id inexistente (+correo): HTTP 500 | cuerpo: '{"error":"Error al actualizar usuario","glosa":"insert or update on table \\"usuario_roles\\" violates foreign key constraint \\"usuario_roles_rol_id_fkey\\""}' | cabeceras: {'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8'} | textos internos detectados: ['violates', 'constraint']
+POST /documentos con .exe: HTTP 500 | cuerpo: '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Error</title> </head> <body> <pre>Internal Server Error</pre> </body> </html> ' | cabeceras: {'X-Powered-By': 'Express', 'Content-Type': 'text/html; charset=utf-8'} | textos internos detectados: []

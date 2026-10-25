@@ -1,0 +1,51 @@
+{
+ "url": "http://localhost:3333/home",
+ "lighthouse": "13.5.0",
+ "results": [
+  {
+   "rep": 1,
+   "finalUrl": "http://localhost:3333/home",
+   "load_ms": 4249,
+   "lcp_ms": 5264.347,
+   "fcp_ms": 4498.652,
+   "perf_score": 0.68,
+   "runWarnings": []
+  },
+  {
+   "rep": 2,
+   "finalUrl": "http://localhost:3333/home",
+   "load_ms": 4288,
+   "lcp_ms": 5317.452,
+   "fcp_ms": 4546.712,
+   "perf_score": 0.68,
+   "runWarnings": []
+  },
+  {
+   "rep": 3,
+   "finalUrl": "http://localhost:3333/home",
+   "load_ms": 4269,
+   "lcp_ms": 5274.128,
+   "fcp_ms": 4506.55,
+   "perf_score": 0.68,
+   "runWarnings": []
+  },
+  {
+   "rep": 4,
+   "finalUrl": "http://localhost:3333/home",
+   "load_ms": 4305,
+   "lcp_ms": 5367.497,
+   "fcp_ms": 4580.421,
+   "perf_score": 0.68,
+   "runWarnings": []
+  },
+  {
+   "rep": 5,
+   "finalUrl": "http://localhost:3333/home",
+   "load_ms": 4239,
+   "lcp_ms": 5263.284,
+   "fcp_ms": 4492.557,
+   "perf_score": 0.68,
+   "runWarnings": []
+  }
+ ]
+}

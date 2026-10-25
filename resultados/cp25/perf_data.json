@@ -1,0 +1,125 @@
+{
+ "password": "Cuidarte#Perf2026",
+ "accounts": [
+  {
+   "user": "qa_perf_adm01",
+   "role": "adm",
+   "uid": "15"
+  },
+  {
+   "user": "qa_perf_adm02",
+   "role": "adm",
+   "uid": "16"
+  },
+  {
+   "user": "qa_perf_adm03",
+   "role": "adm",
+   "uid": "17"
+  },
+  {
+   "user": "qa_perf_adm04",
+   "role": "adm",
+   "uid": "18"
+  },
+  {
+   "user": "qa_perf_med01",
+   "role": "med",
+   "uid": "19"
+  },
+  {
+   "user": "qa_perf_med02",
+   "role": "med",
+   "uid": "20"
+  },
+  {
+   "user": "qa_perf_med03",
+   "role": "med",
+   "uid": "21"
+  },
+  {
+   "user": "qa_perf_med04",
+   "role": "med",
+   "uid": "22"
+  },
+  {
+   "user": "qa_perf_med05",
+   "role": "med",
+   "uid": "23"
+  },
+  {
+   "user": "qa_perf_med06",
+   "role": "med",
+   "uid": "24"
+  },
+  {
+   "user": "qa_perf_med07",
+   "role": "med",
+   "uid": "25"
+  },
+  {
+   "user": "qa_perf_med08",
+   "role": "med",
+   "uid": "26"
+  },
+  {
+   "user": "qa_perf_pac01",
+   "role": "pac",
+   "uid": "27",
+   "pacienteId": "22",
+   "examenId": "18"
+  },
+  {
+   "user": "qa_perf_pac02",
+   "role": "pac",
+   "uid": "28",
+   "pacienteId": "23",
+   "examenId": "10"
+  },
+  {
+   "user": "qa_perf_pac03",
+   "role": "pac",
+   "uid": "29",
+   "pacienteId": "24",
+   "examenId": "11"
+  },
+  {
+   "user": "qa_perf_pac04",
+   "role": "pac",
+   "uid": "30",
+   "pacienteId": "25",
+   "examenId": "12"
+  },
+  {
+   "user": "qa_perf_pac05",
+   "role": "pac",
+   "uid": "31",
+   "pacienteId": "26",
+   "examenId": "13"
+  },
+  {
+   "user": "qa_perf_pac06",
+   "role": "pac",
+   "uid": "32",
+   "pacienteId": "27",
+   "examenId": "14"
+  },
+  {
+   "user": "qa_perf_pac07",
+   "role": "pac",
+   "uid": "33",
+   "pacienteId": "28",
+   "examenId": "15"
+  },
+  {
+   "user": "qa_perf_pac08",
+   "role": "pac",
+   "uid": "34",
+   "pacienteId": "29",
+   "examenId": "16"
+  }
+ ],
+ "paciente200": "22",
+ "examen_ref": "2",
+ "examen_a3": "4",
+ "doc_a1": "2"
+}

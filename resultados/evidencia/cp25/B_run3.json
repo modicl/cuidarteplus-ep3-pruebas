@@ -1,0 +1,179 @@
+{
+    "metrics": {
+        "http_req_sending": {
+            "p(90)": 0.009651,
+            "p(95)": 0.012648700000000011,
+            "max": 0.314212,
+            "avg": 0.008109955870598987,
+            "med": 0.00685
+        },
+        "http_req_duration{op:login}": {
+            "avg": 3.5023777642968335,
+            "med": 3.1684045000000003,
+            "p(90)": 4.8658928,
+            "p(95)": 5.6036599,
+            "max": 31.514063,
+            "thresholds": {
+                "p(95)<300": false
+            }
+        },
+        "vus_max": {
+            "value": 200,
+            "min": 200,
+            "max": 200
+        },
+        "http_req_duration{expected_response:true}": {
+            "max": 5019.262514,
+            "avg": 161.78217063494728,
+            "med": 2.499713,
+            "p(90)": 4.4312095000000005,
+            "p(95)": 5.876501300000001
+        },
+        "http_req_duration{op:get_paciente}": {
+            "p(90)": 3.2235008,
+            "p(95)": 3.8490635500000003,
+            "max": 26.099879,
+            "avg": 2.222487048678506,
+            "med": 2.002291,
+            "thresholds": {
+                "p(95)<300": false
+            }
+        },
+        "http_req_receiving": {
+            "avg": 0.04592291552081491,
+            "med": 0.044454,
+            "p(90)": 0.06509670000000001,
+            "p(95)": 0.071201,
+            "max": 0.439156
+        },
+        "data_received": {
+            "count": 106602095,
+            "rate": 257575.22946008202
+        },
+        "http_req_duration": {
+            "avg": 161.78217063494728,
+            "med": 2.499713,
+            "p(90)": 4.4312095000000005,
+            "p(95)": 5.876501300000001,
+            "max": 5019.262514
+        },
+        "http_req_connecting": {
+            "avg": 0.0005043894631317989,
+            "med": 0,
+            "p(90)": 0,
+            "p(95)": 0,
+            "max": 22.162432
+        },
+        "http_req_duration{op:post}": {
+            "avg": 4855.942459650617,
+            "med": 5003.6688295,
+            "p(90)": 5005.2116240000005,
+            "p(95)": 5005.84100985,
+            "max": 5019.262514,
+            "thresholds": {
+                "p(95)<300": true
+            }
+        },
+        "http_req_blocked": {
+            "avg": 0.003243834414836656,
+            "med": 0.002421,
+            "p(90)": 0.003302,
+            "p(95)": 0.003735,
+            "max": 22.248159
+        },
+        "examenes_creados": {
+            "count": 4840,
+            "rate": 11.694555445526628
+        },
+        "http_req_failed": {
+            "fails": 147634,
+            "passes": 0,
+            "thresholds": {
+                "rate==0": false
+            },
+            "value": 0
+        },
+        "http_reqs": {
+            "count": 147634,
+            "rate": 356.71776831505747
+        },
+        "iterations": {
+            "count": 47598,
+            "rate": 115.00773762317695
+        },
+        "http_req_tls_handshaking": {
+            "p(90)": 0,
+            "p(95)": 0,
+            "max": 0,
+            "avg": 0,
+            "med": 0
+        },
+        "checks": {
+            "passes": 100036,
+            "fails": 0,
+            "value": 1
+        },
+        "vus": {
+            "min": 1,
+            "max": 200,
+            "value": 14
+        },
+        "data_sent": {
+            "count": 57628082,
+            "rate": 139242.72730751138
+        },
+        "http_req_duration{op:get_examen}": {
+            "max": 27.224647,
+            "avg": 2.2962174764275676,
+            "med": 2.0354505,
+            "p(90)": 3.3337280000000002,
+            "p(95)": 3.97842995,
+            "thresholds": {
+                "p(95)<300": false
+            }
+        },
+        "iteration_duration": {
+            "max": 6031.395855,
+            "avg": 1517.6190188200399,
+            "med": 1008.4665725,
+            "p(90)": 6009.0355978,
+            "p(95)": 6011.8541556
+        },
+        "http_req_waiting": {
+            "p(90)": 4.3704218,
+            "p(95)": 5.81311415,
+            "max": 5019.209062,
+            "avg": 161.72813776355557,
+            "med": 2.443533
+        }
+    },
+    "root_group": {
+        "checks": {
+            "GET paciente 200": {
+                "passes": 47598,
+                "fails": 0,
+                "name": "GET paciente 200",
+                "path": "::GET paciente 200",
+                "id": "4f458ba9c86d6d5533ac1a99324617a1"
+            },
+            "GET examen 200": {
+                "path": "::GET examen 200",
+                "id": "165352a84b0d8e8a2d4625fddc628fc2",
+                "passes": 47598,
+                "fails": 0,
+                "name": "GET examen 200"
+            },
+            "POST 201": {
+                "id": "5c9c58873cc91543900e18f58beb50d1",
+                "passes": 4840,
+                "fails": 0,
+                "name": "POST 201",
+                "path": "::POST 201"
+            }
+        },
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {}
+    }
+}

@@ -1,0 +1,277 @@
+{
+ "nota_54": "Los casos CP-24, CP-26 y CP-27 (fase 3) no se han ejecutado; CP-25 se ejecutó el 2026-10-25. La segunda tabla lista los casos ejecutados que tuvieron limitaciones, pasos distintos a los del informe o evidencia no disponible.",
+ "no_ejecutados": [
+  [
+   "CP-24",
+   "Disponibilidad del servicio y actualización con migración de datos segura",
+   "sin ejecutar (fase 3 pendiente)",
+   "Requiere observar la API y el frontend durante 72 horas con Uptime Kuma (chequeo cada 60 s) y una actualización con migración de datos; no se ha iniciado la observación. Uptime Kuma no está instalado (se puede levantar con Docker). La política restart: unless-stopped del docker-compose.yml ya se comprobó de forma indirecta en CP-23: Docker reinició la API sola tras el error provocado por DROP DATABASE."
+  ],
+  [
+   "CP-26",
+   "Compatibilidad con navegadores y dispositivos",
+   "sin ejecutar (fase 3 pendiente)",
+   "Requiere confirmar el comportamiento en un Safari real y en dispositivos móviles y tablets. Este equipo es Windows 11 y no tiene Safari; el WebKit de Playwright (26.0) no es Safari real. Chromium 143, Firefox 144 y WebKit 26.0 de Playwright sí están disponibles."
+  ],
+  [
+   "CP-27",
+   "Usabilidad y accesibilidad con adultos mayores",
+   "sin ejecutar (fase 3 pendiente)",
+   "Requiere 5 participantes de 60 años o más con consentimiento informado, un observador, cronómetro y el cuestionario SUS: no lo puede ejecutar un agente IA. Las partes automáticas (axe-core y Lighthouse) se pueden ejecutar cuando se haga la fase 3; axe-core y Lighthouse no están instalados."
+  ]
+ ],
+ "limitaciones": [
+  [
+   "Todos",
+   "Estado base",
+   "Desviación",
+   "El informe indica restaurar el estado base antes de la fase 2, antes de la fase 3 y después de CP-16. Además se restauró: antes de empezar (reconstrucción de DM-05 desde el dump, por un ambiente sucio), tras una pasada anulada de CP-05, una segunda vez tras la prueba complementaria de CP-16, antes de CP-19, antes de CP-23 y después de CP-23. El archivo base es resultados/base.dump (14 usuarios, 21 pacientes, 8 exámenes, 7 documentos, 5 roles, 32 registros de auditoría)."
+  ],
+  [
+   "Todos",
+   "Archivos DM-04",
+   "Desviación",
+   "Los archivos de prueba se generaron con scripts (resultados/gen_dm04.py): los PDF son mínimos válidos (resultado_examen.pdf se rellena con un comentario PDF hasta 2 MB), informe.doc y presentacion.ppt se crearon con Microsoft Word y PowerPoint, radiografia.jpg e imagen.png con Pillow. SHA-256 en resultados/evidencia/sha256_dm04.txt."
+  ],
+  [
+   "CP-01",
+   "Inicio de sesión exitoso y cierre de sesión",
+   "Herramienta distinta",
+   "jwt.io no se usó; el payload se decodificó con base64 en Python y los tokens de prueba se firmaron con la librería jsonwebtoken 9.0.2. La prueba de \"Atrás\" se hizo con Playwright (Chromium), que vuelve a about:blank."
+  ],
+  [
+   "CP-01 y CP-10",
+   "Inicio de sesión exitoso y cierre de sesión / El paciente visualiza sus exámenes y descarga sus documentos",
+   "Pasos corregidos",
+   "En la primera ejecución, el paso 4 de CP-01 (botón Atrás tras cerrar sesión) solo volvió a about:blank y el paso 2 de CP-10 abrió el detalle de un solo examen. Ambos pasos se repitieron el 2026-10-25 (Atrás 3 veces con sesión previa en /pacientes y /examenes; detalle de los 7 exámenes de PAC_A)."
+  ],
+  [
+   "CP-05",
+   "Gestión de pacientes: registrar, validar RUT, editar y visualizar",
+   "Hallazgo en la ejecución",
+   "Con los datos de la Tabla 8 la interfaz no permite registrar a Nuevo 1 (HTTP 400 \"Estado civil inválido\"); se registró en un segundo intento eligiendo un Estado Civil. La primera pasada completa del caso se anuló por un error del script (editó una ficha de la semilla) y se repitió desde el estado base; queda como evidencia/CP-05_intento1_descartado.txt."
+  ],
+  [
+   "CP-06",
+   "Administración de usuarios: listar, editar, asignar roles y eliminar",
+   "Paso no concluyente",
+   "PUT con solo rol_id 999 responde 400 porque rol_id no está en el esquema de validación y la API exige otro campo; por eso el paso no prueba el rechazo de un rol inexistente. En CP-20 se repitió agregando correo y la API responde HTTP 500."
+  ],
+  [
+   "CP-07",
+   "Registro y edición de exámenes médicos",
+   "Dato sin verificar",
+   "El reemplazo de documento figuraba como sin verificar: no existe una operación de reemplazo; la interfaz solo permite subir otro documento y borrar (acción restringida al administrador). El paso 3 se repitió porque la primera verificación buscaba el diagnóstico, que \"Mis Resultados\" no muestra."
+  ],
+  [
+   "CP-12",
+   "Reglas de negocio: matriz de permisos por rol",
+   "Desviación",
+   "Se usaron recursos descartables creados durante la ejecución (usuarios, pacientes, exámenes y documentos) en lugar de qa_borrar, Nuevo 5, EX_MAT1 y EX_MAT2, para repetir cada borrado por rol. La operación 1 (gestionar usuarios) se evaluó como cuatro sub-operaciones (listar, crear, editar, eliminar). La primera pasada de la operación 3 usó nombres de una letra y fue rechazada para los tres roles; se repitió con datos válidos. Los pasos de interfaz con los tres roles y la comparación de la BD con la instantánea (md5 por tabla) se completaron el 2026-10-25."
+  ],
+  [
+   "CP-13",
+   "Derechos del titular: consentimiento y rectificación de datos",
+   "Parte condicional",
+   "La parte A depende de REQ-PROP-01, que es un requisito propuesto y no está incorporado al ERS; se ejecutó igualmente para registrar la brecha. El paso 3 (contenido de la política) se completó el 2026-10-25 con sesión iniciada, porque la política no es accesible sin sesión."
+  ],
+  [
+   "CP-14",
+   "Límite de intentos fallidos de autenticación y tokens inválidos",
+   "Desviación",
+   "En el paso 5 la primera prueba cargó el JWT_SECRET desde BACKEND/.env (dotenv); se repitió ejecutando la API desde otra carpeta para que no lo cargara. Los tokens de los pasos 1 a 7 se probaron contra la API del docker-compose con su JWT_SECRET real."
+  ],
+  [
+   "CP-16",
+   "Prevención de escalamiento de privilegios y acceso sin autenticación",
+   "Prueba complementaria",
+   "Los intentos (1) a (3) responden 400 y no 403 porque PUT con solo rol_id no pasa la validación; se agregó una prueba complementaria con {correo, rol_id: 1} para saber si el escalamiento era posible (el médico sí se vuelve admin). Los intentos de /roles con token devuelven HTTP 500 pero la operación se aplica antes del error (AUDITORIA.md H-08)."
+  ],
+  [
+   "CP-17",
+   "Resistencia a inyección SQL",
+   "Alcance reducido",
+   "ZAP 2.17.0 se ejecutó con el Automation Framework (no con el escritorio) y un OpenAPI recortado a POST /autenticacion/login, POST /pacientes y GET /pacientes/{id}: GET /pacientes se excluyó por el retraso de 5 s y las operaciones DELETE por seguridad. Las reglas de inyección SQL 40024 y 90018 no existen en esa versión; se usaron 40018 a 40022."
+  ],
+  [
+   "CP-18",
+   "Resistencia a XSS almacenado",
+   "Herramienta distinta",
+   "Se repitió en las dos últimas versiones de Playwright (1.64.1 como N y 1.63.0 como N-1, con sus Chromium, Firefox y WebKit) y en el Edge real instalado (156.0.4314.42); la primera ejecución, con Playwright 1.57.0 (Chromium 143 y Firefox 144), queda como evidencia anterior. Chrome real no está instalado y el Firefox real (154.0) no se puede controlar con Playwright, que solo maneja su propia build de Firefox. Los diálogos se detectaron con el listener \"dialog\" de Playwright. Los flujos de interfaz de los casos CP-01 a CP-13, CP-17, CP-19 y CP-21 se ejecutaron con Chromium 143 (Playwright 1.57.0) y no se repitieron en N y N-1; eso se cubre en CP-26."
+  ],
+  [
+   "CP-19",
+   "Validación de entradas, archivos no permitidos y contrato de la API",
+   "Herramienta distinta",
+   "Postman (aplicación) no está instalado. La colección de Newman se generó con un script (resultados/build_cp19.py) a partir de BACKEND/src/openapi.json más los vectores del informe, sin importarla en Postman; se ejecutó con Newman 6.1.3 en Docker. El reporte se guardó en JSON y consola; no se generó HTML. El mismo script generó pruebas que crean datos, por lo que las cantidades finales de filas cambian por las pruebas positivas."
+  ],
+  [
+   "CP-20",
+   "Integridad de la auditoría y logs sin información sensible",
+   "Desviación",
+   "El paso 5 \"PUT /usuarios/{id} con rol_id inexistente\" se envió con correo además de rol_id (con solo rol_id la API responde 400 por falta de campos). Los logs se revisaron en docker logs del contenedor de la API."
+  ],
+  [
+   "CP-21",
+   "Cifrado en tránsito y configuración segura de la web (TLS, CORS/CSRF y escaneo ZAP)",
+   "Entorno complementario y herramientas distintas",
+   "La entrega no tiene HTTPS: el paso 1 se ejecutó contra HTTP plano y, como evidencia complementaria, contra un proxy TLS del equipo (Caddy 2.11.7 con CA local en https://localhost:3443 y :4443, testssl.sh 3.2.4 en Docker con --ip). Wireshark no está instalado: la captura se hizo con tcpdump 4.99.6 dentro del espacio de red del contenedor de la API. ZAP se ejecutó con el Automation Framework: spider del frontend y escaneo activo restringido a operaciones GET (6 reglas: XSS reflejado y persistente, path traversal, CRLF, inyección de comandos y 90034) con la sesión de MED1; no se escaneó con la sesión de PAC_A. No se usó nmap."
+  ],
+  [
+   "CP-22",
+   "Protección de datos almacenados: hash de contraseñas y cifrado en reposo",
+   "Evidencia no disponible",
+   "El volumen de PostgreSQL es un volumen local de Docker sin cifrado; no hay configuración de cifrado de disco que adjuntar (paso 7). El respaldo -Fc está comprimido, por lo que la búsqueda directa de texto en ese formato da 0; se buscó también en pg_dump -Fp y en la salida de pg_restore."
+  ],
+  [
+   "CP-23",
+   "Respaldo y recuperación de la base de datos",
+   "Desviación y medición parcial",
+   "La segunda instancia es un contenedor postgres:15-alpine. Al ejecutar DROP DATABASE la API terminó con un error no controlado y el script de prueba se interrumpió; los pasos 5 y 6 se ejecutaron en un segundo script con el mismo respaldo. El RTO se midió solo para la parte técnica (pg_restore 0,3 s; pasos 5 y 6 en 10,3 s) y el RPO no se puede evaluar porque no hay respaldo programado."
+  ],
+  [
+   "CP-25",
+   "Rendimiento: tiempos de respuesta, carga concurrente, estrés y documentos",
+   "Entorno y herramientas",
+   "La carga se generó en el mismo equipo que el sistema, sin latencia de red: k6 corrió en un contenedor (6 CPU y 4 GB) dentro de la red de Docker y el sistema con límites (API 1 CPU y 512 MiB, PostgreSQL 1 CPU y 1 GiB, frontend 0,5 CPU y 256 MiB), y no en una máquina distinta como pide la precondición. Se usó k6 y no JMeter. Las 200 conexiones usan las 20 cuentas qa_perf_* (cada cuenta la comparten 10 usuarios virtuales) y cada repetición parte de la base restaurada desde cp25/base_cp25.dump. El paciente con 200 exámenes se cargó con la API en paralelo. En la parte D no hubo teléfono real; Lighthouse corrió con Chromium 156.0.8078.4 con throttling devtools equivalente a 4G, y una primera pasada de /home sin limpiar la caché se descartó. En la parte F el umbral de k6 no aborta la prueba y el punto de quiebre se buscó en los datos: no apareció hasta 400 usuarios. Los gráficos de CPU y memoria usan docker stats cada 8 s."
+  ],
+  [
+   "CP-17, CP-18, CP-20, CP-21, CP-22",
+   "Análisis estático SonarQube",
+   "Evidencia complementaria",
+   "SonarQube Community Build 26.10.0.133078 (del archivo .zip descargado por el equipo, con Java 21) y SonarScanner CLI 8.1.0.6389 en Docker. La edición Community no incluye análisis de flujo de datos (inyección SQL, XSS) ni una regla para helmet, y el escaneo corrió fuera de un repositorio git, por lo que no leyó .env ni README. No cambia el RESULTADO de ningún caso. Detalle en resultados/evidencia/sonar/hallazgos_relevantes.txt."
+  ]
+ ],
+ "nota_55": "Comparación entre las herramientas de la Tabla 6 del informe y las usadas en la ejecución (fases 1 y 2). El informe no indica versiones; las versiones corresponden a las usadas.",
+ "tabla6": [
+  [
+   "K6",
+   "k6 v2.3.0 (imagen Docker grafana/k6)",
+   "CP-25, partes A, B, C, E, F y G, dentro de la red de Docker.",
+   "Sin diferencia; el informe permite k6 en lugar de JMeter."
+  ],
+  [
+   "JMeter",
+   "No instalado",
+   "Sin usar.",
+   "La Tabla 6 lo lista como herramienta principal de CP-25; se usó k6, la alternativa equivalente que declara el informe."
+  ],
+  [
+   "testssl.sh (o nmap con ssl-enum-ciphers)",
+   "testssl.sh 3.2.4 (imagen Docker drwetter/testssl.sh); nmap no usado",
+   "CP-21, contra el proxy TLS del equipo.",
+   "Se ejecutó contra un proxy complementario (Caddy 2.11.7) porque la entrega no tiene HTTPS."
+  ],
+  [
+   "Wireshark",
+   "No instalado (Npcap sí está presente); sustituido por tcpdump 4.99.6 / libpcap 1.10.6 (imagen Docker nicolaka/netshoot)",
+   "CP-21, paso 2.",
+   "DIFERENCIA: no se usó Wireshark. La captura se guardó como texto en resultados/evidencia/tls/captura_tcpdump_api.txt."
+  ],
+  [
+   "Uptime Kuma",
+   "No instalado",
+   "Sin usar todavía (CP-24, fase 3).",
+   "Sin diferencia; pendiente."
+  ],
+  [
+   "npm audit",
+   "npm 11.6.2 (Node.js v25.2.1 del equipo)",
+   "CP-21, paso 8, con --omit=dev en BACKEND y FRONTEND.",
+   "Sin diferencia."
+  ],
+  [
+   "psql (consultas SQL)",
+   "psql 15.19, servidor PostgreSQL 15.19 (contenedor postgres:15-alpine, vía docker exec)",
+   "Usado en 17 de los 23 casos ejecutados (los scripts de CP-03, CP-05, CP-06, CP-07, CP-08, CP-09, CP-10, CP-11, CP-13, CP-15, CP-16, CP-17, CP-19, CP-20, CP-21, CP-22, CP-23).",
+   "La Tabla 6 indica \"CP-01 a CP-25, en 18 de ellos\"; en la ejecución real de las fases 1 y 2 se usó en 17 casos."
+  ],
+  [
+   "pg_dump y pg_restore",
+   "15.19 (contenedor postgres:15-alpine)",
+   "CP-22, CP-23 y restauración del estado base.",
+   "Sin diferencia."
+  ],
+  [
+   "Postman / Newman",
+   "Newman 6.1.3 (imagen Docker postman/newman); Postman (aplicación) no instalado",
+   "CP-19 (la Tabla 6 también lo asigna a CP-14).",
+   "DIFERENCIA: la colección no se importó en Postman; se generó con un script desde openapi.json. En CP-14 no se usó Newman: se usó un script en Python (requests)."
+  ],
+  [
+   "jwt.io (o la librería jsonwebtoken)",
+   "jsonwebtoken 9.0.2 (BACKEND/node_modules); decodificación con base64 en Python 3.13.11",
+   "CP-01, CP-14, CP-16.",
+   "jwt.io (sitio web) no se usó; se usó la opción de librería."
+  ],
+  [
+   "SHA-256",
+   "hashlib de Python 3.13.11 y sha256sum (Git para Windows)",
+   "CP-04, CP-07, CP-09, CP-10, CP-23 y DM-04.",
+   "DIFERENCIA: el informe (DM-05 paso 6) indica Get-FileHash de PowerShell; no se usó."
+  ],
+  [
+   "Playwright",
+   "Playwright para Python 1.64.1 (N): Chromium 156.0.8078.4, Firefox 157.0, WebKit 27.2; 1.63.0 (N-1): Chromium 153.0.8010.12, Firefox 155.0, WebKit 26.6; 1.57.0 (primera ejecución): Chromium 143.0.7499.4, Firefox 144.0.2, WebKit 26.0. Edge real 156.0.4314.42 (canal msedge)",
+   "CP-01 a CP-13, CP-17, CP-19 y CP-21 con 1.57.0; CP-18 con 1.64.1, 1.63.0 y Edge real.",
+   "El informe pide las dos últimas versiones (N y N-1) con la versión actual y la anterior de Playwright: se aplicó solo en CP-18. Chrome real no está instalado y el Firefox real (154.0) no se puede controlar con Playwright. WebKit de Playwright no es Safari real."
+  ],
+  [
+   "OWASP ZAP",
+   "ZAP 2.17.0 (imagen Docker ghcr.io/zaproxy/zaproxy:stable, Automation Framework)",
+   "CP-17 y CP-21.",
+   "No se usó la aplicación de escritorio ni zap-baseline.py; escaneos activos acotados (ver limitaciones de CP-17 y CP-21)."
+  ],
+  [
+   "axe-core y Lighthouse",
+   "Lighthouse 13.5.0 (npm, Node.js v25.2.1) con Chromium 156.0.8078.4 de Playwright 1.64.1; axe-core no instalado",
+   "Lighthouse en CP-25, parte D. axe-core sin usar (CP-27 pendiente).",
+   "La Tabla 6 asigna Lighthouse a CP-25 y CP-27; solo se usó en CP-25. No se probó en un teléfono real."
+  ]
+ ],
+ "adicionales": [
+  [
+   "Docker",
+   "Docker Engine 29.6.1, Docker Compose 5.2.0, Docker Desktop 4.81.0",
+   "Ambiente de pruebas (docker-compose), herramientas en contenedores.",
+   "No está en la Tabla 6."
+  ],
+  [
+   "Python y librerías",
+   "Python 3.13.11, requests 2.34.2, Pillow 12.1.0, python-docx 1.2.0",
+   "Scripts de ejecución de cada caso, archivos de prueba DM-04 y este documento.",
+   "No está en la Tabla 6."
+  ],
+  [
+   "Node.js",
+   "Node.js v25.2.1 (equipo, scripts de preparación DM-05); v18.20.8 (contenedor de la API)",
+   "DM-05 (setup_dm05.mjs), CP-14 y npm audit.",
+   "No está en la Tabla 6."
+  ],
+  [
+   "matplotlib y docker stats",
+   "matplotlib 3.11.0; docker stats (Docker Engine 29.6.1)",
+   "Gráficos de CPU y memoria de la API y de PostgreSQL durante las cargas de CP-25.",
+   "No está en la Tabla 6."
+  ],
+  [
+   "Microsoft Office",
+   "Word y PowerPoint 16.0.20527 (automatización COM)",
+   "Creación de informe.doc y presentacion.ppt (DM-04).",
+   "No está en la Tabla 6."
+  ],
+  [
+   "SonarQube y SonarScanner",
+   "SonarQube Community Build 26.10.0.133078 (Java 21.0.11), SonarScanner CLI 8.1.0.6389 (imagen sonarsource/sonar-scanner-cli)",
+   "Evidencia complementaria de CP-17, CP-18, CP-20, CP-21 y CP-22.",
+   "No está en la Tabla 6 ni es un caso nuevo."
+  ],
+  [
+   "Caddy",
+   "Caddy 2.11.7 (imagen Docker caddy:2)",
+   "Proxy TLS complementario en CP-21.",
+   "No está en la Tabla 6 (el informe pide un proxy inverso con certificado de prueba, sin nombrar la herramienta; mkcert no se usó, Caddy generó la CA local)."
+  ]
+ ],
+ "nota_sut": "Sistema bajo prueba (versiones observadas): Express 4.21.2 instalado en BACKEND/node_modules (CLAUDE.md indica 4.19), nginx 1.31.6, PostgreSQL 15.19, Node.js v18.20.8 en la imagen de la API, Windows 11 (26H2) como equipo de pruebas."
+}

@@ -1,0 +1,31 @@
+restore 0 | antes: 215 |    7 |       34
+A_run1 k6 salió con 99 en 187 s
+después: 215 |    7 |       34
+restore 0 | antes: 215 |    7 |       34
+A_run2 k6 salió con 99 en 187 s
+después: 215 |    7 |       34
+restore 0 | antes: 215 |    7 |       34
+A_run3 k6 salió con 99 en 187 s
+después: 215 |    7 |       34
+restore 0 | antes: 215 |    7 |       34
+B_run1 k6 salió con 99 en 416 s
+después: 5056 |    7 |       34
+restore 0 | antes: 215 |    7 |       34
+B_run2 k6 salió con 99 en 416 s
+después: 5057 |    7 |       34
+restore 0 | antes: 215 |    7 |       34
+B_run3 k6 salió con 99 en 415 s
+después: 5055 |    7 |       34
+restore 0 | antes: 215 |    7 |       34
+C_volumen k6 salió con 0 en 31 s
+después: 215 |    7 |       34
+restore 0 | antes: 215 |    7 |       34
+E_documentos k6 salió con 0 en 50 s
+después: 215 |   17 |       34
+restore 0 | antes: 215 |    7 |       34
+F_estres k6 salió con 0 en 764 s
+después: 10296 |    7 |       34
+restore 0 | antes: 215 |    7 |       34
+G_sin_token k6 salió con 99 en 98 s
+después: 215 |    7 |       34
+SECUENCIA_COMPLETA

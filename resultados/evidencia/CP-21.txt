@@ -1,0 +1,46 @@
+CP-21 2026-10-24 19:37
+
+### Paso 1: HTTP plano y respuesta del frontend
+GET http://localhost:3333: 200 Location: None {'Server': 'nginx/1.31.6', 'Date': 'Sat, 24 Oct 2026 22:37:32 GMT', 'Content-Type': 'text/html', 'Content-Length': '1012', 'Last-Modified': 'Tue, 06 Oct 2026 03:41:03 GMT', 'Connection': 'keep-alive', 'ETag': '"6ac46dcf-3f4"', 'Accept-Ranges': 'bytes'}
+GET http://localhost:4444/: 200 Location: None Strict-Transport-Security: None
+HSTS en el frontend: None
+URL de la API incrustada en el JS del frontend: ['http://localhost:4444']
+
+### Paso 2: captura de tráfico (tcpdump en el netns de la API, equivalente a Wireshark)
+captura guardada en evidencia/tls/captura_tcpdump_api.txt ( 7547 caracteres )
+contraseña 'Cuidarte#Med2026' en texto claro en la captura: True | token JWT completo en texto claro: True
+
+### Paso 3: SHOW ssl y sslmode
+ssl 
+-----
+ off
+(1 row)
+DATABASE_URL del compose: postgres://...@cuidarteplus-postgres-ev:5432/cuidarteplus (sin sslmode)
+['- DATABASE_URL=postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@cuidarteplus-postgres-ev:5432/${POSTGRES_DB:-cuidarteplus}']
+['const connectionString =', 'const pool = new Pool({ connectionString });']
+
+### Paso 4: CSRF: cookies y almacenamiento del token
+cookies del navegador tras iniciar sesión: [] | claves en localStorage: ['token', 'user']
+
+### Paso 5: fetch PUT desde otro origen (http://localhost:9999) con credentials include y sin Authorization
+resultado del fetch: {'error': 'TypeError: Failed to fetch'}
+teléfono antes/después: +56981234567 / +56981234567
+variante sin credentials (el navegador sí envía la solicitud): {'status': 401, 'body': '{"error":"No autorizado","glosa":"Token inválido"}'}
+teléfono tras la variante: +56981234567
+
+### Paso 6: CORS: OPTIONS /usuarios
+Origin http://evil.example.test: HTTP 204 Access-Control-Allow-Origin=* Allow-Headers=authorization
+Origin http://localhost:3333: HTTP 204 Access-Control-Allow-Origin=* Allow-Headers=authorization
+
+### Paso 8: npm audit --omit=dev
+BACKEND vulnerabilidades: {'info': 0, 'low': 0, 'moderate': 2, 'high': 4, 'critical': 1, 'total': 7}
+FRONTEND vulnerabilidades: {'info': 0, 'low': 0, 'moderate': 2, 'high': 6, 'critical': 0, 'total': 8}
+imagen base del backend node:18-alpine -> v18.20.8 (Node 18 llegó al fin de su soporte el 2025-04-30)
+['FROM node:18-alpine']
+['FROM node:20 AS builder', 'FROM nginx:alpine']
+
+### Paso 9: checklist de cabeceras, /docs, X-Powered-By y /files/documentos
+frontend {'Content-Security-Policy': None, 'X-Content-Type-Options': None, 'X-Frame-Options': None, 'Referrer-Policy': None, 'Strict-Transport-Security': None, 'X-Powered-By': None, 'Server': 'nginx/1.31.6'}
+API / {'Content-Security-Policy': None, 'X-Content-Type-Options': None, 'X-Frame-Options': None, 'Referrer-Policy': None, 'Strict-Transport-Security': None, 'X-Powered-By': 'Express', 'Server': None}
+API /docs/ {'Content-Security-Policy': None, 'X-Content-Type-Options': None, 'X-Frame-Options': None, 'Referrer-Policy': None, 'Strict-Transport-Security': None, 'X-Powered-By': 'Express', 'Server': None}
+/docs accesible sin autenticación: 200 | /files/documentos/: 404

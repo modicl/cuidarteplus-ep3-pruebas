@@ -1,0 +1,11 @@
+[
+ ["A. SonarQube Community Build 26.10.0.133078 (análisis estático)", "Capturas reales del tablero de SonarQube (usuario de solo lectura qa_viewer) y salida del escáner, con los comandos usados. Archivos: resultados/evidencia/sonar/ y anexos/.", ["anexos/sonar_dashboard_backend.png","anexos/sonar_dashboard_frontend.png","anexos/sonar_issues_backend_seguridad.png","anexos/sonar_cli.png","anexos/sonar_relevantes.png"]],
+ ["B. OWASP ZAP 2.17.0 (CP-17 y CP-21)", "Salida de la línea de comandos (Automation Framework en Docker) y alertas del informe JSON. Imagen: render HTML del texto real de zap_cp17.log, zap_cp21.log y de los informes JSON. Archivos: resultados/evidencia/zap/.", ["anexos/zap_cli_cp17.png","anexos/zap_cli_cp21.png"]],
+ ["C. Newman 6.1.3 (CP-19)", "Salida de la línea de comandos de la ejecución de la colección (inicio y resumen de fallas). Imagen: render HTML del texto real de newman_cp19.log. Archivos: resultados/evidencia/newman/.", ["anexos/newman_cli.png"]],
+ ["D. testssl.sh 3.2.4 y Caddy 2.11.7 (CP-21, proxy TLS del equipo)", "Resultado de testssl.sh contra el proxy TLS y configuración del proxy. Imagen: render HTML del texto real de testssl_3443.txt y Caddyfile. Archivos: resultados/evidencia/tls/.", ["anexos/testssl_cli.png","anexos/caddy_cli.png"]],
+ ["E. tcpdump 4.99.6 en lugar de Wireshark (CP-21)", "Captura de tráfico HTTP hacia la API con la contraseña y el token en texto claro. Imagen: render HTML del texto real de captura_tcpdump_api.txt.", ["anexos/tcpdump_cli.png"]],
+ ["F. npm audit (npm 11.6.2) (CP-21)", "Resultado de npm audit --omit=dev en BACKEND y FRONTEND (extracto final). Imagen: render HTML de la salida real. Archivos: resultados/evidencia/anexos/npm_audit_*.txt y npm_audit_*.json.", ["anexos/npm_audit_cli.png"]],
+ ["G. Playwright 1.64.1 y 1.63.0 (CP-18)", "Matriz de navegadores de CP-18. Imagen: render HTML del texto real de CP-18_navegadores.txt.", ["anexos/playwright_cli.png"]],
+ ["H. psql, pg_dump/pg_restore y SHA-256", "Consulta de conteos, hash de un archivo y restauración del estado base. Imagen: render HTML de la salida real.", ["anexos/psql_cli.png"]],
+ ["I. Versiones de las herramientas", "Salida de los comandos de versión de Docker, PostgreSQL, Newman, k6, testssl.sh, Playwright, Node y Python. Imagen: render HTML de la salida real.", ["anexos/versiones_cli.png"]]
+]

@@ -1,0 +1,41 @@
+{
+ "url": "http://localhost:3333/login",
+ "lighthouse": "13.5.0",
+ "flags": {
+  "port": 9333,
+  "output": "json",
+  "logLevel": "error",
+  "onlyCategories": [
+   "performance"
+  ],
+  "formFactor": "mobile",
+  "screenEmulation": {
+   "mobile": true,
+   "width": 412,
+   "height": 823,
+   "deviceScaleFactor": 1.75,
+   "disabled": false
+  },
+  "throttlingMethod": "devtools",
+  "throttling": {
+   "rttMs": 150,
+   "throughputKbps": 1638.4,
+   "requestLatencyMs": 562.5,
+   "downloadThroughputKbps": 1474.56,
+   "uploadThroughputKbps": 675,
+   "cpuSlowdownMultiplier": 4
+  },
+  "disableStorageReset": false
+ },
+ "results": [
+  {
+   "rep": 1,
+   "finalUrl": "http://localhost:3333/login",
+   "load_ms": 4225,
+   "lcp_ms": 4387.72,
+   "fcp_ms": 4387.72,
+   "perf_score": 0.72,
+   "runWarnings": []
+  }
+ ]
+}

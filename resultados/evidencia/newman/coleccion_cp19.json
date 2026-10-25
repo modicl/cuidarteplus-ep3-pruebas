@@ -1,0 +1,2230 @@
+{
+ "info": {
+  "name": "Cuidarte+ CP-19",
+  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+ },
+ "item": [
+  {
+   "name": "[401 sin token] GET /usuarios sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /usuarios sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/usuarios",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] POST /usuarios sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"POST /usuarios sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/usuarios",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /usuarios/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /usuarios/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/usuarios/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] PUT /usuarios/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"PUT /usuarios/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "PUT",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/usuarios/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios",
+      "999999"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] DELETE /usuarios/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"DELETE /usuarios/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "DELETE",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/usuarios/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /pacientes sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /pacientes sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/pacientes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] POST /pacientes sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"POST /pacientes sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /pacientes/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /pacientes/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/pacientes/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] PUT /pacientes/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"PUT /pacientes/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "PUT",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes",
+      "999999"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] DELETE /pacientes/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"DELETE /pacientes/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "DELETE",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/pacientes/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /examenes sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /examenes sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/examenes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] POST /examenes sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"POST /examenes sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/examenes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /examenes/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /examenes/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/examenes/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] PUT /examenes/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"PUT /examenes/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "PUT",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/examenes/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes",
+      "999999"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] DELETE /examenes/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"DELETE /examenes/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "DELETE",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/examenes/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /examenes/paciente/{paciente_id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /examenes/paciente/{paciente_id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/examenes/paciente/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes",
+      "paciente",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] POST /documentos sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"POST /documentos sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /documentos/examen/{examen_id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /documentos/examen/{examen_id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/documentos/examen/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos",
+      "examen",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /documentos/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /documentos/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/documentos/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] DELETE /documentos/{id} sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"DELETE /documentos/{id} sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "DELETE",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/documentos/999999",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos",
+      "999999"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[401 sin token] GET /auditoria sin token",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"GET /auditoria sin token -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [],
+    "url": {
+     "raw": "{{base}}/auditoria",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "auditoria"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] login positivo",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"login positivo -> esperado 200\", function(){ pm.expect(pm.response.code).to.be.oneOf([200]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/autenticacion/login",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "autenticacion",
+      "login"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"nombre_usuario\": \"qa_medico1\", \"password\": \"Cuidarte#Med2026\"}"
+    }
+   }
+  },
+  {
+   "name": "[critico] login negativo (contrasena incorrecta)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"login negativo (contrasena incorrecta) -> esperado 401\", function(){ pm.expect(pm.response.code).to.be.oneOf([401]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/autenticacion/login",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "autenticacion",
+      "login"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"nombre_usuario\": \"qa_medico1\", \"password\": \"mala\"}"
+    }
+   }
+  },
+  {
+   "name": "[critico] registro positivo",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"registro positivo -> esperado 201\", function(){ pm.expect(pm.response.code).to.be.oneOf([201]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/autenticacion/registro",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "autenticacion",
+      "registro"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"nombre_usuario\": \"qa_nw_reg1\", \"password\": \"Cuidarte#Nw2026\", \"correo\": \"qa_nw_reg1@example.com\"}"
+    }
+   }
+  },
+  {
+   "name": "[critico] registro negativo (usuario repetido)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"registro negativo (usuario repetido) -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/autenticacion/registro",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "autenticacion",
+      "registro"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"nombre_usuario\": \"qa_nw_reg1\", \"password\": \"Cuidarte#Nw2026\", \"correo\": \"qa_nw_reg1@example.com\"}"
+    }
+   }
+  },
+  {
+   "name": "[critico] usuarios GET positivo (ADM)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"usuarios GET positivo (ADM) -> esperado 200\", function(){ pm.expect(pm.response.code).to.be.oneOf([200]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_ADM}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/usuarios",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] usuarios GET negativo (MED1)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"usuarios GET negativo (MED1) -> esperado 403\", function(){ pm.expect(pm.response.code).to.be.oneOf([403]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/usuarios",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] usuarios POST positivo (ADM)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"usuarios POST positivo (ADM) -> esperado 201\", function(){ pm.expect(pm.response.code).to.be.oneOf([201]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_ADM}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/usuarios",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"nombre_usuario\": \"qa_nw_user1\", \"correo\": \"qa_nw_user1@example.com\", \"contrasena_hash\": \"Cuidarte#Nw2026\", \"rol_id\": 3}"
+    }
+   }
+  },
+  {
+   "name": "[critico] pacientes GET positivo (MED1)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"pacientes GET positivo (MED1) -> esperado 200\", function(){ pm.expect(pm.response.code).to.be.oneOf([200]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] pacientes GET negativo (PAC_A)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"pacientes GET negativo (PAC_A) -> esperado 403\", function(){ pm.expect(pm.response.code).to.be.oneOf([403]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_PAC}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] pacientes POST positivo (MED1)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"pacientes POST positivo (MED1) -> esperado 201\", function(){ pm.expect(pm.response.code).to.be.oneOf([201]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"rut\": \"5.555.555-5\", \"primer_nombre\": \"Newman\", \"apellido_paterno\": \"Prueba\", \"fecha_nacimiento\": \"1990-01-01\", \"sexo\": \"M\", \"email\": \"newman.qa@example.com\"}"
+    }
+   }
+  },
+  {
+   "name": "[critico] pacientes POST negativo (PAC_A)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"pacientes POST negativo (PAC_A) -> esperado 403\", function(){ pm.expect(pm.response.code).to.be.oneOf([403]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_PAC}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"rut\": \"5.555.556-3\", \"primer_nombre\": \"Newman\", \"apellido_paterno\": \"Dos\", \"fecha_nacimiento\": \"1990-01-01\", \"sexo\": \"M\", \"email\": \"newman2.qa@example.com\"}"
+    }
+   }
+  },
+  {
+   "name": "[critico] examenes GET positivo (PAC_A)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"examenes GET positivo (PAC_A) -> esperado 200\", function(){ pm.expect(pm.response.code).to.be.oneOf([200]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_PAC}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/examenes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] examenes POST positivo (MED1)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"examenes POST positivo (MED1) -> esperado 201\", function(){ pm.expect(pm.response.code).to.be.oneOf([201]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/examenes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"tipo_examen_medico_id\": 1, \"paciente_id\": 1, \"diagnosis\": \"newman\"}"
+    }
+   }
+  },
+  {
+   "name": "[critico] examenes POST negativo (PAC_A)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"examenes POST negativo (PAC_A) -> esperado 403\", function(){ pm.expect(pm.response.code).to.be.oneOf([403]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_PAC}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/examenes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"tipo_examen_medico_id\": 1, \"paciente_id\": 1, \"diagnosis\": \"newman\"}"
+    }
+   }
+  },
+  {
+   "name": "[critico] documentos GET positivo (MED1)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"documentos GET positivo (MED1) -> esperado 200\", function(){ pm.expect(pm.response.code).to.be.oneOf([200]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos/2",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos",
+      "2"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] documentos GET negativo (PAC_A documento ajeno)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"documentos GET negativo (PAC_A documento ajeno) -> esperado 403\", function(){ pm.expect(pm.response.code).to.be.oneOf([403]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_PAC}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos/4",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos",
+      "4"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] documentos POST positivo (MED1)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"documentos POST positivo (MED1) -> esperado 201\", function(){ pm.expect(pm.response.code).to.be.oneOf([201]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "formdata",
+     "formdata": [
+      {
+       "key": "examen_medico_id",
+       "value": "4",
+       "type": "text"
+      },
+      {
+       "key": "paciente_id",
+       "value": "1",
+       "type": "text"
+      },
+      {
+       "key": "documento",
+       "type": "file",
+       "src": "resultado_examen_v1.pdf",
+       "contentType": "application/pdf"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] documentos POST negativo (PAC_A)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"documentos POST negativo (PAC_A) -> esperado 403\", function(){ pm.expect(pm.response.code).to.be.oneOf([403]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_PAC}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "formdata",
+     "formdata": [
+      {
+       "key": "examen_medico_id",
+       "value": "4",
+       "type": "text"
+      },
+      {
+       "key": "paciente_id",
+       "value": "1",
+       "type": "text"
+      },
+      {
+       "key": "documento",
+       "type": "file",
+       "src": "resultado_examen_v1.pdf",
+       "contentType": "application/pdf"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] auditoria GET positivo (ADM)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"auditoria GET positivo (ADM) -> esperado 200\", function(){ pm.expect(pm.response.code).to.be.oneOf([200]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_ADM}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/auditoria",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "auditoria"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[critico] auditoria GET negativo (MED1)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"auditoria GET negativo (MED1) -> esperado 403\", function(){ pm.expect(pm.response.code).to.be.oneOf([403]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/auditoria",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "auditoria"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[vector] V1 login con {}",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V1 login con {} -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/autenticacion/login",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "autenticacion",
+      "login"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V2 registro con correo invalido",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V2 registro con correo invalido -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/autenticacion/registro",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "autenticacion",
+      "registro"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"nombre_usuario\": \"qa_nw_v2\", \"password\": \"Cuidarte#Nw2026\", \"correo\": \"no-es-correo\"}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V3 POST /usuarios nombre_usuario de 2 caracteres",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V3 POST /usuarios nombre_usuario de 2 caracteres -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_ADM}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/usuarios",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"nombre_usuario\": \"ab\", \"correo\": \"qa_nw_v3@example.com\", \"contrasena_hash\": \"Cuidarte#Nw2026\"}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V4 PUT /usuarios/{qa_borrar} con {}",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V4 PUT /usuarios/{qa_borrar} con {} -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "PUT",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_ADM}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/usuarios/13",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "usuarios",
+      "13"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V5 POST /pacientes sin rut",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V5 POST /pacientes sin rut -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"primer_nombre\": \"Sin\", \"apellido_paterno\": \"Rut\", \"fecha_nacimiento\": \"1990-01-01\", \"sexo\": \"M\", \"email\": \"sinrut@example.com\"}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V6 PUT /pacientes/{Nuevo5} con sexo X",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V6 PUT /pacientes/{Nuevo5} con sexo X -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "PUT",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes/21",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes",
+      "21"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"sexo\": \"X\"}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V7 POST /examenes paciente_id abc",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V7 POST /examenes paciente_id abc -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/examenes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"tipo_examen_medico_id\": 1, \"paciente_id\": \"abc\"}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V8 POST /examenes paciente_id -1",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V8 POST /examenes paciente_id -1 -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/examenes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"tipo_examen_medico_id\": 1, \"paciente_id\": -1}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V9 POST /documentos sin archivo",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V9 POST /documentos sin archivo -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "formdata",
+     "formdata": [
+      {
+       "key": "examen_medico_id",
+       "value": "4",
+       "type": "text"
+      },
+      {
+       "key": "paciente_id",
+       "value": "1",
+       "type": "text"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "[vector] V10 POST /roles con {} (ADM)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V10 POST /roles con {} (ADM) -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_ADM}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/roles",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "roles"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{}"
+    }
+   }
+  },
+  {
+   "name": "[vector] V11 GET /examenes/abc",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V11 GET /examenes/abc -> esperado 400/404\", function(){ pm.expect(pm.response.code).to.be.oneOf([400, 404]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_ADM}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/examenes/abc",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "examenes",
+      "abc"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[vector] V12 POST /pacientes con JSON mal formado",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V12 POST /pacientes con JSON mal formado -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     },
+     {
+      "key": "Content-Type",
+      "value": "application/json"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes"
+     ]
+    },
+    "body": {
+     "mode": "raw",
+     "raw": "{\"rut\": \"1-9\", \"primer_nombre\": "
+    }
+   }
+  },
+  {
+   "name": "[vector] V13 script_malicioso.exe (application/x-msdownload)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V13 script_malicioso.exe (application/x-msdownload) -> esperado 400/415\", function(){ pm.expect(pm.response.code).to.be.oneOf([400, 415]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "formdata",
+     "formdata": [
+      {
+       "key": "examen_medico_id",
+       "value": "4",
+       "type": "text"
+      },
+      {
+       "key": "paciente_id",
+       "value": "1",
+       "type": "text"
+      },
+      {
+       "key": "documento",
+       "type": "file",
+       "src": "script_malicioso.exe",
+       "contentType": "application/x-msdownload"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "[vector] V14 resultado_falso.pdf (MZ como application/pdf)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V14 resultado_falso.pdf (MZ como application/pdf) -> esperado 400/415\", function(){ pm.expect(pm.response.code).to.be.oneOf([400, 415]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "formdata",
+     "formdata": [
+      {
+       "key": "examen_medico_id",
+       "value": "4",
+       "type": "text"
+      },
+      {
+       "key": "paciente_id",
+       "value": "1",
+       "type": "text"
+      },
+      {
+       "key": "documento",
+       "type": "file",
+       "src": "resultado_falso.pdf",
+       "contentType": "application/pdf"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "[vector] V15 foto_falsa.jpg (HTML/JS como image/jpeg)",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V15 foto_falsa.jpg (HTML/JS como image/jpeg) -> esperado 400/415\", function(){ pm.expect(pm.response.code).to.be.oneOf([400, 415]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "formdata",
+     "formdata": [
+      {
+       "key": "examen_medico_id",
+       "value": "4",
+       "type": "text"
+      },
+      {
+       "key": "paciente_id",
+       "value": "1",
+       "type": "text"
+      },
+      {
+       "key": "documento",
+       "type": "file",
+       "src": "foto_falsa.jpg",
+       "contentType": "image/jpeg"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "[vector] V16 GET /pacientes/abc",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V16 GET /pacientes/abc -> esperado 400/404\", function(){ pm.expect(pm.response.code).to.be.oneOf([400, 404]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "GET",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_ADM}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/pacientes/abc",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "pacientes",
+      "abc"
+     ]
+    }
+   }
+  },
+  {
+   "name": "[vector] V17 resultado_grande.pdf 11 MB",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V17 resultado_grande.pdf 11 MB -> esperado 400/413\", function(){ pm.expect(pm.response.code).to.be.oneOf([400, 413]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "formdata",
+     "formdata": [
+      {
+       "key": "examen_medico_id",
+       "value": "4",
+       "type": "text"
+      },
+      {
+       "key": "paciente_id",
+       "value": "1",
+       "type": "text"
+      },
+      {
+       "key": "documento",
+       "type": "file",
+       "src": "resultado_grande.pdf",
+       "contentType": "application/pdf"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "[vector] V18 POST /documentos con paciente_id distinto al del examen",
+   "event": [
+    {
+     "listen": "test",
+     "script": {
+      "type": "text/javascript",
+      "exec": [
+       "pm.test(\"V18 POST /documentos con paciente_id distinto al del examen -> esperado 400\", function(){ pm.expect(pm.response.code).to.be.oneOf([400]); });",
+       "pm.test('sin HTTP 500', function(){ pm.expect(pm.response.code).to.not.equal(500); });"
+      ]
+     }
+    }
+   ],
+   "request": {
+    "method": "POST",
+    "header": [
+     {
+      "key": "Authorization",
+      "value": "Bearer {{T_MED1}}"
+     }
+    ],
+    "url": {
+     "raw": "{{base}}/documentos",
+     "host": [
+      "{{base}}"
+     ],
+     "path": [
+      "documentos"
+     ]
+    },
+    "body": {
+     "mode": "formdata",
+     "formdata": [
+      {
+       "key": "examen_medico_id",
+       "value": "4",
+       "type": "text"
+      },
+      {
+       "key": "paciente_id",
+       "value": "11",
+       "type": "text"
+      },
+      {
+       "key": "documento",
+       "type": "file",
+       "src": "resultado_examen_v1.pdf",
+       "contentType": "application/pdf"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

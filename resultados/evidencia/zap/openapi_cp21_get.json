@@ -1,0 +1,678 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "cuidarteplus API (español)",
+  "version": "1.0.0"
+ },
+ "servers": [
+  {
+   "url": "http://host.docker.internal:4444"
+  }
+ ],
+ "paths": {
+  "/usuarios": {
+   "get": {
+    "summary": "Listar usuarios",
+    "description": "Lista todos los usuarios del sistema. Solo disponible para administradores.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "Solo los administradores pueden listar todos los usuarios"
+     }
+    }
+   }
+  },
+  "/usuarios/{id}": {
+   "get": {
+    "summary": "Obtener usuario",
+    "description": "Obtiene la información de un usuario específico, incluyendo su rol. Si el usuario tiene empresaId, obtiene información del usuario en su empresa. Si no tiene empresaId (sistema médico), obtiene información del usuario con sus roles. Pacientes solo pueden ver sus propios datos.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "parameters": [
+     {
+      "in": "path",
+      "name": "id",
+      "schema": {
+       "type": "integer"
+      },
+      "required": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "404": {
+      "description": "Usuario no encontrado"
+     }
+    }
+   }
+  },
+  "/pacientes": {
+   "get": {
+    "summary": "Listar pacientes",
+    "description": "Lista todos los pacientes. Requiere rol de médico o admin.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     }
+    }
+   }
+  },
+  "/pacientes/{id}": {
+   "get": {
+    "summary": "Obtener paciente",
+    "description": "Obtiene la información de un paciente específico. Médicos y admins pueden ver cualquier paciente. Pacientes solo pueden ver sus propios datos.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "parameters": [
+     {
+      "in": "path",
+      "name": "id",
+      "schema": {
+       "type": "integer"
+      },
+      "required": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     },
+     "404": {
+      "description": "Paciente no encontrado"
+     }
+    }
+   }
+  },
+  "/examenes": {
+   "get": {
+    "summary": "Listar exámenes médicos",
+    "description": "Lista todos los exámenes médicos. Médicos y admins ven todos los exámenes. Pacientes solo ven sus propios exámenes.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     }
+    }
+   }
+  },
+  "/examenes/{id}": {
+   "get": {
+    "summary": "Obtener examen médico",
+    "description": "Obtiene la información de un examen médico específico. Médicos y admins pueden ver cualquier examen. Pacientes solo pueden ver sus propios exámenes.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "parameters": [
+     {
+      "in": "path",
+      "name": "id",
+      "schema": {
+       "type": "integer"
+      },
+      "required": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     },
+     "404": {
+      "description": "Examen no encontrado"
+     }
+    }
+   }
+  },
+  "/examenes/paciente/{paciente_id}": {
+   "get": {
+    "summary": "Obtener exámenes por paciente",
+    "description": "Obtiene todos los exámenes médicos de un paciente específico. Médicos y admins pueden ver exámenes de cualquier paciente. Pacientes solo pueden ver sus propios exámenes.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "parameters": [
+     {
+      "in": "path",
+      "name": "paciente_id",
+      "schema": {
+       "type": "integer"
+      },
+      "required": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     }
+    }
+   }
+  },
+  "/documentos/examen/{examen_id}": {
+   "get": {
+    "summary": "Listar documentos de un examen",
+    "description": "Lista todos los documentos asociados a un examen médico. Médicos y admins pueden ver documentos de cualquier examen. Pacientes solo pueden ver documentos de sus propios exámenes.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "parameters": [
+     {
+      "in": "path",
+      "name": "examen_id",
+      "schema": {
+       "type": "integer"
+      },
+      "required": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     }
+    }
+   }
+  },
+  "/documentos/{id}": {
+   "get": {
+    "summary": "Descargar documento",
+    "description": "Descarga un documento específico. Médicos y admins pueden descargar cualquier documento. Pacientes solo pueden descargar sus propios documentos.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "parameters": [
+     {
+      "in": "path",
+      "name": "id",
+      "schema": {
+       "type": "integer"
+      },
+      "required": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Archivo (PDF, JPG o PNG)",
+      "content": {
+       "application/pdf": {
+        "schema": {
+         "type": "string",
+         "format": "binary"
+        }
+       },
+       "image/jpeg": {
+        "schema": {
+         "type": "string",
+         "format": "binary"
+        }
+       },
+       "image/png": {
+        "schema": {
+         "type": "string",
+         "format": "binary"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     },
+     "404": {
+      "description": "Documento no encontrado"
+     }
+    }
+   }
+  },
+  "/tipo-examen": {
+   "get": {
+    "summary": "Listar tipos de examen",
+    "description": "Lista todos los tipos de examen médico disponibles.",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/tipo-examen/{id}": {
+   "get": {
+    "summary": "Obtener tipo de examen",
+    "description": "Obtiene la información de un tipo de examen específico.",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "id",
+      "schema": {
+       "type": "integer"
+      },
+      "required": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Tipo de examen no encontrado"
+     }
+    }
+   }
+  },
+  "/auditoria": {
+   "get": {
+    "summary": "Listar auditoría",
+    "description": "Lista todos los registros de auditoría. Si el usuario tiene empresaId, lista registros de su empresa. Si no tiene empresaId (sistema médico), solo admin puede ver todos los registros.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "Solo administradores pueden ver los registros de auditoría"
+     }
+    }
+   }
+  },
+  "/roles": {
+   "get": {
+    "summary": "Listar roles",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Cliente": {
+    "type": "object",
+    "properties": {
+     "nombre": {
+      "type": "string"
+     },
+     "correo": {
+      "type": "string"
+     },
+     "telefono": {
+      "type": "string"
+     },
+     "direccion": {
+      "type": "string"
+     },
+     "es_empresa": {
+      "type": "boolean"
+     },
+     "nombre_banco": {
+      "type": "string"
+     },
+     "numero_cuenta": {
+      "type": "string"
+     },
+     "titular_cuenta": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "nombre",
+     "correo"
+    ],
+    "description": "El campo empresa_id se obtiene automáticamente del token JWT"
+   },
+   "Empresa": {
+    "type": "object",
+    "properties": {
+     "nombre": {
+      "type": "string"
+     },
+     "direccion": {
+      "type": "string"
+     },
+     "telefono": {
+      "type": "string"
+     },
+     "correo": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "nombre",
+     "correo"
+    ]
+   },
+   "EmpresaConUsuario": {
+    "type": "object",
+    "properties": {
+     "usuario": {
+      "type": "object",
+      "properties": {
+       "nombre_usuario": {
+        "type": "string"
+       },
+       "contrasena_hash": {
+        "type": "string"
+       },
+       "correo": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "nombre_usuario",
+       "contrasena_hash",
+       "correo"
+      ]
+     },
+     "empresa": {
+      "$ref": "#/components/schemas/Empresa"
+     }
+    },
+    "required": [
+     "usuario",
+     "empresa"
+    ]
+   },
+   "PacienteCrear": {
+    "type": "object",
+    "properties": {
+     "rut": {
+      "type": "string"
+     },
+     "primer_nombre": {
+      "type": "string"
+     },
+     "apellido_paterno": {
+      "type": "string"
+     },
+     "apellido_materno": {
+      "type": "string"
+     },
+     "fecha_nacimiento": {
+      "type": "string",
+      "format": "date"
+     },
+     "sexo": {
+      "type": "string",
+      "enum": [
+       "M",
+       "F",
+       "O"
+      ]
+     },
+     "nacionalidad": {
+      "type": "string"
+     },
+     "estado_civil": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     },
+     "telefono": {
+      "type": "string"
+     },
+     "direccion": {
+      "type": "string"
+     },
+     "contacto_emergencia_nombre": {
+      "type": "string"
+     },
+     "contacto_emergencia_telefono": {
+      "type": "string"
+     },
+     "contacto_emergencia_relacion": {
+      "type": "string"
+     },
+     "tipo_prevision": {
+      "type": "string"
+     },
+     "tiene_convenio": {
+      "type": "boolean"
+     },
+     "grupo_sanguineo": {
+      "type": "string"
+     },
+     "alergias": {
+      "type": "string"
+     },
+     "enfermedades_cronicas": {
+      "type": "string"
+     },
+     "discapacidades": {
+      "type": "string"
+     },
+     "observaciones_medicas_generales": {
+      "type": "string"
+     },
+     "usuario_id": {
+      "type": "integer"
+     }
+    },
+    "required": [
+     "rut",
+     "primer_nombre",
+     "apellido_paterno",
+     "fecha_nacimiento",
+     "sexo",
+     "email"
+    ]
+   },
+   "PacienteActualizar": {
+    "type": "object",
+    "properties": {
+     "rut": {
+      "type": "string"
+     },
+     "primer_nombre": {
+      "type": "string"
+     },
+     "apellido_paterno": {
+      "type": "string"
+     },
+     "apellido_materno": {
+      "type": "string"
+     },
+     "fecha_nacimiento": {
+      "type": "string",
+      "format": "date"
+     },
+     "sexo": {
+      "type": "string",
+      "enum": [
+       "M",
+       "F",
+       "O"
+      ]
+     },
+     "nacionalidad": {
+      "type": "string"
+     },
+     "estado_civil": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     },
+     "telefono": {
+      "type": "string"
+     },
+     "direccion": {
+      "type": "string"
+     },
+     "contacto_emergencia_nombre": {
+      "type": "string"
+     },
+     "contacto_emergencia_telefono": {
+      "type": "string"
+     },
+     "contacto_emergencia_relacion": {
+      "type": "string"
+     },
+     "tipo_prevision": {
+      "type": "string"
+     },
+     "tiene_convenio": {
+      "type": "boolean"
+     },
+     "grupo_sanguineo": {
+      "type": "string"
+     },
+     "alergias": {
+      "type": "string"
+     },
+     "enfermedades_cronicas": {
+      "type": "string"
+     },
+     "discapacidades": {
+      "type": "string"
+     },
+     "observaciones_medicas_generales": {
+      "type": "string"
+     },
+     "usuario_id": {
+      "type": "integer"
+     }
+    }
+   },
+   "ExamenMedicoCrear": {
+    "type": "object",
+    "properties": {
+     "tipo_examen_medico_id": {
+      "type": "integer"
+     },
+     "paciente_id": {
+      "type": "integer"
+     },
+     "diagnosis": {
+      "type": "string"
+     },
+     "tratamiento": {
+      "type": "string"
+     },
+     "observaciones": {
+      "type": "string"
+     },
+     "notas": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "tipo_examen_medico_id",
+     "paciente_id"
+    ]
+   },
+   "ExamenMedicoActualizar": {
+    "type": "object",
+    "properties": {
+     "tipo_examen_medico_id": {
+      "type": "integer"
+     },
+     "paciente_id": {
+      "type": "integer"
+     },
+     "diagnosis": {
+      "type": "string"
+     },
+     "tratamiento": {
+      "type": "string"
+     },
+     "observaciones": {
+      "type": "string"
+     },
+     "notas": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "securitySchemes": {
+   "bearerAuth": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT",
+    "description": "Token JWT obtenido del endpoint /autenticacion/login. Incluye: usuarioId, nombreUsuario, rolId, rolNombre, pacienteId, roles"
+   }
+  }
+ }
+}

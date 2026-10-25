@@ -1,0 +1,89 @@
+{
+ "CP-01": [
+  "CP-01_paso1_home_medico.png",
+  "CP-01_paso4_antes_de_cerrar.png",
+  "CP-01_paso4_atras_1.png",
+  "CP-01_paso4_sin_sesion_pacientes.png"
+ ],
+ "CP-02": [
+  "CP-02_paso1_ui_error.png"
+ ],
+ "CP-03": [
+  "CP-03_paso1_registro_f.png",
+  "CP-03_paso3_usuarios.png"
+ ],
+ "CP-04": [
+  "CP-04_paso9_ui_examen_ajeno.png"
+ ],
+ "CP-05": [
+  "CP-05_paso1_intento1_error.png",
+  "CP-05_paso1_intento2.png"
+ ],
+ "CP-06": [
+  "CP-06_paso1_listado.png",
+  "CP-06_paso5_dialogo.png"
+ ],
+ "CP-07": [
+  "CP-07_paso4_tras_subir_v2.png",
+  "CP-07_paso3_mis_resultados.png"
+ ],
+ "CP-08": [
+  "CP-08_paso1_detalle_med1.png",
+  "CP-08_paso2_dialogo.png"
+ ],
+ "CP-09": [
+  "CP-09_paso1_ui.png"
+ ],
+ "CP-10": [
+  "CP-10_paso1_mis_resultados.png",
+  "CP-10_paso2_detalle_examen_2.png",
+  "CP-10_paso2_detalle_examen_3.png"
+ ],
+ "CP-11": [
+  "CP-11_paso5_pantalla_auditoria.png"
+ ],
+ "CP-12": [
+  "CP-12_paso3_pacientes_nuevo.png",
+  "CP-12_paso3_rol_manipulado.png",
+  "CP-12_ui_MED_pacientes_con_eliminar.png",
+  "CP-12_ui_PAC_pacientes.png"
+ ],
+ "CP-13": [
+  "CP-13_paso1_registro.png",
+  "CP-13_paso3_politica.png"
+ ],
+ "CP-14": [
+  "img/CP-14_salida.png"
+ ],
+ "CP-15": [
+  "img/CP-15_salida.png"
+ ],
+ "CP-16": [
+  "img/CP-16_salida.png"
+ ],
+ "CP-17": [
+  "CP-17_paso6_ui.png"
+ ],
+ "CP-18": [
+  "CP-18_N_chromium_detalle_examen.png",
+  "CP-18_N_firefox_detalle_examen.png",
+  "CP-18_N_msedge_detalle_examen.png",
+  "CP-18_N-1_chromium_detalle_examen.png"
+ ],
+ "CP-19": [
+  "CP-19_paso5_ui_exe.png",
+  "img/CP-19_salida.png"
+ ],
+ "CP-20": [
+  "img/CP-20_salida.png"
+ ],
+ "CP-21": [
+  "img/CP-21_salida.png"
+ ],
+ "CP-22": [
+  "img/CP-22_salida.png"
+ ],
+ "CP-23": [
+  "img/CP-23_salida.png"
+ ]
+}

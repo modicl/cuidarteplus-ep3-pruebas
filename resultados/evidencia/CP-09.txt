@@ -1,0 +1,70 @@
+CP-09 2026-10-24 19:09
+SHA-256 originales:
+  resultado_examen.pdf 2097152 bytes cdfc0a08e62c80dce3e644171e9fb5eb6a7d4d3ad7c5404aed73ab7e70aeaa99
+  informe.doc 25088 bytes f0fa053dbfbe298d6887aed9c61e069aff744a75c82d4867f61aa72dcca1b920
+  presentacion.ppt 261120 bytes d7e7b097521e7fed64e3035c51801f13479206bcec61fcfbaecc91a1bc6aea5f
+  radiografia.jpg 692 bytes 7caed7975efa8cac2fb620cfb57d74ea4348c029c5b1cfa9ae35ed26f4201899
+  imagen.png 184 bytes c859f77c972788fadf5a8100c81f5f182178b0a96048a287d96b627c58f50365
+
+### Paso 1: UI adjuntar resultado_examen.pdf a EX_A3
+  respuesta UI: 201 POST http://localhost:4444/documentos {"documento":{"id":"10","nombre_archivo":"resultado_examen.pdf","created_at":"2026-10-24T22:09:29.157Z"}}
+toasts: []
+
+### Paso 2: API 5 formatos a EX_A1
+resultado_examen.pdf (application/pdf): HTTP 201 (4.86s) {"documento": {"id": "11", "nombre_archivo": "resultado_examen.pdf", "created_at": "2026-10-24T22:09:40.545Z"}}
+informe.doc (application/msword): HTTP 500 (4.81s) <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Internal Server Error</pre>
+</body>
+</html>
+
+presentacion.ppt (application/vnd.ms-powerpoint): HTTP 500 (4.76s) <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Internal Server Error</pre>
+</body>
+</html>
+
+radiografia.jpg (image/jpeg): HTTP 201 (4.83s) {"documento": {"id": "12", "nombre_archivo": "radiografia.jpg", "created_at": "2026-10-24T22:09:55.681Z"}}
+imagen.png (image/png): HTTP 201 (4.81s) {"documento": {"id": "13", "nombre_archivo": "imagen.png", "created_at": "2026-10-24T22:10:00.697Z"}}
+
+### Paso 3: BD
+id | examen_medico_id | paciente_id |    nombre_archivo    |  bytes  
+----+------------------+-------------+----------------------+---------
+  2 |                2 |           1 | resultado_examen.pdf | 2097152
+ 10 |                4 |           1 | resultado_examen.pdf | 2097152
+ 11 |                2 |           1 | resultado_examen.pdf | 2097152
+ 12 |                2 |           1 | radiografia.jpg      |     692
+ 13 |                2 |           1 | imagen.png           |     184
+(5 rows)
+
+### Paso 4: descarga y SHA-256
+resultado_examen.pdf id 11: HTTP 200 Content-Type=application/pdf Content-Disposition=attachment; filename="resultado_examen.pdf" bytes=2097152 SHA-256 igual al original: True
+radiografia.jpg id 12: HTTP 200 Content-Type=image/jpeg Content-Disposition=attachment; filename="radiografia.jpg" bytes=692 SHA-256 igual al original: True
+imagen.png id 13: HTTP 200 Content-Type=image/png Content-Disposition=attachment; filename="imagen.png" bytes=184 SHA-256 igual al original: True
+
+### Paso 5: auditoría
+id | usuario_id |                                  accion                                   
+----+------------+---------------------------------------------------------------------------
+ 67 |          4 | DOCUMENTOS_CREAR: subió documento "resultado_examen.pdf" para examen ID 4
+ 68 |          4 | DOCUMENTOS_CREAR: subió documento "resultado_examen.pdf" para examen ID 2
+ 69 |          4 | DOCUMENTOS_CREAR: subió documento "radiografia.jpg" para examen ID 2
+ 70 |          4 | DOCUMENTOS_CREAR: subió documento "imagen.png" para examen ID 2
+(4 rows)
+mimetypes aceptados por el código: 16:    const allowedMimes = [
+17:      "application/pdf",
+22:    if (allowedMimes.includes(file.mimetype)) {
+41:function requireRole(req, allowedRoles) {
+55:    const hasRole = allowedRoles.some(role => userRoles.includes(role));
+238:    let contentType = "application/pdf";
+244:      contentType = "application/pdf";
+

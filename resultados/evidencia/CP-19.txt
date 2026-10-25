@@ -1,0 +1,103 @@
+CP-19 2026-10-24 19:35
+
+### Paso 1: Swagger y openapi.json
+GET /docs/: HTTP 200
+GET /openapi.json: HTTP 200 17340 bytes
+
+### Paso 2: operaciones implementadas vs documentadas
+implementadas: 32 | documentadas en Swagger: 26
+no documentadas: 6
+   GET /pacientes/buscar/rut/{rut}
+   POST /auditoria
+   POST /roles
+   GET /roles/{id}
+   PUT /roles/{id}
+   DELETE /roles/{id}
+documentadas pero no encontradas en el código: []
+operaciones documentadas con bearerAuth: 21
+
+### Paso 3-4-6: Newman: colección, vectores y reporte
+Resumen de la ejecución Newman (coleccion_cp19.json)
+
+PASA  HTTP 401 (36 ms) [401 sin token] GET /usuarios sin token
+FALLA HTTP 400 (8 ms) [401 sin token] POST /usuarios sin token
+PASA  HTTP 401 (3 ms) [401 sin token] GET /usuarios/{id} sin token
+FALLA HTTP 400 (3 ms) [401 sin token] PUT /usuarios/{id} sin token
+FALLA HTTP 404 (4 ms) [401 sin token] DELETE /usuarios/{id} sin token
+PASA  HTTP 401 (5006 ms) [401 sin token] GET /pacientes sin token
+FALLA HTTP 400 (5 ms) [401 sin token] POST /pacientes sin token
+PASA  HTTP 401 (3 ms) [401 sin token] GET /pacientes/{id} sin token
+FALLA HTTP 400 (4 ms) [401 sin token] PUT /pacientes/{id} sin token
+PASA  HTTP 401 (3 ms) [401 sin token] DELETE /pacientes/{id} sin token
+PASA  HTTP 401 (3555 ms) [401 sin token] GET /examenes sin token
+FALLA HTTP 400 (5006 ms) [401 sin token] POST /examenes sin token
+PASA  HTTP 401 (4 ms) [401 sin token] GET /examenes/{id} sin token
+FALLA HTTP 400 (5006 ms) [401 sin token] PUT /examenes/{id} sin token
+PASA  HTTP 401 (4 ms) [401 sin token] DELETE /examenes/{id} sin token
+PASA  HTTP 401 (4 ms) [401 sin token] GET /examenes/paciente/{paciente_id} sin token
+PASA  HTTP 401 (5005 ms) [401 sin token] POST /documentos sin token
+PASA  HTTP 401 (4 ms) [401 sin token] GET /documentos/examen/{examen_id} sin token
+PASA  HTTP 401 (3 ms) [401 sin token] GET /documentos/{id} sin token
+PASA  HTTP 401 (3 ms) [401 sin token] DELETE /documentos/{id} sin token
+PASA  HTTP 401 (3 ms) [401 sin token] GET /auditoria sin token
+PASA  HTTP 200 (13 ms) [critico] login positivo
+PASA  HTTP 401 (4 ms) [critico] login negativo (contrasena incorrecta)
+PASA  HTTP 201 (9 ms) [critico] registro positivo
+PASA  HTTP 400 (4 ms) [critico] registro negativo (usuario repetido)
+PASA  HTTP 200 (5 ms) [critico] usuarios GET positivo (ADM)
+PASA  HTTP 403 (5 ms) [critico] usuarios GET negativo (MED1)
+PASA  HTTP 201 (9 ms) [critico] usuarios POST positivo (ADM)
+PASA  HTTP 200 (5009 ms) [critico] pacientes GET positivo (MED1)
+PASA  HTTP 403 (5008 ms) [critico] pacientes GET negativo (PAC_A)
+PASA  HTTP 201 (9 ms) [critico] pacientes POST positivo (MED1)
+PASA  HTTP 403 (4 ms) [critico] pacientes POST negativo (PAC_A)
+PASA  HTTP 200 (3561 ms) [critico] examenes GET positivo (PAC_A)
+PASA  HTTP 201 (5009 ms) [critico] examenes POST positivo (MED1)
+PASA  HTTP 403 (5007 ms) [critico] examenes POST negativo (PAC_A)
+PASA  HTTP 200 (109 ms) [critico] documentos GET positivo (MED1)
+PASA  HTTP 403 (30 ms) [critico] documentos GET negativo (PAC_A documento ajeno)
+PASA  HTTP 201 (5012 ms) [critico] documentos POST positivo (MED1)
+PASA  HTTP 403 (5007 ms) [critico] documentos POST negativo (PAC_A)
+PASA  HTTP 200 (6 ms) [critico] auditoria GET positivo (ADM)
+PASA  HTTP 403 (4 ms) [critico] auditoria GET negativo (MED1)
+PASA  HTTP 400 (5 ms) [vector] V1 login con {}
+PASA  HTTP 400 (3 ms) [vector] V2 registro con correo invalido
+PASA  HTTP 400 (3 ms) [vector] V3 POST /usuarios nombre_usuario de 2 caracteres
+PASA  HTTP 400 (3 ms) [vector] V4 PUT /usuarios/{qa_borrar} con {}
+PASA  HTTP 400 (3 ms) [vector] V5 POST /pacientes sin rut
+PASA  HTTP 400 (4 ms) [vector] V6 PUT /pacientes/{Nuevo5} con sexo X
+PASA  HTTP 400 (5012 ms) [vector] V7 POST /examenes paciente_id abc
+PASA  HTTP 400 (3556 ms) [vector] V8 POST /examenes paciente_id -1
+PASA  HTTP 400 (5013 ms) [vector] V9 POST /documentos sin archivo
+FALLA HTTP 500 (4 ms) [vector] V10 POST /roles con {} (ADM)
+FALLA HTTP 500 (11 ms) [vector] V11 GET /examenes/abc
+PASA  HTTP 400 (4 ms) [vector] V12 POST /pacientes con JSON mal formado
+FALLA HTTP 500 (5009 ms) [vector] V13 script_malicioso.exe (application/x-msdownload)
+FALLA HTTP 201 (5017 ms) [vector] V14 resultado_falso.pdf (MZ como application/pdf)
+FALLA HTTP 201 (5010 ms) [vector] V15 foto_falsa.jpg (HTML/JS como image/jpeg)
+FALLA HTTP 500 (5 ms) [vector] V16 GET /pacientes/abc
+FALLA HTTP 500 (5112 ms) [vector] V17 resultado_grande.pdf 11 MB
+FALLA HTTP 201 (3575 ms) [vector] V18 POST /documentos con paciente_id distinto al del examen
+
+Operaciones con bearerAuth sin token -> 401: 14 de 21
+Vectores 1 a 18 rechazados con el código esperado y sin HTTP 500: 10 de 18
+Pruebas de endpoints críticos que pasan: 20 de 20
+Respuestas HTTP 500 en toda la colección: 5
+stats: {"iterations": {"total": 1, "pending": 0, "failed": 0}, "items": {"total": 59, "pending": 0, "failed": 0}, "scripts": {"total": 59, "pending": 0, "failed": 0}, "prerequests": {"total": 59, "pending": 0, "failed": 0}, "requests": {"total": 59, "pending": 0, "failed": 0}, "tests": {"total": 59, "pending": 0, "failed": 0}, "assertions": {"total": 118, "pending": 0, "failed": 20}, "testScripts": {"total": 59, "pending": 0, "failed": 0}, "prerequestScripts": {"total": 0, "pending": 0, "failed": 0}}
+
+
+### Paso 5: vector 13 desde la interfaz (Subir Documento, MED1, EX_A3)
+toasts: [] | texto del diálogo: Subir Documento | Arrastra un archivo aquí |  | o haz clic para seleccionar un archivo |  | Formatos permitidos: PDF, JPG, PNG (máximo 10MB) | Cancelar
+
+### Paso 7: cantidades finales
+usuarios | pacientes | examenes | documentos 
+----------+-----------+----------+------------
+       16 |        22 |        9 |         11
+(1 row) (iniciales: 14, 21, 8, 7)
+id | examen_medico_id | paciente_id |     nombre_archivo      | length  
+----+------------------+-------------+-------------------------+---------
+  4 |                5 |          11 | resultado_examen.pdf    | 2097152
+ 10 |                4 |           1 | resultado_falso.pdf     |     130
+ 11 |                4 |           1 | foto_falsa.jpg          |      38
+ 12 |                4 |          11 | resultado_examen_v1.pdf |     579
+(4 rows)

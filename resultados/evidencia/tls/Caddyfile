@@ -1,0 +1,13 @@
+{
+	local_certs
+	auto_https disable_redirects
+	default_sni localhost
+}
+https://localhost:3443 {
+	tls internal
+	reverse_proxy host.docker.internal:3333
+}
+https://localhost:4443 {
+	tls internal
+	reverse_proxy host.docker.internal:4444
+}

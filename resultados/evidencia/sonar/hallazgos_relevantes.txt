@@ -1,0 +1,33 @@
+Análisis estático SonarQube Community Build 26.10.0.133078 (evidencia complementaria; no cambia ningún RESULTADO)
+Proyectos: cuidarteplus-backend (19 archivos, 2.266 líneas) y cuidarteplus-frontend (46 archivos, 7.979 líneas). Datos completos: backend.json, frontend.json, resumen_backend.txt, resumen_frontend.txt.
+Se reportan solo issues de SEGURIDAD y FIABILIDAD. Security hotspots: 0 en ambos proyectos. Mantenibilidad, deuda técnica y duplicación no se consideran.
+
+CP-17 (consultas SQL con texto concatenado): 0 hallazgos relevantes.
+  - Sonar Community no incluye análisis de taint (inyección SQL, S3649); esa regla es de ediciones de pago, por lo que "0" no demuestra ausencia.
+  - Revisión manual con grep (no es Sonar): las consultas de BACKEND/src/routes usan parámetros $1..$n; no se encontró concatenación de entrada de usuario. AUDITORIA.md tampoco reporta inyección SQL.
+
+CP-18 (HTML sin escapar / inserción insegura en el DOM): 0 hallazgos relevantes.
+  - Revisión manual con grep (no es Sonar): FRONTEND/src no usa dangerouslySetInnerHTML, innerHTML, document.write ni eval. AUDITORIA.md no reporta XSS; reporta F-01 (token en localStorage) que Sonar no detecta.
+
+CP-20 (datos sensibles en logs): 0 hallazgos relevantes.
+  - Sonar no marcó nada. Revisión manual (no es Sonar): app.js:23 usa morgan("dev") y los catch hacen console.error(err) en 8 rutas; AUDITORIA.md H-12 menciona morgan("dev") en producción. Si hay datos sensibles en los logs lo determina la prueba dinámica de CP-20.
+
+CP-21 (CORS abierto, cabeceras de seguridad, configuración insegura de la web): 4 hallazgos relevantes.
+  1. BACKEND/src/app.js:21  javascript:S5122  MAJOR (impacto SEGURIDAD medio)  "Make sure that enabling CORS is safe here"  -> COINCIDE con AUDITORIA.md H-12 (cors() abierto a cualquier origen).
+  2. BACKEND/src/app.js:19  javascript:S5689  MINOR (impacto SEGURIDAD bajo)   Express divulga versión (cabecera X-Powered-By)  -> NUEVO: no figura en AUDITORIA.md. Coincide con la cabecera X-Powered-By: Express observada en CP-02.
+  3. BACKEND/Dockerfile:1   docker:S6471   MINOR (impacto SEGURIDAD bajo)   imagen node corre como root  -> COINCIDE con AUDITORIA.md §6 ("corre como root").
+  4. FRONTEND/Dockerfile:34 docker:S6471   MINOR (impacto SEGURIDAD bajo)   imagen nginx corre como root -> NUEVO: AUDITORIA.md §6 solo lo indica para el backend.
+  Otro hallazgo de seguridad sin caso asignado: BACKEND/src/routes/documentos.js:13 javascript:S5693 MAJOR (SEGURIDAD medio) "content length limit" (multer 10 MB); relacionado con CP-19. AUDITORIA.md H-14 menciona el límite pero no lo marca como falla.
+  Falta de helmet / cabeceras de seguridad (H-12 de la auditoría): Sonar NO la detecta (no existe regla en la edición Community) -> diferencia, no se oculta.
+
+CP-22 (secretos/credenciales en el código y contraseñas en texto plano): 1 hallazgo relevante.
+  1. BACKEND/src/db.js:6  secrets:S6698  BLOCKER (impacto SEGURIDAD blocker)  contraseña de PostgreSQL escrita en el código  -> COINCIDE con AUDITORIA.md H-06 (db.js:5-6).
+  No detectados por Sonar aunque la auditoría y el código los muestran (diferencia, no se oculta):
+   - Valor de respaldo JWT_SECRET "inseguro" en 7 archivos de rutas (H-06): audit.js:6, auth.js:8, documentos.js:7, examenes.js:8, pacientes.js:9, roles.js:5, users.js:8 (confirmado con grep, no es Sonar).
+   - JWT_SECRET real en README.md y .env (H-06): no analizados; el escáner corrió fuera de un repositorio git y solo leyó archivos asociados a lenguajes (aviso de Sonar), y README/.env/docker-compose de la raíz quedan fuera de BACKEND y FRONTEND.
+   - Contraseñas en texto plano (H-05): es un defecto de diseño (comparación === en auth.js), sin regla de Sonar que lo detecte.
+
+Fiabilidad (sin relación con los 5 casos): FRONTEND 39 bugs (javascript:S9383 promesas sin await/catch en 38 ubicaciones; css:S4649 fuente sin familia genérica) y 3 S7773 con impacto de fiabilidad (users.js:183 y 346 en BACKEND; ExamenesList.jsx:49, clients.js:98-99 en FRONTEND). AUDITORIA.md no los menciona (NUEVOS). No se asocian a CP-17/18/20/21/22.
+
+Resumen: CP-17 0 · CP-18 0 · CP-20 0 · CP-21 4 (2 coinciden con la auditoría, 2 nuevos) · CP-22 1 (coincide).
+Limitaciones: edición Community sin análisis taint (inyección SQL, XSS reflejado, logs con datos sensibles); sin regla para helmet; escaneo fuera de git (sin análisis de secretos en .env/README); admin/admin sin cambiar en la instancia local (solo para esta evidencia).

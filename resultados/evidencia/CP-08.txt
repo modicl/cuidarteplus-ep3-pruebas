@@ -1,0 +1,67 @@
+CP-08 2026-10-24 19:08
+
+### Paso 0: cantidades iniciales
+examenes | docs 
+----------+------
+       10 |    8
+(1 row)
+column_name 
+-------------
+(0 rows)
+
+### Paso 1: MED1 busca el botón Eliminar en EX_DEL
+botón 'Eliminar' visible para MED1 en el detalle: False
+botón 'Eliminar examen' en el listado para MED1: 0
+DELETE /examenes/6 con T_MED1: HTTP 403 (0.01s) {"error": "No autorizado", "glosa": "No tiene permisos para realizar esta acción"}
+DELETE /documentos/5 con T_MED1: HTTP 403 (0.0s) {"error": "No autorizado", "glosa": "No tiene permisos para realizar esta acción"}
+Diferencia con RF-3.3 anotada; se sigue con ADM.
+
+### Paso 2: ADM: Eliminar y Cancelar
+diálogo: Confirmar eliminación |  | ¿Estás seguro de que deseas eliminar este examen médico? Esta acción no se puede deshacer. |  | Cancelar | Eliminar
+examen 
+--------
+      1
+(1 row)
+
+### Paso 3: ADM: confirmar
+  respuesta UI: 200 DELETE http://localhost:4444/examenes/6 {"deleted":true}
+URL: http://localhost:3333/examenes toasts: ['Examen eliminado exitosamente']
+
+### Paso 4: ya no aparece en listados
+MED1 GET /examenes contiene EX_DEL: False
+PAC_A /examenes/paciente/1 contiene EX_DEL: False
+
+### Paso 5: BD
+id 
+----
+(0 rows)
+id | examen_medico_id 
+----+------------------
+(0 rows)
+
+### Paso 6: eliminar solo el documento de EX_DEL2 (ADM, confirm del navegador)
+  respuesta UI: 200 DELETE http://localhost:4444/documentos/6 {"deleted":true}
+confirm del navegador: ['¿Estás seguro de eliminar el documento "resultado_eliminar2.pdf"?'] toasts: ['Documento eliminado']
+id | examen_medico_id | nombre_archivo 
+----+------------------+----------------
+(0 rows)
+id 
+----
+  7
+(1 row)
+
+### Paso 0/5: cantidades finales
+examenes | docs 
+----------+------
+        9 |    6
+(1 row) (iniciales: examenes 10, docs 8 → tras CP-07)
+
+### Paso 7: auditoría
+id | usuario_id |                    accion                     
+----+------------+-----------------------------------------------
+ 60 |          4 | LOGIN: usuario inició sesión
+ 61 |          1 | LOGIN: usuario inició sesión
+ 62 |          1 | EXAMENES_ELIMINAR: eliminó examen médico ID 6
+ 63 |          3 | LOGIN: usuario inició sesión
+ 64 |          1 | DOCUMENTOS_ELIMINAR: eliminó documento ID 6
+(5 rows)

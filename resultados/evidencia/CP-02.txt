@@ -1,0 +1,27 @@
+CP-02 2026-10-24 19:01
+
+### Paso 1-2: UI contraseña incorrecta
+URL: http://localhost:3333/login
+Mensaje visible: ['Credenciales inválidas', 'Credenciales inválidas', '¿No tienes cuenta? Regístrate']
+localStorage: []
+
+### Paso 7: sin sesión abrir /home
+URL final: http://localhost:3333/login
+
+### Paso 3: API RESP_A
+HTTP 401 (0.02s) {"error": "Credenciales inválidas"}
+headers: {'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '35', 'ETag': 'W/"23-UHCIAFM/swaAglwgDKKCnq2spSQ"', 'Date': 'Sat, 24 Oct 2026 22:01:16 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'}
+
+### Paso 4: API RESP_B
+HTTP 401 (0.0s) {"error": "Credenciales inválidas"}
+headers: {'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '35', 'ETag': 'W/"23-UHCIAFM/swaAglwgDKKCnq2spSQ"', 'Date': 'Sat, 24 Oct 2026 22:01:16 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'}
+
+### Paso 5: comparar
+mismo código: True | mismo cuerpo: True
+
+### Paso 6: datos técnicos/token/cookie
+Set-Cookie: None None
+token en cuerpo: False
+
+### Paso 8: sin token GET /examenes/paciente/1
+HTTP 401 (0.0s) {"error": "No autorizado", "glosa": "Token inválido"}

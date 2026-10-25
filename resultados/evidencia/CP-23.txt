@@ -1,0 +1,48 @@
+CP-23 2026-10-24 19:42
+estado base restaurado antes del caso;  u  | p  | e | d 
+----+----+---+---
+ 14 | 21 | 8 | 7
+(1 row)
+
+### Paso 1: política de respaldo documentada
+búsqueda de 'respaldo|backup|retención|RTO|RPO|pg_dump' en README.md, BACKEND/README.md, docker-compose.yml, Dockerfile y docs/CLAUDE.md (CLAUDE.md es contexto del equipo, no del producto):
+
+frecuencia / retención / ubicación / responsable definidos en la entrega: no se encontró ninguno (ver búsqueda)
+
+### Paso 2: línea base
+{'usuarios': 14, 'roles': 5, 'usuario_roles': 12, 'tipo_examen_medico': 86, 'pacientes': 21, 'examen_medico': 8, 'documentos_examen': 7, 'auditoria': 32}
+SHA-256 DOC_A1: cdfc0a08e62c80dce3e644171e9fb5eb6a7d4d3ad7c5404aed73ab7e70aeaa99
+
+### Paso 3: respaldo
+hora del respaldo: 19:42:07
+pg_dump: 0 
+docker cp: 0 44749 bytes SHA-256 017bfc12c89a6bc9b922a99a896e0fde1899140a9a11775416f073dd11bde18f
+
+### Paso 4: desastre: DROP DATABASE
+DROP DATABASE 
+(Continuación tras la caída de la API: al ejecutar DROP DATABASE el proceso de la API terminó con un error no controlado de pg (Node.js v18.20.8) y Docker lo reinició por 'restart: unless-stopped'; el script de prueba se interrumpió en ese punto. Los pasos 5 y 6 se ejecutan a continuación con el mismo respaldo.)
+
+### Paso 5: restauración en una segunda instancia vacía
+segunda instancia: b5e503911665
+pg_restore código 0 stderr:  | tiempo de pg_restore (s): 0.3
+
+### Paso 6: comparación y uso del sistema con la base restaurada
+{'usuarios': 14, 'roles': 5, 'usuario_roles': 12, 'tipo_examen_medico': 86, 'pacientes': 21, 'examen_medico': 8, 'documentos_examen': 7, 'auditoria': 33}
+cantidades iguales a la línea base: False
+login MED1 en la API conectada a la base restaurada: 200
+descarga DOC_A1: 200 2097152 bytes SHA-256 cdfc0a08e62c80dce3e644171e9fb5eb6a7d4d3ad7c5404aed73ab7e70aeaa99 = línea base: True
+tiempo transcurrido desde el DROP DATABASE hasta la descarga verificada (s): 35.3 (umbral RTO: 3600 s; no incluye el tiempo humano de decisión)
+
+### Paso fin: limpieza y regreso al ambiente base
+CREATE DATABASE: CREATE DATABASE 
+restauración en la base del ambiente: 0 
+API del ambiente operativa: HTTP 200 (0.05s) {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3Vhcmlv
+usuarios 
+----------
+       14
+(1 row)
+
+### Nota de verificación (corrección del registro anterior)
+- Línea base: auditoria = 32 filas. Antes de generar el respaldo se hizo un login (para calcular el SHA-256 de DOC_A1), que agregó 1 fila; por eso la restauración muestra auditoria = 33. Las otras 7 tablas coinciden exactamente. No hay pérdida de datos.
+- El valor "tiempo transcurrido desde el DROP DATABASE" (35,3 s) incluye 25 s supuestos por la interrupción del script de prueba, por lo que no es una medición directa. La medición directa es: pg_restore 0,3 s y pasos 5 y 6 completos (segunda instancia, restauración, API, login y descarga) 10,3 s. No se midió el tiempo humano de detección y decisión.
+- El RPO (24 h) no se puede evaluar: no existe respaldo programado, solo el que se generó manualmente en el paso 3.

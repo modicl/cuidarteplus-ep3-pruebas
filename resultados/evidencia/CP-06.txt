@@ -1,0 +1,49 @@
+CP-06 2026-10-24 19:04
+ids {'qa_rol01': '6', 'qa_eliminar': '7'}
+
+### Paso 1: listado UI vs BD
+texto del pie de tabla: ['1-10 de 14']
+filas visibles: 10
+count 
+-------
+    14
+(1 row)
+GET /usuarios HTTP 200 filas=14 campos=['correo', 'created_at', 'id', 'nombre_usuario'] | contiene contraseña/hash: False
+
+### Paso 2: UI editar qa_rol01: correo y rol médico
+  respuesta UI: 200 PUT http://localhost:4444/usuarios/6 {"id":"6","nombre_usuario":"qa_rol01","correo":"qa_rol01.nuevo@example.com","created_at":"2026-10-24T21:58:32.346Z","rol_id":"2","rol_nombre":"medico"}
+toasts: ['Información del usuario actualizada']
+nombre_usuario |           correo           |  rol   
+----------------+----------------------------+--------
+ qa_rol01       | qa_rol01.nuevo@example.com | medico
+(1 row)
+
+### Paso 3: login qa_rol01, token y menú
+payload: {'usuarioId': '6', 'nombreUsuario': 'qa_rol01', 'rolId': '2', 'rolNombre': 'medico', 'pacienteId': None, 'roles': [{'id': '2', 'nombre': 'medico'}], 'iat': 1792879487, 'exp': 1792886687}
+menú: Pacientes | Exámenes Médicos
+
+### Paso 4: PUT rol_id 999
+HTTP 400 (0.02s) {"error": "Error de validación", "glosa": "Los datos proporcionados no son válidos", "detalles": [{"field": "", "message": "Debe proporcionar al menos un campo para actualizar"}]}
+id | usuario_id | rol_id |          created_at           
+----+------------+--------+-------------------------------
+ 13 |          6 |      2 | 2026-10-24 22:04:45.097784+00
+(1 row)
+
+### Paso 5: UI eliminar qa_eliminar
+filas con qa_eliminar: 1
+diálogo: Confirmar eliminación |  | ¿Estás seguro de que deseas eliminar al usuario qa_eliminar? Esta acción no se puede deshacer. |  | Cancelar | Eliminar
+  respuesta UI: 500 DELETE http://localhost:4444/usuarios/7 {"error":"Error al eliminar usuario","glosa":"invalid input syntax for type bigint: \"admin\""}
+toasts: ['Error al eliminar usuario\ninvalid input syntax for type bigint: "admin"']
+count 
+-------
+     0
+(1 row)
+login qa_eliminar: HTTP 401 (0.0s) {"error": "Credenciales inválidas"}
+
+### Paso 6: auditoría
+id | usuario_id |                        accion                         
+----+------------+-------------------------------------------------------
+  3 |          1 | USUARIOS_ACTUALIZAR: actualizó usuario ID 1
+  4 |          1 | USUARIOS_ACTUALIZAR: actualizó usuario ID 3
+ 47 |          1 | USUARIOS_ACTUALIZAR: actualizó usuario ID 6 y rol a 2
+(3 rows)

@@ -1,0 +1,9 @@
+== cuidarteplus-backend: 7 issues (seguridad/fiabilidad), 0 security hotspots
+medidas: bugs=0, reliability_rating=1.0, security_rating=5.0, ncloc=2266, files=19, vulnerabilities=5, security_hotspots=0
+  [issue] Dockerfile:1 docker:S6471 sev=MINOR impactos=[('SECURITY', 'LOW')] :: The "node" image runs with "root" as the default user. Make sure it is safe here.
+  [issue] src/app.js:19 javascript:S5689 sev=MINOR impactos=[('SECURITY', 'LOW')] :: This framework implicitly discloses version information by default. Make sure it is safe here.
+  [issue] src/app.js:21 javascript:S5122 sev=MAJOR impactos=[('SECURITY', 'MEDIUM')] :: Make sure that enabling CORS is safe here.
+  [issue] src/db.js:6 secrets:S6698 sev=BLOCKER impactos=[('SECURITY', 'BLOCKER')] :: Make sure this PostgreSQL password gets changed and removed from the code.
+  [issue] src/routes/documentos.js:13 javascript:S5693 sev=MAJOR impactos=[('SECURITY', 'MEDIUM')] :: Make sure the content length limit is safe here.
+  [issue] src/routes/users.js:183 javascript:S7773 sev=MINOR impactos=[('MAINTAINABILITY', 'LOW'), ('RELIABILITY', 'MEDIUM')] :: Prefer `Number.parseInt` over `parseInt`.
+  [issue] src/routes/users.js:346 javascript:S7773 sev=MINOR impactos=[('MAINTAINABILITY', 'LOW'), ('RELIABILITY', 'MEDIUM')] :: Prefer `Number.parseInt` over `parseInt`.

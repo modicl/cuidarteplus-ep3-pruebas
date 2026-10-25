@@ -1,0 +1,131 @@
+{
+ "ADM": {
+  "menú": "Pacientes | Exámenes Médicos | Auditoría | Usuarios",
+  "usuarios": {
+   "pantalla de gestión": true,
+   "pestañas": [
+    "LISTAR USUARIOS",
+    "CREAR USUARIO"
+   ],
+   "botones de fila": [
+    "Editar usuario",
+    "Eliminar usuario"
+   ]
+  },
+  "pacientes": {
+   "se abre la pantalla de gestión": true,
+   "toast de error": false,
+   "pestañas": [
+    "LISTAR PACIENTES",
+    "REGISTRAR PACIENTE"
+   ],
+   "botones de fila": []
+  },
+  "exámenes": {
+   "pestañas": [
+    "LISTAR EXÁMENES",
+    "NUEVO EXAMEN"
+   ],
+   "botones de fila": [
+    "Editar examen",
+    "Eliminar examen"
+   ]
+  },
+  "detalle examen": {
+   "botones": [
+    "Cerrar menú",
+    "Editar",
+    "Eliminar",
+    "Eliminar resultado_examen.pdf",
+    "Menú de usuario",
+    "Subir Documento",
+    "Volver",
+    "resultado_examen.pdf"
+   ]
+  },
+  "auditoría": {
+   "URL": "http://localhost:3333/auditoria",
+   "muestra el listado": true,
+   "No autorizado": false
+  }
+ },
+ "MED": {
+  "menú": "Pacientes | Exámenes Médicos",
+  "usuarios": {
+   "pantalla de gestión": false,
+   "pestañas": [],
+   "botones de fila": []
+  },
+  "pacientes": {
+   "se abre la pantalla de gestión": true,
+   "toast de error": false,
+   "pestañas": [
+    "LISTAR PACIENTES",
+    "REGISTRAR PACIENTE"
+   ],
+   "botones de fila": []
+  },
+  "exámenes": {
+   "pestañas": [
+    "LISTAR EXÁMENES",
+    "NUEVO EXAMEN"
+   ],
+   "botones de fila": [
+    "Editar examen"
+   ]
+  },
+  "detalle examen": {
+   "botones": [
+    "Cerrar menú",
+    "Editar",
+    "Menú de usuario",
+    "Subir Documento",
+    "Volver",
+    "resultado_examen.pdf"
+   ]
+  },
+  "auditoría": {
+   "URL": "http://localhost:3333/auditoria",
+   "muestra el listado": false,
+   "No autorizado": true
+  }
+ },
+ "PAC": {
+  "menú": "Exámenes Médicos | Mis Resultados",
+  "usuarios": {
+   "pantalla de gestión": false,
+   "pestañas": [],
+   "botones de fila": []
+  },
+  "pacientes": {
+   "se abre la pantalla de gestión": true,
+   "toast de error": true,
+   "pestañas": [
+    "LISTAR PACIENTES",
+    "REGISTRAR PACIENTE"
+   ],
+   "botones de fila": []
+  },
+  "exámenes": {
+   "pestañas": [
+    "LISTAR EXÁMENES"
+   ],
+   "botones de fila": [
+    "Ver detalles del examen"
+   ]
+  },
+  "detalle examen": {
+   "botones": [
+    "Cerrar menú",
+    "Menú de usuario",
+    "Volver",
+    "resultado_examen.pdf"
+   ]
+  },
+  "auditoría": {
+   "URL": "http://localhost:3333/auditoria",
+   "muestra el listado": false,
+   "No autorizado": true
+  }
+ }
+}

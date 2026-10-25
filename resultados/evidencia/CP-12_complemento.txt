@@ -1,0 +1,55 @@
+CP-12 pasos 1, 2 y 4 repetidos (interfaz por rol y comparación de la BD) 2026-10-25 13:53
+
+=== ADM (admin) ===
+  menú : Pacientes | Exámenes Médicos | Auditoría | Usuarios
+  usuarios : {'pantalla de gestión': True, 'pestañas': ['LISTAR USUARIOS', 'CREAR USUARIO'], 'botones de fila': ['Editar usuario', 'Eliminar usuario']}
+  pacientes : {'se abre la pantalla de gestión': True, 'toast de error': False, 'pestañas': ['LISTAR PACIENTES', 'REGISTRAR PACIENTE'], 'botones de fila': []}
+  exámenes : {'pestañas': ['LISTAR EXÁMENES', 'NUEVO EXAMEN'], 'botones de fila': ['Editar examen', 'Eliminar examen']}
+  detalle examen : {'botones': ['Cerrar menú', 'Editar', 'Eliminar', 'Eliminar resultado_examen.pdf', 'Menú de usuario', 'Subir Documento', 'Volver', 'resultado_examen.pdf']}
+  auditoría : {'URL': 'http://localhost:3333/auditoria', 'muestra el listado': True, 'No autorizado': False}
+
+=== MED (qa_medico1) ===
+  menú : Pacientes | Exámenes Médicos
+  usuarios : {'pantalla de gestión': False, 'pestañas': [], 'botones de fila': []}
+  pacientes : {'se abre la pantalla de gestión': True, 'toast de error': False, 'pestañas': ['LISTAR PACIENTES', 'REGISTRAR PACIENTE'], 'botones de fila': []}
+  exámenes : {'pestañas': ['LISTAR EXÁMENES', 'NUEVO EXAMEN'], 'botones de fila': ['Editar examen']}
+  detalle examen : {'botones': ['Cerrar menú', 'Editar', 'Menú de usuario', 'Subir Documento', 'Volver', 'resultado_examen.pdf']}
+  auditoría : {'URL': 'http://localhost:3333/auditoria', 'muestra el listado': False, 'No autorizado': True}
+
+=== PAC (paciente) ===
+  menú : Exámenes Médicos | Mis Resultados
+  usuarios : {'pantalla de gestión': False, 'pestañas': [], 'botones de fila': []}
+  pacientes : {'se abre la pantalla de gestión': True, 'toast de error': True, 'pestañas': ['LISTAR PACIENTES', 'REGISTRAR PACIENTE'], 'botones de fila': []}
+  exámenes : {'pestañas': ['LISTAR EXÁMENES'], 'botones de fila': ['Ver detalles del examen']}
+  detalle examen : {'botones': ['Cerrar menú', 'Menú de usuario', 'Volver', 'resultado_examen.pdf']}
+  auditoría : {'URL': 'http://localhost:3333/auditoria', 'muestra el listado': False, 'No autorizado': True}
+
+=== Paso 4, MED: operaciones que la matriz da como denegadas ===
+  GET /usuarios: HTTP 403 -> denegada
+  POST /usuarios: HTTP 201 -> NO denegada
+  PUT /usuarios/6: HTTP 403 -> denegada
+  DELETE /pacientes/21: HTTP 403 -> denegada
+  GET /auditoria: HTTP 403 -> denegada
+  Tablas distintas a la instantánea después de las operaciones: ['usuarios']
+
+=== Paso 4, PAC: operaciones que la matriz da como denegadas ===
+  GET /usuarios: HTTP 403 -> denegada
+  POST /usuarios: HTTP 201 -> NO denegada
+  PUT /usuarios/6: HTTP 403 -> denegada
+  GET /pacientes: HTTP 403 -> denegada
+  PUT /pacientes/2: HTTP 403 -> denegada
+  DELETE /pacientes/21: HTTP 403 -> denegada
+  POST /examenes: HTTP 403 -> denegada
+  PUT /examenes/4: HTTP 403 -> denegada
+  DELETE /examenes/8: HTTP 403 -> denegada
+  DELETE /documentos/7: HTTP 403 -> denegada
+  POST /documentos: HTTP 403 -> denegada
+  GET /auditoria: HTTP 403 -> denegada
+  Tablas distintas a la instantánea después de las operaciones: ['usuarios']
+
+Estado base restaurado al terminar.
+
+### Complemento: botones de la lista de pacientes (no tienen aria-label; se identifican por data-testid)
+ADM: botones Editar paciente en la lista: 10 | botones Eliminar paciente: 10
+MED: botones Editar paciente en la lista: 10 | botones Eliminar paciente: 10
+PAC: botones Editar paciente en la lista: 0 | botones Eliminar paciente: 0

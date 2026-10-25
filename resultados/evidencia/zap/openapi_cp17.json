@@ -1,0 +1,443 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "cuidarteplus API (español)",
+  "version": "1.0.0"
+ },
+ "servers": [
+  {
+   "url": "http://host.docker.internal:4444"
+  }
+ ],
+ "paths": {
+  "/autenticacion/login": {
+   "post": {
+    "summary": "Iniciar sesión",
+    "description": "Retorna un token JWT que incluye: usuarioId, nombreUsuario, rolId, rolNombre, pacienteId, roles",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "nombre_usuario": {
+          "type": "string"
+         },
+         "password": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "nombre_usuario",
+         "password"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "token": {
+           "type": "string",
+           "description": "Token JWT con información del usuario y empresa"
+          }
+         }
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Credenciales inválidas"
+     }
+    }
+   }
+  },
+  "/pacientes": {
+   "post": {
+    "summary": "Crear paciente",
+    "description": "Crea un nuevo paciente. Requiere rol de médico o admin.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PacienteCrear"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Paciente creado"
+     },
+     "400": {
+      "description": "RUT o email ya existe"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     }
+    }
+   }
+  },
+  "/pacientes/{id}": {
+   "get": {
+    "summary": "Obtener paciente",
+    "description": "Obtiene la información de un paciente específico. Médicos y admins pueden ver cualquier paciente. Pacientes solo pueden ver sus propios datos.",
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ],
+    "parameters": [
+     {
+      "in": "path",
+      "name": "id",
+      "schema": {
+       "type": "integer"
+      },
+      "required": true
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "No autorizado"
+     },
+     "403": {
+      "description": "No tiene permisos"
+     },
+     "404": {
+      "description": "Paciente no encontrado"
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Cliente": {
+    "type": "object",
+    "properties": {
+     "nombre": {
+      "type": "string"
+     },
+     "correo": {
+      "type": "string"
+     },
+     "telefono": {
+      "type": "string"
+     },
+     "direccion": {
+      "type": "string"
+     },
+     "es_empresa": {
+      "type": "boolean"
+     },
+     "nombre_banco": {
+      "type": "string"
+     },
+     "numero_cuenta": {
+      "type": "string"
+     },
+     "titular_cuenta": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "nombre",
+     "correo"
+    ],
+    "description": "El campo empresa_id se obtiene automáticamente del token JWT"
+   },
+   "Empresa": {
+    "type": "object",
+    "properties": {
+     "nombre": {
+      "type": "string"
+     },
+     "direccion": {
+      "type": "string"
+     },
+     "telefono": {
+      "type": "string"
+     },
+     "correo": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "nombre",
+     "correo"
+    ]
+   },
+   "EmpresaConUsuario": {
+    "type": "object",
+    "properties": {
+     "usuario": {
+      "type": "object",
+      "properties": {
+       "nombre_usuario": {
+        "type": "string"
+       },
+       "contrasena_hash": {
+        "type": "string"
+       },
+       "correo": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "nombre_usuario",
+       "contrasena_hash",
+       "correo"
+      ]
+     },
+     "empresa": {
+      "$ref": "#/components/schemas/Empresa"
+     }
+    },
+    "required": [
+     "usuario",
+     "empresa"
+    ]
+   },
+   "PacienteCrear": {
+    "type": "object",
+    "properties": {
+     "rut": {
+      "type": "string"
+     },
+     "primer_nombre": {
+      "type": "string"
+     },
+     "apellido_paterno": {
+      "type": "string"
+     },
+     "apellido_materno": {
+      "type": "string"
+     },
+     "fecha_nacimiento": {
+      "type": "string",
+      "format": "date"
+     },
+     "sexo": {
+      "type": "string",
+      "enum": [
+       "M",
+       "F",
+       "O"
+      ]
+     },
+     "nacionalidad": {
+      "type": "string"
+     },
+     "estado_civil": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     },
+     "telefono": {
+      "type": "string"
+     },
+     "direccion": {
+      "type": "string"
+     },
+     "contacto_emergencia_nombre": {
+      "type": "string"
+     },
+     "contacto_emergencia_telefono": {
+      "type": "string"
+     },
+     "contacto_emergencia_relacion": {
+      "type": "string"
+     },
+     "tipo_prevision": {
+      "type": "string"
+     },
+     "tiene_convenio": {
+      "type": "boolean"
+     },
+     "grupo_sanguineo": {
+      "type": "string"
+     },
+     "alergias": {
+      "type": "string"
+     },
+     "enfermedades_cronicas": {
+      "type": "string"
+     },
+     "discapacidades": {
+      "type": "string"
+     },
+     "observaciones_medicas_generales": {
+      "type": "string"
+     },
+     "usuario_id": {
+      "type": "integer"
+     }
+    },
+    "required": [
+     "rut",
+     "primer_nombre",
+     "apellido_paterno",
+     "fecha_nacimiento",
+     "sexo",
+     "email"
+    ]
+   },
+   "PacienteActualizar": {
+    "type": "object",
+    "properties": {
+     "rut": {
+      "type": "string"
+     },
+     "primer_nombre": {
+      "type": "string"
+     },
+     "apellido_paterno": {
+      "type": "string"
+     },
+     "apellido_materno": {
+      "type": "string"
+     },
+     "fecha_nacimiento": {
+      "type": "string",
+      "format": "date"
+     },
+     "sexo": {
+      "type": "string",
+      "enum": [
+       "M",
+       "F",
+       "O"
+      ]
+     },
+     "nacionalidad": {
+      "type": "string"
+     },
+     "estado_civil": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     },
+     "telefono": {
+      "type": "string"
+     },
+     "direccion": {
+      "type": "string"
+     },
+     "contacto_emergencia_nombre": {
+      "type": "string"
+     },
+     "contacto_emergencia_telefono": {
+      "type": "string"
+     },
+     "contacto_emergencia_relacion": {
+      "type": "string"
+     },
+     "tipo_prevision": {
+      "type": "string"
+     },
+     "tiene_convenio": {
+      "type": "boolean"
+     },
+     "grupo_sanguineo": {
+      "type": "string"
+     },
+     "alergias": {
+      "type": "string"
+     },
+     "enfermedades_cronicas": {
+      "type": "string"
+     },
+     "discapacidades": {
+      "type": "string"
+     },
+     "observaciones_medicas_generales": {
+      "type": "string"
+     },
+     "usuario_id": {
+      "type": "integer"
+     }
+    }
+   },
+   "ExamenMedicoCrear": {
+    "type": "object",
+    "properties": {
+     "tipo_examen_medico_id": {
+      "type": "integer"
+     },
+     "paciente_id": {
+      "type": "integer"
+     },
+     "diagnosis": {
+      "type": "string"
+     },
+     "tratamiento": {
+      "type": "string"
+     },
+     "observaciones": {
+      "type": "string"
+     },
+     "notas": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "tipo_examen_medico_id",
+     "paciente_id"
+    ]
+   },
+   "ExamenMedicoActualizar": {
+    "type": "object",
+    "properties": {
+     "tipo_examen_medico_id": {
+      "type": "integer"
+     },
+     "paciente_id": {
+      "type": "integer"
+     },
+     "diagnosis": {
+      "type": "string"
+     },
+     "tratamiento": {
+      "type": "string"
+     },
+     "observaciones": {
+      "type": "string"
+     },
+     "notas": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "securitySchemes": {
+   "bearerAuth": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT",
+    "description": "Token JWT obtenido del endpoint /autenticacion/login. Incluye: usuarioId, nombreUsuario, rolId, rolNombre, pacienteId, roles"
+   }
+  }
+ }
+}

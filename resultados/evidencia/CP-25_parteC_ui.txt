@@ -1,0 +1,3 @@
+CP-25 parte C: Mis Resultados con 200 exámenes 2026-10-25 16:50
+tarjetas de examen visibles: 200 | tiempo hasta verlas (s): 1.0
+API: GET /examenes/paciente/{id} con el token del paciente: HTTP 200 (0.01s) [{"id": "216", "tipo_examen_medico_id": "1", "paciente_id": "22", "diagnosis": "Carga sint
